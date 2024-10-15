@@ -1,0 +1,126 @@
+body{
+    background-color:  #b9d0f2 !important;
+  
+}
+.user-main{
+    background-color: #b9d0f2;
+}
+
+.main-box.no-header {
+    padding-top: 20px;
+}
+.main-box {
+    background-color: #b9d0f2 !important;
+
+}
+.table a.table-link.danger {
+    color: #e74c3c;
+}
+.label {
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+.user-list tbody td .user-subhead {
+    font-size: 0.875em;
+    font-style: italic;
+}
+.user-list tbody td .user-link {
+    display: block;
+    font-size: 1.25em;
+    padding-top: 3px;
+    margin-left: 60px;
+}
+.user-list tbody td a {
+    text-decoration: none ;
+   /* c olor: black ; */
+   
+}
+.user-list tbody td>img {
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
+}
+
+.user-list thead tr th {
+    /* text-transform: uppercase; */
+    font-size: 0.700em;
+}
+.user-list thead tr th {
+    border-bottom: 2px solid #e7ebee;
+
+}
+.user-list{
+    background-color: transparent;
+}
+
+.user-list tbody tr td:first-child {
+    font-size: 1.125em;
+    font-weight: 300;
+}
+.user-list tbody tr td {
+    font-size: 0.875em;
+    vertical-align: middle;
+    border-top: 1px solid #e7ebee;
+    background-color: white;
+    padding: 12px 8px;
+}
+a:hover{
+text-decoration:none;
+}
+  .table, .table thead, .table tr, .table th {
+    background-color: #E6F5F5 !important;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 21px;
+    left: 4px;
+    bottom: 4px;
+    border-radius: 5px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color:  #00C2C2 ;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px  #00C2C2 ;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  

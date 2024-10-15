@@ -1,3 +1,7 @@
+/* index.css or App.css */
+
+ 
+
 .App {
   text-align: center;
 }
@@ -34,5 +38,35 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+@media (max-width: 768px) {
+  .contain{
+    width: calc(100%) !important;
+  }
+  .sidebar{
+    width: 0% !important;
+    z-index: 100;
+  }
+}
+
+@media (min-width: 1650px) {
+  .contain{
+    width: 85% !important;
+  }
+  .sidebar{
+    width: 15% !important;
+    z-index: 100;
+  }   
+
+}
+
+.cards{
+  background-color:#fdf2e6;
+}
+
+@media (max-width: 575px) { 
+  .cards{
+    width: 96% !important;
   }
 }

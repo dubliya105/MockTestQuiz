@@ -1,0 +1,42 @@
+/* Otp.module.css */
+
+/* Head Section */
+.head {
+    padding: 5rem;
+    text-align: left !important;
+
+}
+
+/* Back Icon Styling */
+.backIcon {
+  
+    padding: 10px;
+    color: #039c91 !important;
+    cursor: pointer;
+    color: white;
+    font-size: 50px;
+}
+
+/* OTP Input Styling */
+.otpInput {
+ 
+    text-align: center;
+    font-size: 25px;
+    border: 1px solid #ccc;
+}
+
+/* Button Styling */
+.otpBtn {
+    background-color: #039c91;
+    color: white;
+    font-size: 18px;
+    padding: 2%;
+    width: 150px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.otpBtn:hover {
+    background-color: #027f77;
+}

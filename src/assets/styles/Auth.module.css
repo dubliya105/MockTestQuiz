@@ -1,0 +1,48 @@
+
+.head{
+    font-size: 1rem;
+    text-align: left !important;
+    margin-top: 7rem !important;
+    margin-bottom: 5rem !important;
+    margin-left: 3.7rem;
+    margin-right: 3.7rem;
+}
+
+.sign{
+    background-color: #039c91;
+    border-color: #039c91;
+    color: aliceblue;
+    padding:  2rem;
+    width: 50%;
+
+}
+
+ input[type='email'],
+ input[type='password']{
+    padding: 4px;
+}
+
+.link{
+    color: #039c91;
+}
+
+::placeholder{
+    color: #003366;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+@media screen and (max-width:800px) {
+    .sign{
+        width: 35%;
+    }
+}
+@media screen and (max-width:400px) {
+    .sign{
+        width: 100%;
+    }
+}
+
+.container{
+    /* margin: 4rem !important;     */
+    background-color: #003366;
+}

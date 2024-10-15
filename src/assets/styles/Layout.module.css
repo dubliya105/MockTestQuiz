@@ -1,0 +1,21 @@
+.image{
+    background: url('https://s3.ap-south-1.amazonaws.com/awsimages.imagesbazaar.com/900x600/20802/12-BM1076282.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    
+}
+
+@media screen and (max-width: 768px){   
+    
+    .image{
+        background-image: none;
+        background-color: #003366;
+    }
+}
+
+
+

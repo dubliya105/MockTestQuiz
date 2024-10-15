@@ -1,0 +1,22 @@
+.head{
+    font-size: 1rem;
+    text-align: left !important;
+   padding: 5rem;
+}
+
+.backIcon{
+    color: #039c91;
+    font-size: 50px;
+}
+
+.otpBtn{
+    background-color: #039c91;
+    border-color: #039c91;
+  
+    color: aliceblue;
+}
+
+.loader{
+    width: 45%;
+    height: 6vh;
+}

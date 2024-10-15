@@ -1,0 +1,79 @@
+body{
+    overflow: hidden;
+}
+.Sidebar {
+    height: 100vh;
+    background-color: rgb(0, 51, 102);
+    color: #ecf0f1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all  0.3s ease-in-out;
+  }
+  
+
+  .NavLink {
+    display: flex;
+    align-items: center;
+    padding:20px 0 20px 17px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .NavLink:hover {
+    background-color: #34495e;
+  }
+  
+  .Icon {
+    margin-right: 10px;
+  }
+  
+  .LogoutSection {
+    margin-top: auto;
+  }
+  
+  .LogoutButton {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .LogoutButton:hover {
+    background-color: #e74c3c;
+  }
+  
+  .ToggleButton {
+    display: none;
+    z-index: 1000;
+    background-color:transparent;
+    color:  rgb(4, 27, 50);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+  }
+
+  @media (max-width: 768px) {
+    .Sidebar {  
+      transform: translateX(-100%); 
+      width: 250px;
+    }
+  
+    .Sidebar.Open {
+      transform: translateX(0); 
+    }
+    .ToggleButton {
+      display: block;
+    }
+
+}
+.navUl{
+  list-style: none;
+  padding:10px 0 0 0;
+}
