@@ -31,19 +31,26 @@ function SideBar() {
             <li>
               <Link to="/showUser" className={style.NavLink}>
               <div className={style.Icon}><i class="fa-solid fa-arrow-pointer"></i></div>
-                <span>Compaigns</span>
+                <span>Agency</span>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link to="" className={style.NavLink}>
               <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
                 <span>Task / Calender</span>
               </Link>
             </li>
             <li>
-              <Link to="/users" className={style.NavLink}>
+              <Link to="/email" className={style.NavLink}>
+              <div className={style.Icon}><i class="fa-regular fa-envelope"></i></div>
+                <span>Email</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/coordinate" className={style.NavLink}>
               <div className={style.Icon}><i class="fa-solid fa-users"></i></div>
 
-                <span>Users  </span>
+                <span>Coordinate</span>
               </Link>
             </li>
             <li>

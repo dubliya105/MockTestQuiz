@@ -1,12 +1,18 @@
 
 .head{
-    font-size: 1rem;
+    /* font-size: 1rem;
     text-align: left !important;
     margin-top: 7rem !important;
     margin-bottom: 5rem !important;
     margin-left: 3.7rem;
-    margin-right: 3.7rem;
+    margin-right: 3.7rem; */
 }
+
+.log{   
+    background-color:#003366 !important;
+    padding:15% !important;
+}
+
 
 .sign{
     background-color: #039c91;
@@ -17,7 +23,7 @@
 
 }
 
- input[type='email'],
+ input[type='email'],   
  input[type='password']{
     padding: 4px;
 }
@@ -39,10 +45,16 @@
 @media screen and (max-width:400px) {
     .sign{
         width: 100%;
-    }
+    }   
 }
 
 .container{
     /* margin: 4rem !important;     */
     background-color: #003366;
+}
+@media (max-width:368px) {
+    .log {
+        padding: 0 !important;
+        padding-top: 5%;
+    }   
 }

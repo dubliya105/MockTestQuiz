@@ -1,5 +1,5 @@
 .image{
-    background: url('https://s3.ap-south-1.amazonaws.com/awsimages.imagesbazaar.com/900x600/20802/12-BM1076282.jpg') no-repeat center center fixed;
+    background: url('https://s3.ap-south-1.amazonaws.com/awsimages.imagesbazaar.com/900x600/20802/12-BM1076282.jpg') ;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -9,7 +9,7 @@
     
 }
 
-@media screen and (max-width: 768px){   
+@media screen and (max-width: 570px){   
     
     .image{
         background-image: none;

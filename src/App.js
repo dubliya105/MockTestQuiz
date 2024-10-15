@@ -12,6 +12,7 @@ import Users from './screen/Users';
 import ShowUser from './screen/ShowUser';
 import ShowUserDe from './screen/ShowUserDe';
 import EmailData from './screen/EmailData';
+import Coordinate from './screen/Coordinate';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
       <Route path="/showUser" element={<ShowUser/>} />
       <Route path="/showUserDe" element={<ShowUserDe/>} />
       <Route path="/email" element={<EmailData/>} />
+      <Route path="/coordinate" element={<Coordinate/>} />
     </Routes>
 
     </div>

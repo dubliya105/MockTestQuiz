@@ -34,9 +34,14 @@ export default function OtpVerify() {
   return (
     <Layout>
   
-      <div className="row container-fluid ">
-        <div className="col-md-6"></div>
-        <div className="col-md-6" style={{ backgroundColor: '#003366' }}>
+  <div className="container-fluid d-flex flex-column vh-100">
+        <div className="row flex-grow-1">
+          {/* Left side (empty on small screens) */}
+          <div className="col-12 col-md-6 d-none d-md-block"></div>
+
+          {/* Right side (login form) */}
+          <div className="col-12 col-md-6 d-flex align-items-center justify-content-center  ">
+          <div className={`${style.log} w-70 `} >
           <div className={style.head}>
             <div className={style.backIcon} onClick={() => navigate('/forget')}>
               <i className="fa-solid fa-chevron-left"></i> {/* Back button */}
@@ -75,7 +80,8 @@ export default function OtpVerify() {
           </div>
         </div>
       </div>
-      
+      </div>
+      </div>
     </Layout>
   );
 }

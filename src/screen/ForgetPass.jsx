@@ -13,7 +13,7 @@ export default function ForgetPass() {
   const [email,setEmail]=useState('');
   const navigate =useNavigate()
   const handleNavigate=()=>{
-      navigate('/auth')
+      navigate('/')
   }
   const handleOTP=async()=>{
     setLoding(true)
@@ -22,7 +22,7 @@ export default function ForgetPass() {
       setError(true)
         if(email!==''){
 
-            const result = await axios.patch('http://localhost:8080/api/user/sendotp',{
+            const result = await axios.post('http://localhost:8080/api/user/sendotp',{
                 email:email
             })
             if(result.status===200){
@@ -30,6 +30,8 @@ export default function ForgetPass() {
                   state:{
                     email:email}
                 })
+            }else{
+              toast.error('invailed email') 
             }
        }
     } catch (error) {
@@ -44,16 +46,23 @@ export default function ForgetPass() {
   return (
     <Layout>
    
-    <div className="row">
-          <div className="col-md-6"></div>
-          <div className="col-md-6">
-          <div className='p-3' style={{backgroundColor:'#003366'}}>
+   <div className="container-fluid d-flex flex-column vh-100">
+        <div className="row flex-grow-1">
+          {/* Left side (empty on small screens) */}
+          <div className="col-12 col-md-6 d-none d-md-block"></div>
+
+          {/* Right side (login form) */}
+          <div className="col-12 col-md-6 d-flex align-items-center justify-content-center p-5">
+          <div className={`${style.log} w-70 `} >
+          <div className={`${style.backIcon} text-start px-5 `} >
+             <i className="fa-solid fa-chevron-left" onClick={handleNavigate}></i>
+           </div>
+          {/* <div className='text-light text-start log'> */}
+          {/* <div className='p-3' style={{backgroundColor:'#003366'}}> */}
       <div className={`${style.head}`}>
-        <div className={`${style.backIcon}`} >
-          <i className="fa-solid fa-chevron-left" onClick={handleNavigate}></i>
-        </div>
-        <h5 className=" text-light mt-4">Forget Password</h5>
-        <p className="mb-4 mt-2 text-light">
+        
+        <p className="text-white fw-bold " style={{ fontSize: "4vh" }}>Forget Password</p>
+        <p className="text-white" style={{ fontSize: "1.0rem" }}>
           Lorem ipsum dolor sit amet, consectetor adipiscing elit, sed do
           eiusmod tempor incididunt vt labores
         </p>
@@ -89,6 +98,7 @@ export default function ForgetPass() {
           </div>
           </div>
         </div>
+      </div>
       </div>
     </Layout>
   );

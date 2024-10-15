@@ -1,14 +1,16 @@
 body{
-    background-color:  #b9d0f2 !important;
+    background-color:  #e4e6eb !important;
   
 }
 .user-main{
     background-color: #b9d0f2;
+    border-radius: 1%;
 }
 
-.main-box.no-header {
+/* .main-box.no-header {
     padding-top: 20px;
-}
+    border-radius: 10%;
+} */
 .main-box {
     background-color: #b9d0f2 !important;
 
@@ -69,8 +71,8 @@ body{
 a:hover{
 text-decoration:none;
 }
-  .table, .table thead, .table tr, .table th {
-    background-color: #E6F5F5 !important;
+.table thead th {
+     background-color: #E6F5F5 ;
   }
   .switch {
     position: relative;

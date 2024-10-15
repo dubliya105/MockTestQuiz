@@ -24,8 +24,6 @@ export default function LoginForm() {
               localStorage.setItem('user',JSON.stringify(result.data.data))
               toast.success("Login Successfull");
               
-            }else{
-              toast.error(result.data.msg);
             }
           }
     } catch (error) {
@@ -93,7 +91,7 @@ export default function LoginForm() {
                     placeholder="Enter a valid email address"
                   />
                   {btn?name===''?<p className=" text-danger">Field can't be empty!</p>: name && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(name) && (
-        <p>Invalid email address</p>
+        <p  className="text-danger">Invalid email address</p>
       ):''}
                  
                 </div>

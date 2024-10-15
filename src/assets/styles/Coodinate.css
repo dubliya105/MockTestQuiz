@@ -1,0 +1,22 @@
+.table tr {
+    font-size: medium !important;
+    font-weight: small !important  ;
+}
+
+#dateInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+  }
+
+
+  .table-scroller{
+        overflow-x: none !important;
+     }
+  
+
+  @media (max-width:862px){
+     .table-scroller{
+        overflow-x: scroll !important;
+        width: 100% !important;
+     }
+  }

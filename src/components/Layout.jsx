@@ -4,17 +4,17 @@ export default function Layout({children}) {
   return (
     <div>
       
-      <div className={`${style.image} p-5`}>
-        {/* <div className='row  '> */}
+      <div className={`${style.image} `}>
+        <div className=' d-flex justify-content-end align-items-center'>
             {/* <div className='col-md-6 '> */}
             {/* </div> */}
             {/* <div className='col-md-6 '> */}
-            <div className=' '>
+            {/* <div> */}
               {children}
-              </div>
-            </div>
-        {/* </div> */}
-    {/* </div> */}
+              {/* </div> */}
+            {/* </div> */}
+         </div> 
     </div>
+     </div>
   )
 }

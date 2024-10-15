@@ -1,12 +1,15 @@
 .head{
     font-size: 1rem;
     text-align: left !important;
-   padding: 5rem;
+   /* padding: 5rem; */
+   padding:5% 10% 10% 10% !important;
 }
 
 .backIcon{
     color: #039c91;
-    font-size: 50px;
+    font-size: 8vh;
+    padding-top: 12% !important;
+    padding: 4%;
 }
 
 .otpBtn{
@@ -19,4 +22,18 @@
 .loader{
     width: 45%;
     height: 6vh;
+}
+.log{   
+    background-color:#003366 !important;
+    /* padding:15% !important; */
+}
+
+@media (max-width:368px) {
+    .log {
+        padding: 0 !important;
+        padding-top: 5%;
+    }   
+    .backIcon{
+        padding: 0;
+    }
 }

@@ -2,24 +2,25 @@
 
 /* Head Section */
 .head {
-    padding: 5rem;
+    font-size: 1rem;
     text-align: left !important;
+   /* padding: 5rem; */
+   padding:5% 10% 10% 10% !important;
 
 }
 
 /* Back Icon Styling */
 .backIcon {
   
-    padding: 10px;
-    color: #039c91 !important;
-    cursor: pointer;
-    color: white;
-    font-size: 50px;
+    color: #039c91;
+    font-size: 8vh;
+    padding-top: 10% ;
+    padding-bottom: 3%;
 }
 
 /* OTP Input Styling */
 .otpInput {
- 
+     width: 3rem !important;
     text-align: center;
     font-size: 25px;
     border: 1px solid #ccc;
@@ -39,4 +40,17 @@
 
 .otpBtn:hover {
     background-color: #027f77;
+}
+.log{   
+    background-color:#003366 !important;
+}
+
+@media (max-width:368px) {
+    .log {
+        padding: 0 !important;
+        padding-top: 5%;
+    }   
+    .backIcon{
+        padding: 0;
+    }
 }
