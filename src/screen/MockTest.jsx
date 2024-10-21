@@ -6,7 +6,7 @@ import axios from "axios";
 import { IoBulbSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { CirclesWithBar } from "react-loader-spinner";
-
+import parse from 'html-react-parser';
 export default function MockTest() {
   const [data, setData] = useState({});
   const [selectedSubject, setSelectedSubject] = useState(null);
@@ -22,7 +22,7 @@ export default function MockTest() {
       setLoeder(true)
       const result = await axios.get(
         `http://192.168.0.15:5003/mockTest/viewresult`,
-        {
+        { 
           headers: {
             Authorization:
               `Bearer ${token}`,
@@ -54,8 +54,6 @@ export default function MockTest() {
 
   useEffect(() => {
     hendleGetData();
-    console.log(process.env.REACT_APP_API_URL);
-    
   }, [subId]);//runs when subId changes
 
   const handleClickSubject = (sub) => {
@@ -77,10 +75,34 @@ export default function MockTest() {
     }));
   };
 
-  function findImageFromApi(image){
-    const img=JSON.stringify(image).replace('192.168.0.21','192.168.0.15').split(/"/)[1]
-    return img
-  }
+  const options = {
+    replace: (domNode) => {
+      // Handle <img> tags
+      if (domNode.name === 'img') {
+        const { src, width, height} = domNode.attribs;
+        return <img src={src} width={width} height={height} alt="Content Image" />;
+      }
+      // Handle <oembed> for videos
+      if (domNode.name === 'oembed') {
+        const videoUrl = domNode.attribs.url;
+        const embedUrl = videoUrl.replace('youtu.be/', 'youtube.com/embed/');
+        return (
+          <iframe
+            width="560"
+            height="315"
+            src={embedUrl}
+            title="YouTube video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        );
+      }
+    },
+  };
+
+
+
   return (
     <MainLayout>
       <div className="">
@@ -315,27 +337,28 @@ export default function MockTest() {
                     }}
                   >
                   {/* show question attempted or not   */}
-                    <p>
+                    <p className="m-0">
                       <strong>
                         Question {index + 1}
                         {data.subQuestions.length ? (
                           ""
                         ) : data.selectedOption !== null ? (
                           data.correctOption === data.selectedOption ? (
-                            <label style={{ color: "rgb(84 231 86)" }}>
+                            <label className="ps-1" style={{ color: "rgb(84 231 86)" }}>
                               (+2 Marks)
                             </label>
                           ) : (
-                            <label className=" text-danger "> (0.5 Marks)</label>
+                            <label className=" text-danger ps-1"> (0.5 Marks)</label>
                           )
                         ) : (
-                          <label className=" text-info "> (not attempted)</label>
+                          <label className=" text-danger ps-1"> not Answered</label>
                         )}
                       </strong>
                     </p>
 
-                    <p>{data.question.replace(/<[^>]*>/g, "")}</p>
-                    {data.question.match(/([^">]+\.(jpg|png|svg|jfif))/)?<img src={findImageFromApi(data.question.match(/([^">]+\.(jpg|png|svg|jfif))/))} alt="imageApi" />:''}
+                    {/* <p>{data.question.replace(/<[^>]*>/g, "")}</p> */}
+                    {/* {data.question.match(/([^">]+\.(jpg|png|svg|jfif))/)?<img src={findImageFromA pi(data.question.match(/([^">]+\.(jpg|png|svg|jfif))/))} alt="imageApi" />:''} */}
+                    <div className=" fw-medium">{parse(data.question, options)}</div>
                     {/* show Subquestions */}
                     {data.subQuestions?.map((quest, indexSub) => {
                       return (
@@ -348,29 +371,30 @@ export default function MockTest() {
                             }}
                           >
 
-                            <p>
+                            <p className="m-0 p-0">
                               <strong className="">
                                 Question {indexSub + 1}
                                 {quest.selectedOption !== null ? (
                                   quest.correctOption ===
                                   quest.selectedOption ? (
-                                    <label style={{ color: "rgb(84 231 86)" }}>
+                                    <label className="ps-1" style={{ color: "rgb(84 231 86)" }}>
                                       (+2 Marks)
                                     </label>
                                   ) : (
-                                    <label className=" text-danger ">
+                                    <label className="ps-1 text-danger ">
                                       (0.5 Marks)
                                     </label>
                                   )
                                 ) : (
-                                  <label className=" text-danger ">
-                                    (not attempted)
+                                  <label className="ps-1 text-danger ">
+                                    (Not Answered)
                                   </label>
                                 )}
                               </strong>
                             </p>
-                            <p>{quest.question.replace(/<[^>]*>/g, "")}</p>
-                            {quest.question.match(/([^">]+\.(jpg|png|svg|jfif))/)?<img src={findImageFromApi(quest.question.match(/([^">]+\.(jpg|png|svg|jfif))/))} alt="cxdfx" />:''}
+                            {/* <p>{quest.question.replace(/<[^>]*>/g, "")}</p> */}
+                            {/* {quest.question.match(/([^">]+\.(jpg|png|svg|jfif))/)?<img src={findImageFromApi(quest.question.match(/([^">]+\.(jpg|png|svg|jfif))/))} alt="cxdfx" />:''} */}
+                            {parse(quest.question, options)}
                             <form>  
                               {quest.options?.map((option, optIndex) => (
                                 <div className="form-check py-1 d-flex justify-content-md-start" key={optIndex}>
@@ -483,8 +507,10 @@ export default function MockTest() {
                     </button>
 
                     <div className="collapse" id={`collapseExample${quest.subQuestionId}`}>
-                      <div className="card card-body">
-                        {quest.solution.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ") || "No solution provided."}
+                      <div className="ps-3 card-body">
+                        {/* {quest.solution.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ") } */}
+                        {parse(quest.solution, options)}
+
                       </div>
                     </div>
                           </div>:''}
@@ -564,7 +590,7 @@ export default function MockTest() {
                       ))}
                     </form>
                     {/* solution hide and show  */}
-                    {data.typeOfQuestion==='General'&&data.solution?<div>
+                    {data.typeOfQuestion==='General'?data.solution!==''?<div>
                     <button className="btn btn-link text-decoration-none mt-2 fw-bold text-dark">
                       <IoBulbSharp
                         className="fw-bold"
@@ -586,12 +612,13 @@ export default function MockTest() {
                     </button>
 
                     <div className="collapse" id={`collapseExample${data.questionId}`}>
-                      <div className="card card-body">
-                        {data.solution?.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ") || "No solution provided."}
+                      <div className="ps-3 card-body">
+                        {/* {data.solution?.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ") || "No solution provided."} */}
+                        {parse(data.solution,options)}
                       </div>
                     </div>
                   <hr />
-                    </div>:''}
+                    </div>:<hr/>:''}
                   </div>
                 </div>
               }
