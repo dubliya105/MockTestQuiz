@@ -1,0 +1,90 @@
+@media (max-width:400px) {
+    .col-6{
+     width: 100% !important;
+    }
+}
+
+ul li .active{
+    background-color: #ff6f00e6;
+    color: white !important;
+}
+
+/* Hide the default checkbox */
+.custom-icon-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkbox-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 24px;
+  }
+  .correct-option{
+    color: rgb(50, 163, 50);
+  }
+.empty{
+    position: relative;
+    width: 13px;                
+    height: 13px;
+    background-color: #fff;
+    border: 1px solid #363535;
+    border-radius: 28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: red;
+}
+
+  /* Create a custom checkbox using the span */
+  .checkbox-icon {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: red;
+  }
+  
+  /* Show the cross icon by default (unchecked state) */
+  .checkbox-icon::before {
+    content: "✕";  
+    color:#fff;
+    font-size: 12px;
+    display: block;
+  }
+  
+  /* When checked, show the checkmark and change styling */
+  .custom-icon-checkbox:checked + .checkbox-icon {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+  }
+  .custom-icon-checkbox + .checkbox-icon {
+    background-color: #fc0000;
+    border-color: red;
+  }
+  .custom-icon-checkbox:checked + .checkbox-icon::before {
+    content: "✓"; /* Checkmark icon */
+    font-size: 12px;
+    color: white;
+  }
+
+  .card-body{
+    border: none !important;
+    box-shadow: none;
+    --bs-card-bg:#fff !important;
+    background-color: #fff !important;
+  }
+  .shadow-mainbox{
+    background-color: white;
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  }

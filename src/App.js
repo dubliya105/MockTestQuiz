@@ -13,6 +13,7 @@ import ShowUser from './screen/ShowUser';
 import ShowUserDe from './screen/ShowUserDe';
 import EmailData from './screen/EmailData';
 import Coordinate from './screen/Coordinate';
+import MockTest from './screen/MockTest';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Route path="/showUserDe" element={<ShowUserDe/>} />
       <Route path="/email" element={<EmailData/>} />
       <Route path="/coordinate" element={<Coordinate/>} />
+      <Route path="/mocktest" element={<MockTest/>} />
     </Routes>
 
     </div>

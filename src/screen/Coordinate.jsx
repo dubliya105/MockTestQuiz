@@ -38,7 +38,7 @@ function Coordinate() {
           <Link to="">-Coordinater</Link>
         </div>
       </div>
-      <div className=" rounded-2 bg-light text-start p-2">
+      <div className=" rounded-2 bg-light text-start p-3">
         <h6>Coordinater Details</h6>
         <div className=" shadow p-2 rounded-2">
           <p className="p-1 m-0 fw-bold">Suman Vyas</p>
@@ -57,19 +57,19 @@ function Coordinate() {
           <div className=" col-md-3 pt-2">
             <div className=" p-2  rounded-2 bg-secondary-subtle ">
               <p className="p-1 m-0 fw-medium "> Total Amount Earned</p>
-              <p className=" fw-medium display-6 text-primary">₹ 1000</p>
+              <p className=" fw-medium text-primary p-0 m-0" style={{fontSize:'30px'}} >₹ 1000</p>
             </div>
           </div>
           <div className="col-md-3 pt-2">
             <div className=" p-2 rounded-2 bg-secondary-subtle ">
               <p className="p-1 m-0 fw-medium"> Payment Done</p>
-              <p className="fw-medium display-6 text-primary">₹ 1000</p>
+              <p className="fw-medium text-primary p-0 m-0" style={{fontSize:'30px'}}>₹ 1000</p>
             </div>
           </div>
           <div className=" col-md-3 pt-2">
             <div className="  p-2 rounded-2 bg-secondary-subtle ">
               <p className="p-1 m-0 fw-medium">Balance</p>
-              <p className="fw-medium display-6 text-primary ">₹ 1000</p>
+              <p className="fw-medium  text-primary p-0 m-0" style={{fontSize:'30px'}}>₹ 1000</p>
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@ function Coordinate() {
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table>    
         <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
@@ -135,7 +135,6 @@ function Coordinate() {
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-                    {/* <button type="button" className="btn btn-primary">Save changes</button> */}
                 </div>
                 </div>
             </div>
@@ -166,6 +165,7 @@ function Coordinate() {
             />
           </nav>
         </div>
+
         <div className="table-scroller pt-5" >
             <div className=" d-flex justify-content-between pb-3">
                 <h4>Payout History</h4>

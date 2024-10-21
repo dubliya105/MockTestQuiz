@@ -6,13 +6,9 @@ export default function Layout({children}) {
       
       <div className={`${style.image} `}>
         <div className=' d-flex justify-content-end align-items-center'>
-            {/* <div className='col-md-6 '> */}
-            {/* </div> */}
-            {/* <div className='col-md-6 '> */}
-            {/* <div> */}
+           
               {children}
-              {/* </div> */}
-            {/* </div> */}
+             
          </div> 
     </div>
      </div>

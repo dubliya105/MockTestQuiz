@@ -1,9 +1,9 @@
 body{
-    background-color:  #e4e6eb !important;
+    background-color:  #fff !important;
   
 }
 .user-main{
-    background-color: #b9d0f2;
+    background-color: #fff;
     border-radius: 1%;
 }
 
@@ -12,7 +12,7 @@ body{
     border-radius: 10%;
 } */
 .main-box {
-    background-color: #b9d0f2 !important;
+    background-color: #fff !important;
 
 }
 .table a.table-link.danger {
