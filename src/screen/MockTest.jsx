@@ -524,7 +524,7 @@ export default function MockTest() {
                                             &nbsp; Correct Answer
                                           </label>
                                         ) : (
-                                          ""
+                                          ""  
                                         )}
                                         {/* check incorrect Answer */}
                                         {quest.correctOption !== optIndex &&
