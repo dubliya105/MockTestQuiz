@@ -10,7 +10,7 @@ export default function MainLayout({children}) {
 
     useEffect(()=>{
       if(!auth){
-        navigate('/') 
+        navigate('/')
       }else{
         navigate(location.pathname)
       }
