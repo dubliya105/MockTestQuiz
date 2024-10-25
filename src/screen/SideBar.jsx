@@ -35,12 +35,6 @@ function SideBar() {
               </Link>
             </li>
             <li>
-              <Link to="" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
-                <span>Task / Calender</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/email" className={style.NavLink}>
               <div className={style.Icon}><i class="fa-regular fa-envelope"></i></div>
                 <span>Email</span>
@@ -57,6 +51,12 @@ function SideBar() {
               <Link to="/mocktest" className={style.NavLink}>
               <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
                 <span>Mock Test</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/mockTestQuiz" className={style.NavLink}>
+              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <span>Quiz</span>
               </Link>
             </li>
             <li>

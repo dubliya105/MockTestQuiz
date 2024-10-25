@@ -14,6 +14,7 @@ import ShowUserDe from './screen/ShowUserDe';
 import EmailData from './screen/EmailData';
 import Coordinate from './screen/Coordinate';
 import MockTest from './screen/MockTest';
+import MockTestQuiz from './screen/MockTestQuiz';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Route path="/email" element={<EmailData/>} />
       <Route path="/coordinate" element={<Coordinate/>} />
       <Route path="/mocktest" element={<MockTest/>} />
+      <Route path="/mockTestQuiz" element={<MockTestQuiz/>} />
     </Routes>
 
     </div>

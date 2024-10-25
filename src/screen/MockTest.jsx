@@ -4,7 +4,6 @@ import "../assets/styles/MockTest.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { IoBulbSharp } from "react-icons/io5";
-import { toast } from "react-toastify";
 import { CirclesWithBar } from "react-loader-spinner";
 import parse from "html-react-parser";
 export default function MockTest() {
@@ -16,22 +15,19 @@ export default function MockTest() {
   const [loeder, setLoeder] = useState(false);
   const url = process.env.REACT_APP_API_URL;
 
-  // const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcwMDExZWYzZjM4MmE4OTg2MmU0OGI0IiwiaWF0IjoxNzI5NTg0OTcyLCJleHAiOjE3Mjk2NzEzNzJ9.FlRwYa4ZJ2e055FSfzocb3Qyx5UNbR3LfZpXQzPA8vU";
-  // API request to fetch the mock test result
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZhYTJmYmI3NTNkODA1YTlhYTAzNzkwIiwiaWF0IjoxNzI5NTgxNDQ1LCJleHAiOjE3Mjk2Njc4NDV9.QobStq8DZspBEsJCsKrJtT8haP_NiJvX61amo_5w0xs"
+  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcxYTUwZThmZDU0NmQ3MmNmYjhmZDhjIiwiaWF0IjoxNzI5ODMzNDIyLCJleHAiOjE3Mjk5MTk4MjJ9.ECGvGtXdUZZRhZjuM11ozG_0HT4NE15ehxPhjp38Z44"
   const hendleGetData = async () => {
     try {
       setLoeder(true);
-      
       const result = await axios.get( 
-       "http://192.168.0.15:5003/mockTest/viewResult",
+       "http://192.168.0.13:5003/mockTest/viewResult",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            mockTest_id:'66d99c5778fcecd7f027d081',
-            mockTestSubmissions_id:'6708d56a39bd1c847d7b97f3',
+            mockTest_id:'67000a073f382a89862e47cb',
+            mockTestSubmissions_id:'670d11801c7b3db481d25cbd',
             subject_id: subId,
           },
         }
@@ -45,7 +41,6 @@ export default function MockTest() {
         setSelectedSubject(
           selectedSubject ? selectedSubject : result.data.data.subjects[0]
         );
-        console.log(result.data.data);
       }
     } catch (error) {
       console.log(error);
