@@ -107,10 +107,20 @@ ul li .active{
   background-color: #ff6f00e6 !important  ;
   color: white !important;
 }
+.not-view{
+  background-color: grey !important;
+}
 .right-side{
   position: sticky;
   top:20%
 }
 .time{
   font-size: 1vw;
+}
+
+.submit-test{
+  padding: 20px ;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
