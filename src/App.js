@@ -15,6 +15,7 @@ import EmailData from './screen/EmailData';
 import Coordinate from './screen/Coordinate';
 import MockTest from './screen/MockTest';
 import MockTestQuiz from './screen/MockTestQuiz';
+import CustomHooks from './screen/CustomHooks';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
       <Route path="/coordinate" element={<Coordinate/>} />
       <Route path="/mocktest" element={<MockTest/>} />
       <Route path="/mockTestQuiz" element={<MockTestQuiz/>} />
+      <Route path="/customhook" element={<CustomHooks/>} />
     </Routes>
 
     </div>

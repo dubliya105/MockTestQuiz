@@ -5,36 +5,207 @@
   import parse from "html-react-parser";
   import { toast, ToastContainer } from "react-toastify";
   import "../assets/styles/MockTest.css";
-  let mockTest_id = "66f5356f6259b7aa88a60ded";
+  let mockTest_id = "67000a073f382a89862e47cb";
   function MockTestQuiz() {
     const [subId, setSubId] = useState(null);
+    const [qusetionId,setQusetionId] = useState('');
     const [data, setData] = useState([]);
     const [subjectQuestions, setSubjectQuestion] = useState([]);
     const [subSelectedOption, setSubSelectedOption] = useState([]);
     const [currentQue, setCurrentQue] = useState(0);
     const [currentSub, setCurrentSub] = useState(0);
+    const [questionNum, setQuestionNum] = useState(0);
     const [allQuestions, setAllQuestions] = useState([]);
     const [viewQuestion, setVeiwQuestions] = useState([]);
     const [selectedOption, setSelectedOption] = useState([]);
     const [timeLeft, setTimeLeft] = useState(45 * 60);
 
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZhYTJmYmI3NTNkODA1YTlhYTAzNzkwIiwiaWF0IjoxNzMwNzg0MTU1LCJleHAiOjE3MzA4NzA1NTV9.5Lp60A7V33xjKQiDNPrIqCW1GIGOuzx6Sa9ZmvytJc0 ";
+    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxMDQ0NTg1LCJleHAiOjE3MzExMzA5ODV9.1zq6mDsS-Tr1lEBpnSY4NJaLK8x3ej7JaxMi70AMqUg";
 
     const handleData = () => {
-      // setData(result.data.data);
+      const array={
+        mockTestId: "671b2c6f0383db0a5cdd90a7",
+        mockTestName: "English Mock Test",
+        durationInMinutes: 10,
+        subjects: [
+          {
+            subjectId: "671b2a580383db0a5cdd8b36",
+            subjectName: "English",
+            numberOfQuestions: 3,
+          },
+          {
+            subjectId: "671a4c79dd870c2153936814",
+            subjectName: "Hindi",
+            numberOfQuestions: 3,
+          },
+        ],
+        subjectQuestions: [
+          {
+            subjectId: "671b2a580383db0a5cdd8b36",
+            questions: [
+              {
+                questionId: "671b2b8f0383db0a5cdd8f30",
+                subjectId: "671b2a580383db0a5cdd8b36",
+                question:
+                  '<p>Once upon a time, in a dense forest, there was a huge, old banyan tree that was home to many birds and animals. The tree provided shelter, food, and protection for all its inhabitants. The birds built nests in its branches, and the animals found safety in its shade. One day, a great storm swept through the forest, shaking the tree to its roots. The birds clung to the branches, and the animals huddled together under the tree, hoping it would survive the storm.</p><p>&nbsp;</p><figure class="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
+                options: [],
+                questionType: "Question Bank",
+                typeOfQuestion: "Comprehensive",
+                subQuestions: [
+                  {
+                    subQuestionId: "671b2bda0383db0a5cdd8f89",
+                    questionId: "671b2b8f0383db0a5cdd8f30",
+                    question:
+                      '<p>What was the banyan tree a home to?</p><figure class="image"><img style="aspect-ratio:225/225;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834341628.jfif" width="225" height="225"></figure>',
+                    options: [
+                      "<p>Only birds</p>",
+                      "<p>Only animals</p>",
+                      "<p>Both birds and animals</p>",
+                      "<p>None of the above</p>",
+                    ],
+                  },
+                  {
+                    subQuestionId: "671b2c090383db0a5cdd8fb6",
+                    questionId: "671b2b8f0383db0a5cdd8f30",
+                    question:
+                      '<p>What did the tree provide to its inhabitants?</p><figure class="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834368526.jfif" width="300" height="168"></figure>',
+                    options: [
+                      "<p>Shelter and food</p>",
+                      "<p>Water and shelter</p>",
+                      "<p>Food and water</p>",
+                      "<p>None of the above</p>",
+                    ],
+                  },
+                  {
+                    subQuestionId: "671b2c3c0383db0a5cdd8fe3",
+                    questionId: "671b2b8f0383db0a5cdd8f30",
+                    question:
+                      '<figure class="image"><img style="aspect-ratio:320/157;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834381989.jfif" width="320" height="157"></figure><p>What happened to the banyan tree during the storm?</p>',
+                    options: [
+                      "<p>It was uprooted</p>",
+                      "<p>It caught fire</p>",
+                      "<p>It shook to its roots</p>",
+                      "<p>It fell</p>",
+                    ],
+                  },
+                ],
+              },
+              {
+                questionId: "671b2b6c0383db0a5cdd8eba",
+                subjectId: "671b2a580383db0a5cdd8b36",
+                question:
+                  '<p>In Shakespeare’s play <i>Julius Caesar</i>, who warns Caesar to "Beware the Ides of March"?</p><figure class="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
+                options: [
+                  "<p>Brutus</p>",
+                  "<p>Mark Antony</p>",
+                  "<p>Soothsayer</p>",
+                  "<p>Cassius</p>",
+                ],
+                questionType: "Question Bank",
+                typeOfQuestion: "General",
+                subQuestions: [],
+              },
+              {
+                questionId: "671b2b250383db0a5cdd8e44",
+                subjectId: "671b2a580383db0a5cdd8b36",
+                question:
+                  '<p>Who is the author of the poem "The Road Not Taken"?</p><figure class="image"><img style="aspect-ratio:283/178;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834439073.jfif" width="283" height="178"></figure>',
+                options: [
+                  "<p>William Wordsworth</p>",
+                  "<p>Robert Frost</p>",
+                  "<p>John Keats</p>",
+                  "<p>Walt Whitman</p>",
+                ],
+                questionType: "Question Bank",
+                typeOfQuestion: "General",
+                subQuestions: [],
+              },
+            ],
+          },
+         
+          {
+            subjectId: "671a4c79dd870c2153936814",
+            questions: [
+              {
+                questionId: "671b30110383db0a5cdd96a8",
+                subjectId: "671a4c79dd870c2153936814",
+                question:
+                  '<p>प्रकृति हमारे जीवन का अभिन्न अंग है। यह हमें न केवल जीवन प्रदान करती है, बल्कि हमारे अस्तित्व को बनाए रखने में भी अहम भूमिका निभाती है। प्रकृति की गोद में शांति और सुकून मिलता है। हरियाली से घिरे पहाड़, शांत झीलें, बहती नदियाँ, और सुंदर वनस्पतियाँ हमारे मन को शांति प्रदान करती हैं। लेकिन आधुनिक युग में मानव ने अपने स्वार्थ के कारण प्रकृति का दोहन करना शुरू कर दिया है। वृक्षों की अंधाधुंध कटाई, जल प्रदूषण, वायु प्रदूषण और धरती का क्षरण हमारी प्राकृतिक धरोहर को नष्ट कर रहा है। अगर हम समय रहते नहीं संभले, तो इसका दुष्परिणाम आने वाली पीढ़ियों को भुगतना पड़ेगा। इसलिए, यह हमारी ज़िम्मेदारी है कि हम प्रकृति का संरक्षण करें और इसे फिर से हरा-भरा बनाएं।&nbsp;</p><figure class="media"><oembed url="https://youtu.be/tcdqfenq0Bo?si=2ouCWneryXQQPeyx"></oembed></figure>',
+                options: [],
+                questionType: "Question Bank",
+                typeOfQuestion: "Comprehensive",
+                subQuestions: [
+                  {
+                    subQuestionId: "671b30470383db0a5cdd9714",
+                    questionId: "671b30110383db0a5cdd96a8",
+                    question:
+                      "<p>गद्यांश के अनुसार प्रकृति का क्या महत्त्व है?</p>",
+                    options: [
+                      "<p>यह हमारे जीवन को मुश्किल बनाती है।</p>",
+                      "<p>यह हमें जीवन प्रदान करती है और शांति देती है।</p>",
+                      "<p>यह केवल पेड़-पौधे उगाने के लिए है।</p>",
+                      "<p>इसका कोई खास महत्त्व नहीं है।</p>",
+                    ],
+                  },
+                  {
+                    subQuestionId: "671b307e0383db0a5cdd9769",
+                    questionId: "671b30110383db0a5cdd96a8",
+                    question: "<p>मनुष्य किस प्रकार प्रकृति का दोहन कर रहा है?</p>",
+                    options: [
+                      '<figure class="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729835153608.jfif" width="300" height="168"></figure><p>पेड़ लगा कर</p>',
+                      "<p>प्रदूषण फैलाकर और वृक्षों की कटाई से</p>",
+                      "<p>अधिक भोजन करके</p>",
+                      "<p>जल संरक्षण करके</p>",
+                    ],
+                  },
+                ],
+              },
+              {
+                questionId: "671b2f190383db0a5cdd9598",
+                subjectId: "671a4c79dd870c2153936814",
+                question: '<p>अंधे के हाथ बटेर लगना" का सही अर्थ क्या है?</p>',
+                options: [
+                  "<p>मेहनत करने से सफलता मिलना</p>",
+                  "<p>बिना परिश्रम के कुछ प्राप्त होना</p>",
+                  "<p>कठिन परिश्रम करना</p>",
+                  "<p>असंभव को संभव करना</p>",
+                ],
+                questionType: "Question Bank",
+                typeOfQuestion: "General",
+                subQuestions: [],
+              },
+              {
+                questionId: "671b2fc70383db0a5cdd962a",
+                subjectId: "671a4c79dd870c2153936814",
+                question: "<p>इनमें से कौन-सा शब्द सही लिखा गया है</p>",
+                options: [
+                  "<p>संपती</p>",
+                  "<p>संपत्ति</p>",
+                  "<p>संपति</p>",
+                  "<p>संम्पत्ति</p>",
+                ],
+                questionType: "Question Bank",
+                typeOfQuestion: "General",
+                subQuestions: [],
+              },
+            ],
+          },
+          
+        ]}
+      setData(array);
       //set active subject
-      setSubId(data.subjects[0]?.subjectId);
-      setSubjectQuestion(data.subjectQuestions);
-      const flat = data.subjectQuestions?.flatMap((item, mainIndex) =>
+      setSubId( array.subjects[0]?.subjectId);
+      setQusetionId(qusetionId?qusetionId:array.subjectQuestions[0].questions[0].questionId)
+      setSubjectQuestion( array.subjectQuestions);
+      const flat =  array.subjectQuestions?.flatMap((item, mainIndex) =>
         item.questions.map((value, index) => value)
       );
-      console.log(flat);
       setAllQuestions(flat);
     };
     const handleQuizQuestions = async () => {
       try {
         const result = await axios.get(
-          "https://stage-api.learnandachieve.in/mockTest/getAllQuestionById?",
+          "http://192.168.0.22:5003/mockTest/getAllQuestionById?",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,15 +220,15 @@
           setData(result.data.data);
           //set active subject
           setSubId(subId ? subId : result.data.data.subjects[0]?.subjectId);   
-          setVeiwQuestions([{id:result.data.data.subjectQuestions[0].questions[0].questionId}])
+          setQusetionId(qusetionId?qusetionId:result.data.data.subjectQuestions[0].questions[0].questionId)
           setSubjectQuestion(result.data.data.subjectQuestions);
           const flat = result.data.data.subjectQuestions?.flatMap(
-            (item, mainIndex) => item.questions.map((value, index) => value)
+            (item) => item.questions.map((value) => value)
           );
           setAllQuestions(flat);
         }
       } catch (error) {
-        toast.error(error.response.data.messege);
+        toast.error(error.response.data.error);
       }
     };
     useEffect(() => {
@@ -66,19 +237,15 @@
         handleQuizQuestions();
       }
     }, []);
-
     const handleClickSubject = (sub, i) => {
       setSubId(sub.subjectId);
       setCurrentSub(i);
       setCurrentQue(0);
-      const questionId=subjectQuestions[i].questions[0].questionId
-      const showQuestion=viewQuestion.some((item,index)=>item.id===questionId)
-      if(!showQuestion){
-      setVeiwQuestions([
-        ...viewQuestion,
-       {id:questionId}
-      ])
-    }      
+      const id=subjectQuestions[i].questions[0].questionId
+      handleViewNum(id)
+      // handleViewQuestion(questionId)  
+      setQusetionId(id)
+      handleViewQuestion(qusetionId)
     };
 
     const handleSubAndQue = (i) => {
@@ -93,37 +260,38 @@
           setCurrentQue(0);
           setSubId(subjectQuestions[currentSub + 1].subjectId);
           const questionId=subjectQuestions[currentSub+1].questions[0].questionId
-          const showQuestion=viewQuestion.some((item,index)=>item.id===questionId)
-          if(!showQuestion){
-          setVeiwQuestions([
-            ...viewQuestion,
-           {id:questionId}
-          ])}          
+          // handleViewNum(id)
+          handleViewNum(questionId)
+          setQusetionId(questionId)
+          handleViewQuestion(qusetionId)     
         } else if (i < 0) {
           setCurrentSub(currentSub - 1);
           setCurrentQue(subjectQuestions[currentSub - 1].questions.length - 1);
           setSubId(subjectQuestions[currentSub - 1].subjectId);
-          const questionId=subjectQuestions[currentSub-1].questions[subjectQuestions[currentSub - 1].questions.length - 1].questionId
-          const showQuestion=viewQuestion.some((item,index)=>item.id===questionId)
-          if(!showQuestion){
-          setVeiwQuestions([
-            ...viewQuestion,
-           {id:questionId}
-          ])}          
-        } else {
+          const questionId=subjectQuestions[currentSub-1].questions[subjectQuestions[currentSub - 1].questions.length-1].questionId
+          setQusetionId(questionId)
+          handleViewNum(questionId)
+          handleViewQuestion(qusetionId)  
+        } else if(currentQue<i){
           setCurrentQue(i);
-          const questionId=subjectQuestions[currentSub].questions[i].questionId
-          const showQuestion=viewQuestion.some((item,index)=>item.id===questionId)
-          if(!showQuestion){
-          setVeiwQuestions([
-            ...viewQuestion,
-           {id:questionId}
-          ])}
+          const questionId=subjectQuestions[currentSub].questions[i-1].questionId
+          setQusetionId(subjectQuestions[currentSub].questions[i].questionId)
+          handleViewNum(subjectQuestions[currentSub].questions[i].questionId)
+          handleViewQuestion(questionId)
+        }else{
+          setCurrentQue(i);
+          const questionId=subjectQuestions[currentSub].questions[i+1].questionId
+          setQusetionId(subjectQuestions[currentSub].questions[i].questionId)
+          handleViewNum(subjectQuestions[currentSub].questions[i].questionId)
+          handleViewQuestion(questionId)
         }
       } catch (error) {
         console.log(error);
       }
     };
+    const handleSubmit=()=>{
+
+    }
     const options = {
       replace: (domNode) => {
         // Handle <img> tags
@@ -135,7 +303,7 @@
               width={500}
               height={400}
               className="img-fluid"
-              alt="Content Image"
+              alt="Content Thumbnail"
             />
           );
         }
@@ -145,7 +313,7 @@
           const embedUrl = videoUrl.replace("youtu.be/", "youtube.com/embed/");
           return (
             <iframe
-              className="emded"
+              className="emded1"
               src={embedUrl}
               title="YouTube video"
               frameBorder="0"
@@ -156,15 +324,30 @@
         }
       },
     };
-    const handleClickQues=(id)=>{
+    const handleClickQues=(id,index)=>{
+      setQuestionNum(index)
+      setQusetionId(id);
       const questionIn=subjectQuestions[currentSub].questions.findIndex((item,index)=>item.questionId===id)
       setCurrentQue(questionIn)
-      const showQuestion=viewQuestion.some((item,index)=>item.id===id)
-     if(!showQuestion){
-      setVeiwQuestions([
-        ...viewQuestion,
-       {id:id}
-      ])}
+      if(qusetionId!==id){
+        handleViewQuestion(qusetionId)
+      }
+      console.log(index,questionNum);
+    }
+    const handleViewNum=(id)=>{
+      allQuestions.map((item,index)=>{
+        if(item.questionId===id){
+          setQuestionNum(index);
+        }
+      })
+    }
+    const handleViewQuestion=(id)=>{
+      const showQuestion=viewQuestion.some((item)=>item.id===id)
+      if(!showQuestion){
+        setVeiwQuestions([
+          ...viewQuestion,
+        {id:id}
+        ])}
     }
     useEffect(() => {
       const intervalId = setInterval(() => {
@@ -174,8 +357,8 @@
           clearInterval(intervalId);
         }
       }, 1000);
-
       return () => clearInterval(intervalId);
+      
     }, [timeLeft]);
 
     const formatTime = (seconds) => {
@@ -243,10 +426,10 @@
         <div className="row">
           <div className="text-start fs-5 fw-bold ">{data.mockTestName}</div>
           <div className="col-sm-7 col-md-8 col-lg-8 ">
-            <nav className="navbar navbar-expand navbar-light py-3">
+            <nav className="navbar navbar-expand navbar-light py-3 overflow-x-auto">
               <div className="">
                 <div>
-                  <ul className="navbar-nav fw-medium">
+                  <ul className="navbar-nav fw-medium ">
                     {data?.subjects?.map((sub, index) => {
                       return (
                         <li className="nav-item p-2" key={index}>
@@ -267,9 +450,8 @@
                 </div>
               </div>
             </nav>
-            <div className=" text-start fw-bold">Question {currentQue + 1}</div>
+            <div className=" text-start fw-bold">Question {questionNum +1}</div>
             <hr />
-
             {subjectQuestions?.map((item, index) => (
               <div>
                 {item.questions?.map((que, qIndex) => (
@@ -427,38 +609,38 @@
                 </div>
               </div>
 
-              <div className="py-4 d-flex justify-content-start align-items-start flex-wrap gap-3">
+              <div className="py-4 d-flex justify-content-start align-items-center flex-wrap gap-3">
                 {allQuestions?.map((item, index) => {
                   return subId === item.subjectId ? (
                     item.typeOfQuestion === "Comprehensive" ||
                     item.typeOfQuestion === "Poem" ? (
                       <button
-                        className={`${viewQuestion?.some((val,index)=>val.id===item.questionId)?
+                        className={`${
                           item.subQuestions.every((val) =>
                             subSelectedOption.some(
                               (option) =>(
                                 option.subQuestionId === val.subQuestionId)
                             )
                           )
-                            ? "btn-success"
-                            : "active":'not-view'
-                        } btn  px-3`}
-                        onClick={()=>handleClickQues(item.questionId)}
+                            ?"btn-success":viewQuestion?.some((val,index)=>val.id===item.questionId)?'active'
+                            : "not-view"
+                        } btn question-btn text-center`}
+                        onClick={()=>handleClickQues(item.questionId,index)}
                         key={index}
                       >
                         {index + 1}
                       </button>
                     ) : (
                       <button
-                        className={`${viewQuestion?.some((val,index)=>val.id===item.questionId)?
+                        className={`${
                           selectedOption.some(
                             (option) => option.questionId === item.questionId
                           )
                             ? "btn-success"
-                            : "active":'not-view'
-                        } btn  px-3`}
+                            : viewQuestion?.some((val,index)=>val.id===item.questionId)?"active":"not-view"
+                        } btn question-btn text-center `}
                         key={index}
-                        onClick={()=>handleClickQues(item.questionId)}
+                        onClick={()=>handleClickQues(item.questionId,index)}
                       >
                         {index + 1}
                       </button>
@@ -483,7 +665,7 @@
                 &nbsp; Not View
               </div>
               <div className="text-end submit-test">
-                <button className="btn btn-success">Submit Test</button>
+                <button className="btn btn-success" onClick={handleSubmit}>Submit Test</button>
               </div>
             </div>
           </div>
@@ -492,5 +674,4 @@
       </MainLayout>
     );
   }
-
   export default MockTestQuiz;

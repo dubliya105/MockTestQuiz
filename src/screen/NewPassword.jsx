@@ -34,9 +34,10 @@ export default function NewPassword() {
   return (
   
        <Layout>
-        <div className="row">
-          <div className="col-md-6"></div>
-          <div className="col-md-6">
+       <div className="container-fluid d-flex flex-column vh-100">
+        <div className="row flex-grow-1">
+          <div className="col-md-6 col-12 col-md-6 d-none d-md-block"></div>
+          <div className="col-md-6 col-12 col-md-6 d-flex align-items-center justify-content-center p-5">
           <div className='p-5' style={{backgroundColor:'#003366'}}>
       <div className={`${style.head}` }>
         <div className={`${style.backIcon}`} onClick={()=>navigate('/verification')}>
@@ -76,8 +77,8 @@ export default function NewPassword() {
         </div>
         </div>
         </div>
-
       </div>
+    </div>
     </Layout>
   
   )

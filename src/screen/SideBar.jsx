@@ -4,14 +4,13 @@ import style from '../assets/styles/SideBar.module.css';
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     
     <> 
-        <div className={`${style.Sidebar} ${isOpen?style.Open:''}` } >
+        <div className={`${style.Sidebar} ${isOpen?style.Open:''} overflow-y-auto` } >
         
         <nav>
-        <div className='text-end d-flex justify-content-end'>
+        <div className='text-end d-flex justify-content-end overflow-y-scroll'>
           <button className={`${style.ToggleButton} w-100 text-end pt-2 pe-3`} onClick={()=> setIsOpen(false)}>
              <i class="fa-solid fa-xmark"></i>
           </button>

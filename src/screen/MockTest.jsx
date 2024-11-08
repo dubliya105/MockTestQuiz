@@ -83,7 +83,7 @@ export default function MockTest() {
             width={500}
             height={400}
             className="img-fluid"
-            alt="Content Image"
+            alt="Content Thumbnail"
           />
         );
       }
