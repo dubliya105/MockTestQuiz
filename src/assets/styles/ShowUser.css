@@ -51,7 +51,7 @@ body{
 }
 .user-list thead tr th {
     border-bottom: 2px solid #e7ebee;
-
+    background-color: #E6F5F5 ;
 }
 .user-list{
     background-color: transparent;
@@ -71,9 +71,7 @@ body{
 a:hover{
 text-decoration:none;
 }
-.table thead th {
-     background-color: #E6F5F5 ;
-  }
+
   .switch {
     position: relative;
     display: inline-block;

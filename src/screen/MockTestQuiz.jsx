@@ -195,7 +195,9 @@
       setData(array);
       //set active subject
       setSubId( array.subjects[0]?.subjectId);
+      //set current question ID
       setQusetionId(qusetionId?qusetionId:array.subjectQuestions[0].questions[0].questionId)
+      // set all subjects questions
       setSubjectQuestion( array.subjectQuestions);
       const flat =  array.subjectQuestions?.flatMap((item, mainIndex) =>
         item.questions.map((value, index) => value)
@@ -233,21 +235,21 @@
     };
     useEffect(() => {
       if (mockTest_id) {
-        // handleData();
-        handleQuizQuestions();
+        handleData(); //static data
+        // handleQuizQuestions(); // api data fetching
       }
     }, []);
+    // show active subject 
     const handleClickSubject = (sub, i) => {
       setSubId(sub.subjectId);
       setCurrentSub(i);
       setCurrentQue(0);
       const id=subjectQuestions[i].questions[0].questionId
       handleViewNum(id)
-      // handleViewQuestion(questionId)  
       setQusetionId(id)
       handleViewQuestion(qusetionId)
     };
-
+    // set next and previous question data  
     const handleSubAndQue = (i) => {
       try {
         if (
@@ -260,7 +262,6 @@
           setCurrentQue(0);
           setSubId(subjectQuestions[currentSub + 1].subjectId);
           const questionId=subjectQuestions[currentSub+1].questions[0].questionId
-          // handleViewNum(id)
           handleViewNum(questionId)
           setQusetionId(questionId)
           handleViewQuestion(qusetionId)     
@@ -289,9 +290,11 @@
         console.log(error);
       }
     };
+
     const handleSubmit=()=>{
 
     }
+    //replace any tag using html parser 
     const options = {
       replace: (domNode) => {
         // Handle <img> tags
@@ -349,25 +352,7 @@
         {id:id}
         ])}
     }
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        if (timeLeft > 0) {
-          setTimeLeft(timeLeft - 1);
-        } else {
-          clearInterval(intervalId);
-        }
-      }, 1000);
-      return () => clearInterval(intervalId);
-      
-    }, [timeLeft]);
 
-    const formatTime = (seconds) => {
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const remainingSeconds = seconds % 60;
-
-      return { hours, minutes, remainingSeconds };
-    };
     const handleOptions = (questionId, i) => {
       // console.log(selectedOption);
       const selIndex = selectedOption.findIndex(
@@ -419,8 +404,24 @@
         ]);
       }
     };
-    const time = formatTime(timeLeft);
-
+       
+    useEffect(() => {
+      setInterval(() => {
+         if (timeLeft > 0) {
+           setTimeLeft(timeLeft - 1);
+         } 
+       }, 1000);
+     }, [timeLeft]);
+ 
+     const formatTime = (seconds) => {
+       const hours = Math.floor(seconds / 3600);
+       const minutes = Math.floor((seconds % 3600) / 60);
+       const remainingSeconds = seconds % 60;
+ 
+       return { hours, minutes, remainingSeconds };
+     };
+     const time = formatTime(timeLeft);
+ 
     return (
       <MainLayout>
         <div className="row">
@@ -650,15 +651,14 @@
                   );
                 })}
               </div>
-
               <hr />
               <div className="py-2">
                 <span className="badge bg-success rounded-5 ">&nbsp;</span> &nbsp;
                 Answered
               </div>
               <div className="py-2">
-                <span className="badge active rounded-5 ">&nbsp;</span> &nbsp; Not
-                Answered
+                <span className="badge active rounded-5 ">&nbsp;</span> &nbsp; 
+                Not Answered
               </div>
               <div className="py-2 pb-5"> 
                 <span className="badge bg-secondary rounded-5 ">&nbsp;</span>{" "}

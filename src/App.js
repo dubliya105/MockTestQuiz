@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import "react-datepicker/dist/react-datepicker.css";
 import LoginForm from './screen/LoginForm';
 import Signup from './screen/Signup';
 import OtpVerification from './screen/OtpVerification';
@@ -15,7 +16,8 @@ import EmailData from './screen/EmailData';
 import Coordinate from './screen/Coordinate';
 import MockTest from './screen/MockTest';
 import MockTestQuiz from './screen/MockTestQuiz';
-import CustomHooks from './screen/CustomHooks';
+import Blog from './screen/Blog';
+import Packeges from './screen/Packeges';
 
 function App() {
   return (
@@ -37,7 +39,8 @@ function App() {
       <Route path="/coordinate" element={<Coordinate/>} />
       <Route path="/mocktest" element={<MockTest/>} />
       <Route path="/mockTestQuiz" element={<MockTestQuiz/>} />
-      <Route path="/customhook" element={<CustomHooks/>} />
+      <Route path="/blog" element={<Blog/>} />
+      <Route path="/package" element={<Packeges/>} />
     </Routes>
 
     </div>

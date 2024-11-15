@@ -9,9 +9,9 @@
   }
 
 
-  .table-scroller{
-        overflow-x: none !important;
-     }
+.table-scroller{
+      overflow-x: none !important;
+   }
   
 
   @media (max-width:862px){
@@ -19,4 +19,15 @@
         overflow-x: scroll !important;
         width: 100% !important;
      }
+  }
+  .status{
+   color: #ff6f00e6 !important;
+  }
+
+  .email-and-mob{
+   font-size: 12px !important;
+  }
+
+  .table-scroller .table thead th{
+   background-color: rgb(215, 226, 240);
   }

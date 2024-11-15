@@ -57,8 +57,6 @@ export default function AddUser({hendleGetUsers}) {
     } catch (error) {
       console.log(error);
     }
-   
-   
   }
 
 
@@ -174,8 +172,7 @@ export default function AddUser({hendleGetUsers}) {
                 style={{ fontSize: "14px" }}
               >
               <label htmlFor="Password">image</label>
-            <input onChange={imageUpload}   className="form-control ms-5 w-75" type="file" name="image" required/> 
-            
+            <input onChange={imageUpload} className="form-control ms-5 w-75" type="file" name="image" required/> 
                 </div>
                 <div className="text-start" style={{paddingLeft:'27%'}}> 
                 {
