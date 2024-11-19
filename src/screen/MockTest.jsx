@@ -15,12 +15,13 @@ export default function MockTest() {
   const [loeder, setLoeder] = useState(false);
   const url = process.env.REACT_APP_API_URL;
 
-  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcxYTUwZThmZDU0NmQ3MmNmYjhmZDhjIiwiaWF0IjoxNzI5ODMzNDIyLCJleHAiOjE3Mjk5MTk4MjJ9.ECGvGtXdUZZRhZjuM11ozG_0HT4NE15ehxPhjp38Z44"
-  const hendleGetData = async () => {
+  const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxOTMyOTM3LCJleHAiOjE3MzIwMTkzMzd9.EAo0TmsjzVx-XIJr9NX8_OTU9PZPpGCsK5yi6AL7nzs";
+ const hendleGetData = async () => {
     try {
       setLoeder(true);
       const result = await axios.get( 
-       "http://192.168.0.13:5003/mockTest/viewResult",
+       "http://192.168.0.27:5003/mockTest/viewResult",
         {
           headers: {
             Authorization: `Bearer ${token}`,

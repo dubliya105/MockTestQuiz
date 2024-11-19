@@ -14,7 +14,6 @@ const navigate =useNavigate()
 
   return (
     <div className={`shadow-sm ${style.navBar} d-flex justify-content-end`}>
-     
         <nav className="navbar navbar-expand-lg navbar-light pe-4 ">
         <i class="fa-regular fa-bell px-3"></i>
             <div className="dropdown dropdown-toggle p-2">

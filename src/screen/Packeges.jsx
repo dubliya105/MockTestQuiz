@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import "../assets/styles/Package.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxNTYyMTM2LCJleHAiOjE3MzE2NDg1MzZ9.rWEVlFkpCuK9mNxTup6gQkMUkwvmeu3YBpmIoj93rd8";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxOTMyOTM3LCJleHAiOjE3MzIwMTkzMzd9.EAo0TmsjzVx-XIJr9NX8_OTU9PZPpGCsK5yi6AL7nzs";
 
 function Packeges() {
   const [data, setData] = useState([]);
   async function handleGetPackages() {
-    const result = await axios.get("http://192.168.0.22:5003/package/getAll", {
+    const result = await axios.get("http://192.168.0.27:5003/package/getAll", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -36,19 +37,21 @@ function Packeges() {
         <div className="row d-flex justify-content-start">
         {
           data.map((item, index) => (
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 pt-5">
+            <div className="col-6 col-sm-6 col-md-6 col-lg-4 pt-5">
             <img
               className="rounded-3"
               height={150}
               style={{ width: "100%" }}
-              src={`http://192.168.0.22:5003/uploads/${item.mainImage}`}
+              src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
               alt=""
             />
             <div className="fs-5 fw-bold text-start text-truncate" title={item.packageName}>
              {item.packageName}
             </div>
-            <div className="text-end package-details fw-medium pt-1">
-              Package Details {">"}
+            <div className="text-end">
+              <Link className=" text-decoration-none package-details fw-medium pt-1" to={`/showPackageDetail/${item.package_id}`}>
+                Package Details {">"}
+              </Link>
             </div>
             <hr />
             <div className="d-flex align-items-center pb-2">

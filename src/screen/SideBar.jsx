@@ -71,6 +71,12 @@ function SideBar() {
               </Link>
             </li>
             <li>
+              <Link to="/showblogs" className={style.NavLink}>
+              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <span>Show Blogs</span>
+              </Link>
+            </li>
+            <li>
               <Link to="" className={style.NavLink}>
               
               <div className={style.Icon}><i class="fa-solid fa-gear"></i></div>

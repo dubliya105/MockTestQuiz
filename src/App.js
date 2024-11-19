@@ -18,6 +18,9 @@ import MockTest from './screen/MockTest';
 import MockTestQuiz from './screen/MockTestQuiz';
 import Blog from './screen/Blog';
 import Packeges from './screen/Packeges';
+import ShowBlog from './screen/ShowBlog';
+import ShowBlogDetail from './screen/ShowBlogDetail';
+import PackageDetail from './screen/PackageDetail';
 
 function App() {
   return (
@@ -41,6 +44,9 @@ function App() {
       <Route path="/mockTestQuiz" element={<MockTestQuiz/>} />
       <Route path="/blog" element={<Blog/>} />
       <Route path="/package" element={<Packeges/>} />
+      <Route path="/showblogs" element={<ShowBlog/>} />
+      <Route path="/showBlogDetail/:id" element={<ShowBlogDetail/>} />
+      <Route path="/showPackageDetail/:id" element={<PackageDetail/>} />
     </Routes>
 
     </div>

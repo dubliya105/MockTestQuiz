@@ -1,3 +1,9 @@
 .package-details{
     color: #ff6f00e6;
 }
+
+.add-to-cart{
+    background-color: #ff6f00e6 !important  ;
+    color: white !important;
+    font-size: 14px !important;
+  }

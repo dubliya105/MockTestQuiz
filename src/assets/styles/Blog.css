@@ -2,3 +2,19 @@
     font-size: 1rem;
     font-weight: 400;
 }
+
+.blog-category{
+    color: #ff6f00e6 !important;
+    border: solid #ff6f00e6 !important;
+    border-width:0px 0px 2px 0px !important;
+    border-radius: 0;
+}
+
+.blog-title{
+    color:rgb(78, 9, 143)
+}
+.category{
+    color: #ff6f00e6 !important;
+    border-right: 1px solid black !important;
+}
+

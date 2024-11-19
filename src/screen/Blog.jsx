@@ -8,10 +8,11 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
-import moment from 'moment-timezone';
-import { ThreeDots } from 'react-loader-spinner'
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMxNTY1NzQxLCJleHAiOjE3MzE2NTIxNDF9.Dzggy1-1WY5wZELnfaxmduZ9PcvmFfWGUFZYwhlbDFA";
+import moment from "moment-timezone";
+import { ThreeDots } from "react-loader-spinner";
+
+const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMyMDAwNTkxLCJleHAiOjE3MzIwODY5OTF9.kJYNbDjmTqe2JzA4Z_Phq7-7r6yWnLAM3pn6k60_E2w";
+
 function Blog() {
   const [details, setDetails] = useState(null);
   const [category_id, setCategory_id] = useState(null);
@@ -24,13 +25,20 @@ function Blog() {
   const [allCategory, setAllCategory] = useState([]);
   const [allAuthor, setAllAuthor] = useState([]);
   const [error, setError] = useState(false);
-  const [featuredImageError, setFeaturedImageError] = useState('');
-  const [mainImageError, setMainImageError] = useState('');
+  const [featuredImageError, setFeaturedImageError] = useState("");
+  const [mainImageError, setMainImageError] = useState("");
   const [loader, setLoader] = useState(false);
-  
- 
- const inputFeaturedRef = useRef(null)
- const inputMainRef = useRef(null)
+
+function CustomUploadAdapterPlugin (editor){
+   console.log(editor.plugins.get('FileRepository').createUploadAdapter=async(loader)=>{
+    console.log(await loader.file);
+    const blob = new Blob([await loader.file], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+     return imageUrl;
+   });
+}
+  const inputFeaturedRef = useRef(null);
+  const inputMainRef = useRef(null);
   useEffect(() => {
     handleGetCategory();
     handleGetAuthor();
@@ -38,35 +46,48 @@ function Blog() {
 
   const handleFeatuerdImage = (e) => {
     const file = e.target.files[0];
-    const extension = file.name.split('.').pop();
-    
-    if(extension==='jpg'||extension==='jpeg'||extension==='webp'){
-      setFeaturedImage(file)  
-      setFeaturedImageError('')
-    }else{
-      setFeaturedImageError('(Extension: jpg, jpeg, webp | Dimension: 1000x600 px)')
-      setFeaturedImage('')
-      inputFeaturedRef.current.value=null;
+    const extension = file.name.split(".").pop();
+
+    if (extension === "jpg" || extension === "jpeg" || extension === "webp") {
+      setFeaturedImage(file);
+      setFeaturedImageError("");
+    } else {
+      setFeaturedImageError(
+        "(Extension: jpg, jpeg, webp | Dimension: 1000x600 px)"
+      );
+      setFeaturedImage("");
+      inputFeaturedRef.current.value = null;
     }
   };
   const handleMainImage = (e) => {
     const file = e.target.files[0];
-    const extension = file.name.split('.').pop();
-    
-    if(extension==='jpg'||extension==='jpeg'||extension==='webp'){
-      setMainImage(file)  
-      setMainImageError('')
-    }else{
-      setMainImageError('(Extension: jpg, jpeg, webp | Dimension: 1000x600 px)')
-      setMainImage('')
-      inputMainRef.current.value=null;
+    const extension = file.name.split(".").pop();
+
+    if (extension === "jpg" || extension === "jpeg" || extension === "webp") {
+      setMainImage(file);
+      setMainImageError("");
+    } else {
+      setMainImageError(
+        "(Extension: jpg, jpeg, webp | Dimension: 1000x600 px)"
+      );
+      setMainImage("");
+      inputMainRef.current.value = null;
     }
   };
   async function handleSumitData() {
     setError(true);
-    setLoader(true)
+    setLoader(true);
     try {
-      if ( details && category_id && author_id && featuredImage && mainImage && briefIntro && title && date) {
+      if (
+        details &&
+        category_id &&
+        author_id &&
+        featuredImage &&
+        mainImage &&
+        briefIntro &&
+        title &&
+        date
+      ) {
         const formData = new FormData();
         formData.append("blog_id", "");
         formData.append("category_id", category_id);
@@ -78,7 +99,7 @@ function Blog() {
         formData.append("date", date);
         formData.append("details", details);
         const result = await axios.post(
-          `http://192.168.0.22:5003/blog/add-blog`,
+          `http://192.168.0.27:5003/blog/add-blog`,
           formData,
           {
             headers: {
@@ -89,18 +110,18 @@ function Blog() {
         );
         if (result.status === 200) {
           setError(false);
-          setDetails('');
-          setCategory_id('');
-          setAuthor_id('');
-          setFeaturedImage('');
-          setMainImage('');
-          setBriefIntro('');
-          setTitle('');
-          setDate('');
-          setFeaturedImage('')
-          setMainImage('')
-          inputFeaturedRef.current.value=null;
-          inputMainRef.current.value=null;
+          setDetails("");
+          setCategory_id("");
+          setAuthor_id("");
+          setFeaturedImage("");
+          setMainImage("");
+          setBriefIntro("");
+          setTitle("");
+          setDate("");
+          setFeaturedImage("");
+          setMainImage("");
+          inputFeaturedRef.current.value = null;
+          inputMainRef.current.value = null;
           toast.success("Blog Added Successfully");
         }
       }
@@ -108,15 +129,15 @@ function Blog() {
       console.log(error);
 
       toast.error(error.response.data.error);
-    }finally{
-      setLoader(false)
+    } finally {
+      setLoader(false);
     }
   }
 
   const handleGetAuthor = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.22:5003/author/get-all-author",
+        "http://192.168.0.27:5003/author/get-all-author",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -135,7 +156,7 @@ function Blog() {
   const handleGetCategory = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.22:5003/blogCategory/get-all-blog-category",
+        "http://192.168.0.27:5003/blogCategory/get-all-blog-category",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -150,8 +171,6 @@ function Blog() {
       toast.error(error.response.data.error);
     }
   };
-  
-  
 
   const handleEditorChange = (event, editor) => {
     setDetails(editor.getData());
@@ -176,12 +195,12 @@ function Blog() {
             <label htmlFor="" className="fw-medium form-label">
               Select Category<span style={{ color: "red" }}>*</span>
             </label>
-            <select 
+            <select
               value={category_id}
               className="form-select"
               onChange={(e) => setCategory_id(e.target.value)}
             >
-              <option value=''>select</option>
+              <option value="">select</option>
               {allCategory.map((item, index) => (
                 <option key={index} value={item._id}>
                   {item.categoryName}
@@ -208,7 +227,7 @@ function Blog() {
               className=" form-select"
               onChange={(e) => setAuthor_id(e.target.value)}
             >
-              <option value=''>select</option>
+              <option value="">select</option>
               {allAuthor.map((item, index) => {
                 return (
                   <option key={index} value={item._id}>
@@ -232,18 +251,21 @@ function Blog() {
           <div className="col-sm-6">
             <label htmlFor="" className="fw-medium  form-label">
               Date<span style={{ color: "red" }}>*</span>
-            </label><br />
-                 <DatePicker
-                    wrapperClassName="w-100"
-                    className="form-control"
-                    selected={date}
-                    dateFormat='MM-dd-yyyy'
-                    onChange={(e) => {setDate(moment(e).format('MM-DD-YYYY'))}} 
-                    maxDate={new Date()}
-                    placeholderText="MM/DD/YYYY"
-                    showMonthDropdown
-                    showYearDropdown
-                  />
+            </label>
+            <br />
+            <DatePicker
+              wrapperClassName="w-100"
+              className="form-control"
+              selected={date}
+              dateFormat="MM-dd-yyyy"
+              onChange={(e) => {
+                setDate(moment(e).format("MM-DD-YYYY"));
+              }}
+              maxDate={new Date()}
+              placeholderText="MM/DD/YYYY"
+              showMonthDropdown
+              showYearDropdown
+            />
 
             {error ? (
               date === "" || date === null ? (
@@ -282,13 +304,14 @@ function Blog() {
         <div className="row pt-2">
           <div className="col-sm-6">
             <label htmlFor="" className="fw-medium form-label">
-              Featured Image<span style={{ color: "red" }}>*{featuredImageError}</span>
+              Featured Image
+              <span style={{ color: "red" }}>*{featuredImageError}</span>
             </label>
             <input
               ref={inputFeaturedRef}
               className="input-group border p-1 rounded-2"
               type="file"
-              onChange={(e) =>handleFeatuerdImage(e)}
+              onChange={(e) => handleFeatuerdImage(e)}
             />
             {error ? (
               featuredImage === "" || featuredImage === null ? (
@@ -349,6 +372,41 @@ function Blog() {
             Details<span style={{ color: "red" }}>*</span>
           </label>
           <CKEditor
+            config={{
+              extraPlugins: [CustomUploadAdapterPlugin], // Use the custom upload adapter
+              language: "en",
+              toolbar: [
+                "undo",
+                "redo",
+                "|",
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "link",
+                "imageUpload",
+                "insertTable",
+                "mediaEmbed",
+                "|",
+                "blockQuote",
+                "codeBlock",
+                "alignment",
+                "fontSize",
+                "fontFamily",
+                "|",
+                "bulletedList",
+                "numberedList",
+                "outdent",
+                "indent",
+                "|",
+                "highlight",
+                "specialCharacters",
+                "horizontalLine",
+                "|",
+                "selectAll",
+                "removeFormat",
+              ],
+            }}
             editor={ClassicEditor}
             data={details}
             onChange={handleEditorChange}
@@ -364,30 +422,30 @@ function Blog() {
           )}
         </div>
         <div className="d-flex justify-content-end align-items-center pt-3">
-        {
-          loader? <ThreeDots
-            visible={true}
-            height="80"
-            width="80"
-            color="#4fa94d"
-            radius="9"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            />:
-          <div class="btn-group " onClick={handleSumitData}>
-            <button
-              className="btn"
-              style={{ backgroundColor: "#1313bf", color: "white" }}
-            >
-              Submit
-            </button>
-            <button className="btn btn-primary">
-              <IoMdCheckmark />
-            </button>
-          </div>
-        }
-       
+          {loader ? (
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#4fa94d"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          ) : (
+            <div class="btn-group " onClick={handleSumitData}>
+              <button
+                className="btn"
+                style={{ backgroundColor: "#1313bf", color: "white" }}
+              >
+                Submit
+              </button>
+              <button className="btn btn-primary">
+                <IoMdCheckmark />
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <ToastContainer />
