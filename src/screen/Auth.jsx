@@ -18,7 +18,7 @@ function Auth() {
     try {
       if (email !== "" && password !== "") {
         setLoading(true);
-        const result = await axios.post("http://localhost:8080/api/user/login", {
+        const result = await axios.post("http://192.168.0.146:8080/api/user/login", {
           email,
           password,
         });

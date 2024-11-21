@@ -7,12 +7,12 @@ import { CiCalendar, CiUser } from "react-icons/ci";
 import moment from "moment-timezone";
 
 export default function ShowBlog() {
-  const [data, setData] = useState([]);
   const [dataBlogs, setDataBlogs] = useState([]);
   const [blogCategoryData, setBlogCategoryData] = useState([]);
   const [blogCategoryId,setBlogCategoryId]=useState(null);
+  const [name,setName]=useState(null);
 
-  async function handleGetPackages() {
+  async function handleGetBlog() {
     const result = await axios.get("http://192.168.0.27:5003/blog/getAll", {
       params: {
         blog_Category_id: blogCategoryId,
@@ -24,15 +24,18 @@ export default function ShowBlog() {
       setDataBlogs(result.data.data.BlogData);
       setBlogCategoryData(result.data.data.blogCategoryData);
       setBlogCategoryId(blogCategoryId?blogCategoryId:result.data.data.blogCategoryData[0].blog_Category_id);
-      setData(result.data.data);
+      setName(name?name:result.data.data.blogCategoryData[0].categoryName);
     }
   }
 const handleBlogsCategory=(item)=>{
     setBlogCategoryId(item.blog_Category_id)
+    setName(item.categoryName)
+    console.log(item.categoryName, 'Category');
+    
 }
 
   useEffect(() => {
-    handleGetPackages();
+    handleGetBlog();
   }, [blogCategoryId]);
 
   return (
@@ -69,10 +72,10 @@ const handleBlogsCategory=(item)=>{
               alt=""
             />
             <div className="d-flex pt-1">
-            <div className='px-1'>
+            <div className='px-1 text-truncate'>
               <CiUser /> {item.name}
             </div>
-            <div className='px-2'><CiCalendar/>{moment(item.date).format('MMM DD,YYYY') }</div>
+            <div className='px-2 text-truncate '><CiCalendar/>{moment(item.date).format('MMM DD,YYYY') }</div>
             </div>
             <div
               className="fs-5 fw-bold text-start text-truncate"
@@ -87,7 +90,7 @@ const handleBlogsCategory=(item)=>{
               {item.briefIntro}
             </div>
             <div className="d-flex justify-content-end py-2">
-                <Link to={`/showBlogDetail/${item.blog_id}`} className=" text-decoration-none text-dark fw-medium pt-1"> Read More {">"} </Link>
+                <Link to={`/showBlogDetail/${item.blog_id}`} state={{name:name}}   className=" text-decoration-none text-dark fw-medium pt-1"> Read More {">"} </Link>
             </div>
           </div>
         ))}

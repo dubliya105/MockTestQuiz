@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import MainLayout from "../components/MainLayout";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import "../assets/styles/Blog.css";
 import { CiUser, CiCalendar } from "react-icons/ci";
@@ -45,17 +45,20 @@ const options = {
 function ShowBlogDetail() {
   const [data, setData] = useState([]);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
+  const { blog_id } = useParams();
+  const location = useLocation();
+  const { name } = location.state || {};
+  console.log(name, "hgvhf");
+  
+  const scrollRef = useRef(null);
 
-  const { id } = useParams();
-  async function handleGetBlogDetail() {
-    const result = await axios.get(
-      "http://192.168.0.27:5003/blog/getBlogDetailsById",
-      {
-        params: {
-          blog_id: id,
-        },
-      }
-    );
+  const handleGetBlogDetail=async() =>{
+    const result = await axios.get("http://192.168.0.27:5003/blog/getBlogDetailsById", {
+      params: {
+          blog_id: blog_id,
+      },
+  });
+
     if (result.status === 200) {
       setData(result.data.data.blogCategoryData);
       setRelatedBlogs(result.data.data.relatedBlogs);
@@ -65,39 +68,41 @@ function ShowBlogDetail() {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
-      slidesToSlide: 4
+      slidesToSlide: 4,
     },
     tablet: {
       breakpoint: { max: 1024, min: 768 },
       items: 3,
-      slidesToSlide: 3 
+      slidesToSlide: 3,
     },
     mobile: {
       breakpoint: { max: 767, min: 464 },
       items: 2,
-      slidesToSlide: 1
-    }
+      slidesToSlide: 1,
+    },
   };
-  const scrollRef = useRef(null);
 
-  useEffect(() => {
-    handleGetBlogDetail();
+
+  useEffect(()=>{
     if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  }, [id]);
+          scrollRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+    if(blog_id!==undefined){
+      handleGetBlogDetail();
+    }  
+},[blog_id])
 
   return (
     <MainLayout>
-      <div ref={scrollRef} className="text-start ">
+      <div className="text-start" ref={scrollRef}>
         <div className="text-start fs-4  fw-medium blog-title">
           {data.title}
         </div>
         <div className="d-flex">
-          <div className=" fw-medium category pe-2">GENERAL</div>
+          <div className=" fw-medium category pe-2">{name}</div>
           <div className="px-2">
             <CiUser /> {data.name}
           </div>
@@ -111,7 +116,7 @@ function ShowBlogDetail() {
           {data.length !== 0 && parse(data.details, options)}
         </div>
       </div>
-      
+
       <div className="text-start fs-4  fw-medium blog-title">Related Blogs</div>
       <Carousel
         infinite
@@ -122,41 +127,52 @@ function ShowBlogDetail() {
         responsive={responsive}
         dotListClass="custom-dot-list-style"
       >
-      {relatedBlogs.map((item,index) => (
-        <div className="p-2 pb-4" key={index} >
-            <div className=" rounded-bottom-2" style={{backgroundColor:'white'}}>
-            <img
-              className="rounded-3"
-              height={150}
-              style={{ width: "100%" }}
-              src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
-              alt=""
-            />
-            <div className="d-flex pt-1">
-            <div className='px-1 text-truncate'>
-              <CiUser /> {item.name}
-            </div>
-            <div className='px-2 text-truncate'><CiCalendar/>{moment(item.date).format('MMM DD,YYYY') }</div>
-            </div>
+        {relatedBlogs.map((item, index) => (
+          <div className="p-2 pb-4" key={index}>
             <div
-              className="fs-5 fw-bold text-start text-truncate px-1"
-              title={item.title}
+              className=" rounded-bottom-2"
+              style={{ backgroundColor: "white" }}
             >
-              {item.title}
+              <img
+                className="rounded-3"
+                height={150}
+                style={{ width: "100%" }}
+                src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
+                alt=""
+              />
+              <div className="d-flex pt-1">
+                <div className="px-1 text-truncate">
+                  <CiUser /> {item.name}
+                </div>
+                <div className="px-2 text-truncate">
+                  <CiCalendar />
+                  {moment(item.date).format("MMM DD,YYYY")}
+                </div>
+              </div>
+              <div
+                className="fs-5 fw-bold text-start text-truncate px-1"
+                title={item.title}
+              >
+                {item.title}
+              </div>
+              <div
+                className=" fw-medium text-start text-muted text-truncate px-1"
+                title={item.briefIntro}
+              >
+                {item.briefIntro}
+              </div>
+              <div className="d-flex justify-content-end py-2">
+                <Link
+                  to={`/showBlogDetail/${item.blog_id}`}
+                  className="text-decoration-none text-dark fw-medium pt-1"
+                >
+                  Read More {">"}
+                </Link>
+              </div>
             </div>
-            <div
-              className=" fw-medium text-start text-muted text-truncate px-1"
-              title={item.briefIntro}
-            >
-              {item.briefIntro}
-            </div>
-            <div className="d-flex justify-content-end py-2">
-                <Link to={`/showBlogDetail/${item.blog_id}`} className=" text-decoration-none text-dark fw-medium pt-1"> Read More {">"} </Link>
-            </div>
-            </div>
-        </div>
-      ))}
-    </Carousel>
+          </div>
+        ))}
+      </Carousel>
     </MainLayout>
   );
 }

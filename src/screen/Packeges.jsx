@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxOTMyOTM3LCJleHAiOjE3MzIwMTkzMzd9.EAo0TmsjzVx-XIJr9NX8_OTU9PZPpGCsK5yi6AL7nzs";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyOWM5YWU1MjAzNDYzYjAwNTYzNGIyIiwiaWF0IjoxNzMyMDg4Nzc4LCJleHAiOjE3MzIxNzUxNzh9.FN4aXJmt9NwuB8DmcqzS35goslmYoqkyIxpmBiCYHLE";
 
 function Packeges() {
   const [data, setData] = useState([]);

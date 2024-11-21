@@ -45,7 +45,7 @@ function App() {
       <Route path="/blog" element={<Blog/>} />
       <Route path="/package" element={<Packeges/>} />
       <Route path="/showblogs" element={<ShowBlog/>} />
-      <Route path="/showBlogDetail/:id" element={<ShowBlogDetail/>} />
+      <Route path="/showBlogDetail/:blog_id" element={<ShowBlogDetail/>} />
       <Route path="/showPackageDetail/:id" element={<PackageDetail/>} />
     </Routes>
 

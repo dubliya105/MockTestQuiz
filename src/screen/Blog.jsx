@@ -10,8 +10,9 @@ import { toast, ToastContainer } from "react-toastify";
 import DatePicker from "react-datepicker";
 import moment from "moment-timezone";
 import { ThreeDots } from "react-loader-spinner";
-
-const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMyMDAwNTkxLCJleHAiOjE3MzIwODY5OTF9.kJYNbDjmTqe2JzA4Z_Phq7-7r6yWnLAM3pn6k60_E2w";
+  
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMyMDkzNTIyLCJleHAiOjE3MzIxNzk5MjJ9.R46sOwJMWhpuu7YjT0GwbfF6bVgCnbV_NiMH_UYBrX4";
 
 function Blog() {
   const [details, setDetails] = useState(null);
@@ -29,14 +30,32 @@ function Blog() {
   const [mainImageError, setMainImageError] = useState("");
   const [loader, setLoader] = useState(false);
 
-function CustomUploadAdapterPlugin (editor){
-   console.log(editor.plugins.get('FileRepository').createUploadAdapter=async(loader)=>{
-    console.log(await loader.file);
-    const blob = new Blob([await loader.file], { type: 'image/jpeg' });
-    const imageUrl = URL.createObjectURL(blob);
-     return imageUrl;
-   });
-}
+  function CustomUploadAdapterPlugin(editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+      return {
+        upload: () => {
+          return loader.file.then((file) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                const base64String = reader.result;
+                const imageElement = `<img src="${base64String}" alt="Uploaded Image" />`;
+
+                setDetails((prevDetails) => prevDetails + imageElement);
+
+                resolve({
+                  default: base64String,
+                });
+              };
+              reader.onerror = (error) => reject(error);
+              reader.readAsDataURL(file);
+            });
+          });
+        },
+        abort: () => {},
+      };
+    };
+  }
   const inputFeaturedRef = useRef(null);
   const inputMainRef = useRef(null);
   useEffect(() => {
@@ -373,38 +392,37 @@ function CustomUploadAdapterPlugin (editor){
           </label>
           <CKEditor
             config={{
-              extraPlugins: [CustomUploadAdapterPlugin], // Use the custom upload adapter
+              extraPlugins: [CustomUploadAdapterPlugin],
               language: "en",
               toolbar: [
-                "undo",
-                "redo",
+                "removeFormat",
                 "|",
+                "heading",
                 "bold",
                 "italic",
                 "underline",
                 "strikethrough",
                 "link",
-                "imageUpload",
-                "insertTable",
-                "mediaEmbed",
-                "|",
                 "blockQuote",
+                "code",
                 "codeBlock",
+                "numberedList",
+                "bulletedList",
+                "outdent",
+                "indent",
+                "imageUpload",
+                "mediaEmbed",
+                "insertTable",
+                "undo",
+                "redo",
                 "alignment",
                 "fontSize",
                 "fontFamily",
-                "|",
-                "bulletedList",
-                "numberedList",
-                "outdent",
-                "indent",
-                "|",
+                "fontColor",
                 "highlight",
                 "specialCharacters",
                 "horizontalLine",
-                "|",
-                "selectAll",
-                "removeFormat",
+               
               ],
             }}
             editor={ClassicEditor}

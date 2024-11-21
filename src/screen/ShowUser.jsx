@@ -31,7 +31,7 @@ function ShowUser() {
     try {
       if (auth) {
         const result = await axios.get(
-          `http://localhost:8080/api/user/userList`,
+          `http://192.168.0.146:8080/api/user/userList`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -57,7 +57,7 @@ function ShowUser() {
       const search = e.target.value.trim();
       if (search !== "") {
         const result = await axios.get(
-          `http://localhost:8080/api/user/search/${search}`,
+          `http://192.168.0.146:8080/api/user/search/${search}`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -85,7 +85,7 @@ function ShowUser() {
       console.log(id, status);
 
       // setStatus(!status)
-      const result = await axios.patch("http://localhost:8080/api/user", {
+      const result = await axios.patch("http://192.168.0.146:8080/api/user", {
         id,
         status: !status,
       });
