@@ -19,7 +19,14 @@ body{
     text-decoration: none;
     transition: background-color 0.3s;
   }
-  
+  .SubNavLink{
+    display: flex;
+    align-items: center;
+    padding:3px 0 3px 0px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
   .NavLink:hover {
     background-color: #34495e;
   }

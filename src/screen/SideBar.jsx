@@ -1,94 +1,172 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import style from '../assets/styles/SideBar.module.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import style from "../assets/styles/SideBar.module.css";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    
-    <> 
-        <div className={`${style.Sidebar} ${isOpen?style.Open:''} overflow-y-auto` } >
-        
+    <>
+      <div
+        className={`${style.Sidebar} ${
+          isOpen ? style.Open : ""
+        } overflow-y-auto`}
+      >
         <nav>
-        <div className='text-end d-flex justify-content-end overflow-y-scroll'>
-          <button className={`${style.ToggleButton} w-100 text-end pt-2 pe-3`} onClick={()=> setIsOpen(false)}>
-             <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
+          <div className="text-end d-flex justify-content-end overflow-y-scroll">
+            <button
+              className={`${style.ToggleButton} w-100 text-end pt-2 pe-3`}
+              onClick={() => setIsOpen(false)}
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
           <div className={`${style.Logo} p-3`}>
-         <img src="https://blogs.purecode.ai/blogs/wp-content/uploads/2024/09/pc-new-logo.svg"  width={100} alt="" />
-        </div>  
+            <img
+              src="https://blogs.purecode.ai/blogs/wp-content/uploads/2024/09/pc-new-logo.svg"
+              width={100}
+              alt=""
+            />
+          </div>
           <ul className={style.navUl}>
             <li>
               <Link to="/dashboard" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-house"></i></div>
-                
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-house"></i>
+                </div>
+
                 <span>Dashboard</span>
               </Link>
-              
             </li>
             <li>
               <Link to="/showUser" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-arrow-pointer"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-arrow-pointer"></i>
+                </div>
                 <span>Agency</span>
               </Link>
             </li>
             <li>
               <Link to="/email" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-regular fa-envelope"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-regular fa-envelope"></i>
+                </div>
                 <span>Email</span>
               </Link>
             </li>
             <li>
               <Link to="/coordinate" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-users"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-users"></i>
+                </div>
 
                 <span>Coordinate</span>
               </Link>
             </li>
             <li>
               <Link to="/mocktest" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
                 <span>Mock Test</span>
               </Link>
             </li>
             <li>
               <Link to="/mockTestQuiz" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
                 <span>Quiz</span>
               </Link>
             </li>
             <li>
               <Link to="/blog" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
                 <span>Blog</span>
               </Link>
             </li>
             <li>
               <Link to="/package" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
                 <span>Packages</span>
               </Link>
             </li>
             <li>
               <Link to="/showblogs" className={style.NavLink}>
-              <div className={style.Icon}><i class="fa-solid fa-calendar-days"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>
                 <span>Show Blogs</span>
               </Link>
             </li>
+
+            <div className="accordion-item">
+              <div className={`accordion-header`}>
+                <Link
+                  className={`${style.NavLink} collapsed`}
+                  style={{ background: "transparent", color: "#ffff" }}
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour"
+                  aria-expanded="false"
+                  aria-controls="collapseFour"
+                >
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-calendar-days"></i>
+                </div>Create Exam
+                </Link>
+              </div>
+              <li
+                id="collapseFour"
+                className="accordion-collapse collapse ps-4"
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body" >
+                  <Link
+                    className={`${style.SubNavLink} accordion-header` }
+                    to="/createExam"
+                    style={{borderLeft:'2px solid #5e5e5eba'}}
+                  >
+                  <div className="fs-5" style={{color:'#5e5e5eba',position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
+                   Add
+                  </Link>
+                </div>
+                <div className="accordion-body">
+                  <Link
+                    className={`${style.SubNavLink} accordion-header `}
+                    to="/bharatSATexam"
+                    style={{borderLeft:'2px solid #5e5e5eba'}}
+                  >
+                  <div className="fs-5" style={{color:'#5e5e5eba', position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
+                   View
+                  </Link>
+                </div>
+              </li>
+            </div>
             <li>
               <Link to="" className={style.NavLink}>
-              
-              <div className={style.Icon}><i class="fa-solid fa-gear"></i></div>
+                <div className={style.Icon}>
+                  <i class="fa-solid fa-gear"></i>
+                </div>
                 <span>Settings</span>
               </Link>
             </li>
+           
           </ul>
         </nav>
       </div>
-         {isOpen?'': <button className={`${style.ToggleButton}  `} onClick={()=> setIsOpen(true)}>
-             <i class="fa-solid fa-bars"></i>
-          </button>}
+      {isOpen ? (
+        ""
+      ) : (
+        <button
+          className={`${style.ToggleButton}  `}
+          onClick={() => setIsOpen(true)}
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      )}
     </>
   );
 }

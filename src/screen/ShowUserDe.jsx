@@ -15,7 +15,7 @@ function ShowUserDe() {
 const generatePDF = () => {
   
     
-    // const result=await axios.get(`http://localhost:8000/user/getOneUser/${id}`)
+    // const result=await axios.get(`http://192.168.0.16:8000/user/getOneUser/${id}`)
     
     // if(result.status===200)
     // {

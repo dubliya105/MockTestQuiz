@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -43,6 +44,7 @@ const options = {
 };
 
 function ShowBlogDetail() {
+
   const [data, setData] = useState([]);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const { blog_id } = useParams();

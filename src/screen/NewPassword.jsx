@@ -15,7 +15,7 @@ export default function NewPassword() {
     try {
       setError(!error)
         if(password!==''&& confirmPassword!==''){
-          const result = await axios.patch('http://localhost:8080/api/user/newpass',{
+          const result = await axios.patch('http://192.168.0.16:8080/api/user/newpass',{
             email,
             password,
             confirmPassword

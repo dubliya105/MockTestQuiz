@@ -16,7 +16,7 @@ export default function MockTest() {
   const url = process.env.REACT_APP_API_URL;
 
   const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxOTMyOTM3LCJleHAiOjE3MzIwMTkzMzd9.EAo0TmsjzVx-XIJr9NX8_OTU9PZPpGCsK5yi6AL7nzs";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMTE4Njc2LCJleHAiOjE3MzMyMDUwNzZ9.ZPtIL_8HEMdTBosltfopmYF3M5raXPWONN0BhwT7eCk";
  const hendleGetData = async () => {
     try {
       setLoeder(true);
@@ -400,8 +400,6 @@ export default function MockTest() {
                           </strong>
                         </p>
 
-                        {/* <p>{data.question.replace(/<[^>]*>/g, "")}</p> */}
-                        {/* {data.question.match(/([^">]+\.(jpg|png|svg|jfif))/)?<img src={findImageFromA pi(data.question.match(/([^">]+\.(jpg|png|svg|jfif))/))} alt="imageApi" />:''} */}
                         <div className="fw-medium">
                           {parse(data.question, options)}
                         </div>

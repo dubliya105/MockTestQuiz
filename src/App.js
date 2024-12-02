@@ -21,6 +21,9 @@ import Packeges from './screen/Packeges';
 import ShowBlog from './screen/ShowBlog';
 import ShowBlogDetail from './screen/ShowBlogDetail';
 import PackageDetail from './screen/PackageDetail';
+import CreateExam from './screen/CreateExam';
+import BharatSATExam from './screen/BharatSATExam';
+import BharatSatExamView from './screen/BharatSatExamView';
 
 function App() {
   return (
@@ -47,6 +50,9 @@ function App() {
       <Route path="/showblogs" element={<ShowBlog/>} />
       <Route path="/showBlogDetail/:blog_id" element={<ShowBlogDetail/>} />
       <Route path="/showPackageDetail/:id" element={<PackageDetail/>} />
+      <Route path="/createExam" element={<CreateExam/>} />
+      <Route path="/bharatSATexam" element={<BharatSATExam/>} />
+      <Route path="/bharatSatExamView/:id" element={<BharatSatExamView/>} />
     </Routes>
 
     </div>

@@ -1,0 +1,20 @@
+.progress{
+--bs-progress-height:5px !important
+}
+
+.active-page{
+    background-color: rgb(10, 10, 163) !important;
+    color: white;
+}
+
+.de-active{
+    background-color:rgb(196, 206, 234) !important;
+}
+.RSPBprogressBar{
+    height: 3px !important;
+    background-color: rgb(196, 206, 234) !important;
+}
+.setp-2{
+    background-color:rgb(185, 202, 249) !important;
+    border-left: 3px solid rgb(10, 10, 163) !important;
+}

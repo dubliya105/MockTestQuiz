@@ -36,6 +36,7 @@ const handleBlogsCategory=(item)=>{
 
   useEffect(() => {
     handleGetBlog();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blogCategoryId]);
 
   return (
