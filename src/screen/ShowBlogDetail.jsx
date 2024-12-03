@@ -125,9 +125,9 @@ function ShowBlogDetail() {
         showDots={true}
         autoPlay={true}
         autoPlaySpeed={3000}
-        containerClass="carousel-container"
+        containerclassName="carousel-container"
         responsive={responsive}
-        dotListClass="custom-dot-list-style"
+        dotListclassName="custom-dot-list-style"
       >
         {relatedBlogs.map((item, index) => (
           <div className="p-2 pb-4" key={index}>

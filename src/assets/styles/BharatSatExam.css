@@ -189,3 +189,40 @@ box-shadow: 0px 75px 0px -40px #ffc107; */
   justify-content: center;
   align-items: center;
 }
+.icon-container-shedow-delete{
+  z-index: 10;
+  position: absolute;
+  top: -96px;
+  background: linear-gradient(360deg, #ffdbdb 50%, #79613c 0%, #e6f8fb00 49%, #00d4ff00 100%);
+  border-radius: 50%;
+  width: 190px;
+  height: 190px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-container-delete{
+  position:absolute;
+  top:-60px;
+  background-color: #ff3535;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-yes{
+  background-color: #ff3535 !important;
+  color: #fff !important;
+}
+
+.contain-shedow-delete{
+  position: absolute;
+  bottom: -25px;
+  height: 25px;
+  width: 80%;
+  background-color:#ff3535 ;
+}

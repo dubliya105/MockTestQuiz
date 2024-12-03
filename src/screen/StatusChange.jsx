@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMTE4Njc2LCJleHAiOjE3MzMyMDUwNzZ9.ZPtIL_8HEMdTBosltfopmYF3M5raXPWONN0BhwT7eCk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
 
 
 export default function StatusChange({data,handleGetExamList}) {
@@ -31,7 +31,7 @@ export default function StatusChange({data,handleGetExamList}) {
     }
   return (
     <div
-      class="modal fade"
+      className="modal fade"
       id="confirmationModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
@@ -39,24 +39,24 @@ export default function StatusChange({data,handleGetExamList}) {
       data-bs-backdrop="static"
       data-bs-keyboard="false"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custom-modal">
-          <div class="modal-header border-0 d-flex flex-column align-items-center">
-            <div class="icon-container ">
-              <span class="icon-warning">!</span>
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content custom-modal">
+          <div className="modal-header border-0 d-flex flex-column align-items-center">
+            <div className="icon-container ">
+              <span className="icon-warning">!</span>
             </div>
-            <div class="icon-container-shedow ">
+            <div className="icon-container-shedow ">
             </div>
-            <h2 class="modal-title text-center fs-2 ">
+            <h2 className="modal-title text-center fs-2 ">
               Are you sure want to change the status?
             </h2>
           </div>
-          <div class="modal-body text-center ">
-            <div class="d-flex justify-content-center pb-3">
-              <button class="btn btn-secondary me-3" data-bs-dismiss="modal">
+          <div className="modal-body text-center ">
+            <div className="d-flex justify-content-center pb-3">
+              <button className="btn btn-secondary me-3" data-bs-dismiss="modal">
                 No
               </button>
-              <button class="btn btn-danger" onClick={handleStatusChange}  data-bs-dismiss="modal">Yes</button>
+              <button className="btn btn-danger" onClick={handleStatusChange}  data-bs-dismiss="modal">Yes</button>
             </div>
             <div className=" d-flex justify-content-center">
               <div className=" rounded-bottom-2  contain-shedow "></div>

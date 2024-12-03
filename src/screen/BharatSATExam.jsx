@@ -11,9 +11,10 @@ import { FiEdit3 } from "react-icons/fi";
 import StatusChange from "./StatusChange";
 import GenrateTicketModal from "./GenrateTicketModal";
 import {debounce} from 'lodash';
+import DeleteBharatSatExam from "./DeleteBharatSatExam";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMTE4Njc2LCJleHAiOjE3MzMyMDUwNzZ9.ZPtIL_8HEMdTBosltfopmYF3M5raXPWONN0BhwT7eCk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
 
 export default function BharatSATExam() {
   const [examData, setExamData] = useState([]);
@@ -21,8 +22,8 @@ export default function BharatSATExam() {
   const [offset, setOffset] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [availableDataCount, setAvailableDataCount] = useState(0);
-  const [check, setcheck] = useState(false);
-
+  const [checkId, setcheckId] = useState([]);
+  
   const [examStatus, setExamStatus] = useState({});
 
   const [searchQuery,setSearchQuery]=useState('')
@@ -54,10 +55,29 @@ export default function BharatSATExam() {
     setSearchQuery(value)
     setOffset(0)
   }, 500);
-
+ 
+  const handleSetDeleteId = (id)=>{  
+    if(checkId.includes(id)){
+      setcheckId(checkId.filter((checkid)=>checkid!==id))
+      console.log(checkId.filter((checkid)=>checkid!==id));
+      
+    }else{
+      setcheckId([...checkId,id])
+      console.log([...checkId,id]);
+    }
+    
+ }
+ const handelAllCheck=()=>{
+  if(checkId.length!==examData.length){
+    setcheckId(examData.map((item)=>item.bharatSatExamId))
+    console.log(examData.map((item)=>item.bharatSatExamId));
+  }else{
+    setcheckId([])
+  }
+ }
   useEffect(() => {
     handleGetExamList()
-  }, [offset,searchQuery]);
+  }, [offset,searchQuery,checkId]);
 
   return (
     <MainLayout>
@@ -72,7 +92,7 @@ export default function BharatSATExam() {
         <div className="">
           <h6>Bharat SAT Exam List </h6>
           <div className="d-flex justify-content-between text-center align-items-center gap-3 pt-2">
-            <Link className=" bg-danger-subtle rounded-2 py-1 px-2 ">
+            <Link className=" bg-danger-subtle rounded-2 py-1 px-2 " data-bs-toggle="modal" data-bs-target="#deleteModel" >
               <HiOutlineTrash className="text-light " />
             </Link>
             <div className="d-flex justify-content-end text-center align-items-center gap-3">
@@ -84,7 +104,7 @@ export default function BharatSATExam() {
                   placeholder="Search "
                 />
               </div>
-              <div className="btn-group">
+              <Link className="btn-group text-decoration-none" to='/createExam'>
                 <button
                   className="btn btn-primary px-2 "
                   style={{ backgroundColor: "rgb(19, 19, 191)" }}
@@ -94,18 +114,19 @@ export default function BharatSATExam() {
                 <button className="btn btn-primary px-2">
                   <IoAdd />
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="Exam-list overflow-auto pt-3" style={{height:'100vh'}}>
-            <table class="table m-0">
+            <table className="table m-0">
               <thead className="exam-head">
                 <tr>
                   <th className="text-center px-4">
                     <input
                       type="checkbox"
                       className=" "
-                      onChange={() => setcheck(!check)}
+                      checked={checkId.length===examData.length}
+                      onClick={() => handelAllCheck()}
                     />
                   </th>
                   <th className="px-4">Sr No.</th>
@@ -129,7 +150,8 @@ export default function BharatSATExam() {
                         <input
                           type="checkbox"
                           className=" form-check-input"
-                          checked={check}
+                          checked={checkId.includes(exam.bharatSatExamId)}
+                          onChange={() => handleSetDeleteId(exam.bharatSatExamId)}
                         />
                       </td>
                       <td className="px-4">{limit * offset + index + 1}</td>
@@ -147,8 +169,8 @@ export default function BharatSATExam() {
                         </Link>
                       </td>
                       <td className="px-4">
-                        <Link  data-bs-toggle="modal" data-bs-target="#genrateTicket">Genrate</Link>
-                        <GenrateTicketModal/>
+                        <Link  data-bs-toggle="modal" data-bs-target="#genrateTicket" onClick={()=>setExamStatus(exam)}>Genrate</Link>
+                        <GenrateTicketModal data={examStatus} handleGetExamList={handleGetExamList} />
                       </td>
                       <td className="px-4">
                         <label className="switch-exam" data-bs-toggle="modal" data-bs-target="#confirmationModal" onClick={()=>setExamStatus(exam)}>
@@ -161,9 +183,10 @@ export default function BharatSATExam() {
                         <Link className=" bg-success-subtle rounded-2 p-1 px-2 btn ">
                           <FiEdit3 className=" text-success " />
                         </Link>
-                        <Link className=" bg-danger-subtle rounded-2 p-1 px-2 btn " >
+                        <Link className=" bg-danger-subtle rounded-2 p-1 px-2 btn " data-bs-toggle="modal" data-bs-target="#deleteModel" onClick={()=>setcheckId([exam.bharatSatExamId])} >
                           <HiOutlineTrash className=" text-danger " />
                         </Link>
+                        <DeleteBharatSatExam data={checkId} handleGetExamList={handleGetExamList} setcheckId={setcheckId} />
                       </td>
                     </tr>
                   ))

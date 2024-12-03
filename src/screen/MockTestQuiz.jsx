@@ -20,7 +20,7 @@
     const [selectedOption, setSelectedOption] = useState([]);
     const [timeLeft, setTimeLeft] = useState(45 * 60);
 
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyYTAwMGU5ZWVhMDZhNzg5OWY0NWQ4IiwiaWF0IjoxNzMxMDQ0NTg1LCJleHAiOjE3MzExMzA5ODV9.1zq6mDsS-Tr1lEBpnSY4NJaLK8x3ej7JaxMi70AMqUg";
+    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
 
     const handleData = () => {
       const array={
@@ -47,7 +47,7 @@
                 questionId: "671b2b8f0383db0a5cdd8f30",
                 subjectId: "671b2a580383db0a5cdd8b36",
                 question:
-                  '<p>Once upon a time, in a dense forest, there was a huge, old banyan tree that was home to many birds and animals. The tree provided shelter, food, and protection for all its inhabitants. The birds built nests in its branches, and the animals found safety in its shade. One day, a great storm swept through the forest, shaking the tree to its roots. The birds clung to the branches, and the animals huddled together under the tree, hoping it would survive the storm.</p><p>&nbsp;</p><figure class="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
+                  '<p>Once upon a time, in a dense forest, there was a huge, old banyan tree that was home to many birds and animals. The tree provided shelter, food, and protection for all its inhabitants. The birds built nests in its branches, and the animals found safety in its shade. One day, a great storm swept through the forest, shaking the tree to its roots. The birds clung to the branches, and the animals huddled together under the tree, hoping it would survive the storm.</p><p>&nbsp;</p><figure className="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
                 options: [],
                 questionType: "Question Bank",
                 typeOfQuestion: "Comprehensive",
@@ -56,7 +56,7 @@
                     subQuestionId: "671b2bda0383db0a5cdd8f89",
                     questionId: "671b2b8f0383db0a5cdd8f30",
                     question:
-                      '<p>What was the banyan tree a home to?</p><figure class="image"><img style="aspect-ratio:225/225;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834341628.jfif" width="225" height="225"></figure>',
+                      '<p>What was the banyan tree a home to?</p><figure className="image"><img style="aspect-ratio:225/225;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834341628.jfif" width="225" height="225"></figure>',
                     options: [
                       "<p>Only birds</p>",
                       "<p>Only animals</p>",
@@ -68,7 +68,7 @@
                     subQuestionId: "671b2c090383db0a5cdd8fb6",
                     questionId: "671b2b8f0383db0a5cdd8f30",
                     question:
-                      '<p>What did the tree provide to its inhabitants?</p><figure class="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834368526.jfif" width="300" height="168"></figure>',
+                      '<p>What did the tree provide to its inhabitants?</p><figure className="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834368526.jfif" width="300" height="168"></figure>',
                     options: [
                       "<p>Shelter and food</p>",
                       "<p>Water and shelter</p>",
@@ -80,7 +80,7 @@
                     subQuestionId: "671b2c3c0383db0a5cdd8fe3",
                     questionId: "671b2b8f0383db0a5cdd8f30",
                     question:
-                      '<figure class="image"><img style="aspect-ratio:320/157;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834381989.jfif" width="320" height="157"></figure><p>What happened to the banyan tree during the storm?</p>',
+                      '<figure className="image"><img style="aspect-ratio:320/157;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834381989.jfif" width="320" height="157"></figure><p>What happened to the banyan tree during the storm?</p>',
                     options: [
                       "<p>It was uprooted</p>",
                       "<p>It caught fire</p>",
@@ -94,7 +94,7 @@
                 questionId: "671b2b6c0383db0a5cdd8eba",
                 subjectId: "671b2a580383db0a5cdd8b36",
                 question:
-                  '<p>In Shakespeare’s play <i>Julius Caesar</i>, who warns Caesar to "Beware the Ides of March"?</p><figure class="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
+                  '<p>In Shakespeare’s play <i>Julius Caesar</i>, who warns Caesar to "Beware the Ides of March"?</p><figure className="media"><oembed url="https://youtu.be/W0CLcHqtQ_s?si=mw54nagfL6Zs6pH9"></oembed></figure>',
                 options: [
                   "<p>Brutus</p>",
                   "<p>Mark Antony</p>",
@@ -109,7 +109,7 @@
                 questionId: "671b2b250383db0a5cdd8e44",
                 subjectId: "671b2a580383db0a5cdd8b36",
                 question:
-                  '<p>Who is the author of the poem "The Road Not Taken"?</p><figure class="image"><img style="aspect-ratio:283/178;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834439073.jfif" width="283" height="178"></figure>',
+                  '<p>Who is the author of the poem "The Road Not Taken"?</p><figure className="image"><img style="aspect-ratio:283/178;" src="http://192.168.0.13:5003/uploads/ckFinder/1729834439073.jfif" width="283" height="178"></figure>',
                 options: [
                   "<p>William Wordsworth</p>",
                   "<p>Robert Frost</p>",
@@ -130,7 +130,7 @@
                 questionId: "671b30110383db0a5cdd96a8",
                 subjectId: "671a4c79dd870c2153936814",
                 question:
-                  '<p>प्रकृति हमारे जीवन का अभिन्न अंग है। यह हमें न केवल जीवन प्रदान करती है, बल्कि हमारे अस्तित्व को बनाए रखने में भी अहम भूमिका निभाती है। प्रकृति की गोद में शांति और सुकून मिलता है। हरियाली से घिरे पहाड़, शांत झीलें, बहती नदियाँ, और सुंदर वनस्पतियाँ हमारे मन को शांति प्रदान करती हैं। लेकिन आधुनिक युग में मानव ने अपने स्वार्थ के कारण प्रकृति का दोहन करना शुरू कर दिया है। वृक्षों की अंधाधुंध कटाई, जल प्रदूषण, वायु प्रदूषण और धरती का क्षरण हमारी प्राकृतिक धरोहर को नष्ट कर रहा है। अगर हम समय रहते नहीं संभले, तो इसका दुष्परिणाम आने वाली पीढ़ियों को भुगतना पड़ेगा। इसलिए, यह हमारी ज़िम्मेदारी है कि हम प्रकृति का संरक्षण करें और इसे फिर से हरा-भरा बनाएं।&nbsp;</p><figure class="media"><oembed url="https://youtu.be/tcdqfenq0Bo?si=2ouCWneryXQQPeyx"></oembed></figure>',
+                  '<p>प्रकृति हमारे जीवन का अभिन्न अंग है। यह हमें न केवल जीवन प्रदान करती है, बल्कि हमारे अस्तित्व को बनाए रखने में भी अहम भूमिका निभाती है। प्रकृति की गोद में शांति और सुकून मिलता है। हरियाली से घिरे पहाड़, शांत झीलें, बहती नदियाँ, और सुंदर वनस्पतियाँ हमारे मन को शांति प्रदान करती हैं। लेकिन आधुनिक युग में मानव ने अपने स्वार्थ के कारण प्रकृति का दोहन करना शुरू कर दिया है। वृक्षों की अंधाधुंध कटाई, जल प्रदूषण, वायु प्रदूषण और धरती का क्षरण हमारी प्राकृतिक धरोहर को नष्ट कर रहा है। अगर हम समय रहते नहीं संभले, तो इसका दुष्परिणाम आने वाली पीढ़ियों को भुगतना पड़ेगा। इसलिए, यह हमारी ज़िम्मेदारी है कि हम प्रकृति का संरक्षण करें और इसे फिर से हरा-भरा बनाएं।&nbsp;</p><figure className="media"><oembed url="https://youtu.be/tcdqfenq0Bo?si=2ouCWneryXQQPeyx"></oembed></figure>',
                 options: [],
                 questionType: "Question Bank",
                 typeOfQuestion: "Comprehensive",
@@ -152,7 +152,7 @@
                     questionId: "671b30110383db0a5cdd96a8",
                     question: "<p>मनुष्य किस प्रकार प्रकृति का दोहन कर रहा है?</p>",
                     options: [
-                      '<figure class="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729835153608.jfif" width="300" height="168"></figure><p>पेड़ लगा कर</p>',
+                      '<figure className="image"><img style="aspect-ratio:300/168;" src="http://192.168.0.13:5003/uploads/ckFinder/1729835153608.jfif" width="300" height="168"></figure><p>पेड़ लगा कर</p>',
                       "<p>प्रदूषण फैलाकर और वृक्षों की कटाई से</p>",
                       "<p>अधिक भोजन करके</p>",
                       "<p>जल संरक्षण करके</p>",
@@ -584,7 +584,7 @@
                 className="rounded-4 p-2 text-light"
                 style={{ backgroundColor: "#1a1a97" }}
               >
-                <i class="fa-regular fa-clock"></i>{" "}
+                <i className="fa-regular fa-clock"></i>{" "}
                 <label className=" fw-medium">Time Left </label>
                 <div className="d-flex gap-4 time ">
                   <div>

@@ -121,7 +121,7 @@ export default function MockTest() {
             <div className="row d-flex align-items-start p-3 ">
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <h5 className="p-0 m-0  ">
@@ -137,7 +137,7 @@ export default function MockTest() {
               </div>
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <h5 className="p-0 m-0  ">
@@ -153,7 +153,7 @@ export default function MockTest() {
               </div>
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <h5 className="p-0 m-0  ">
@@ -169,7 +169,7 @@ export default function MockTest() {
               </div>
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <h5 className="p-0 m-0  ">
@@ -191,7 +191,7 @@ export default function MockTest() {
             <div className="row d-flex align-items-center p-3 ">
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <span
@@ -210,7 +210,7 @@ export default function MockTest() {
               </div>
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <span className="text-muted" style={{ fontSize: "13px" }}>
@@ -226,7 +226,7 @@ export default function MockTest() {
               </div>
               <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
                 <div className=" text-start text-light ">
-                  <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                  <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
                 </div>
                 <div className="text-start px-3">
                   <span className="text-muted" style={{ fontSize: "13px" }}>
@@ -274,7 +274,7 @@ export default function MockTest() {
           <div className="row d-flex align-items-center pt-3 px-3 ">
             <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
               <div className=" text-start text-light ">
-                <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
               </div>
               <div className="text-start px-3">
                 <h5 className="p-0 m-0  ">
@@ -290,7 +290,7 @@ export default function MockTest() {
             </div>
             <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
               <div className=" text-start text-light ">
-                <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
               </div>
               <div className="text-start px-3">
                 <h5 className="p-0 m-0  ">
@@ -307,7 +307,7 @@ export default function MockTest() {
             </div>
             <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
               <div className=" text-start text-light ">
-                <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
               </div>
               <div className="text-start px-3">
                 <h5 className="p-0 m-0  ">
@@ -324,7 +324,7 @@ export default function MockTest() {
             </div>
             <div className="p-2 d-flex justify-content-start align-items-center col-6 col-sm-6 col-md-3 col-lg-3 ">
               <div className=" text-start text-light ">
-                <i class="fa-solid fa-bell rounded-5 bg-success p-3"></i>
+                <i className="fa-solid fa-bell rounded-5 bg-success p-3"></i>
               </div>
               <div className="text-start px-3">
                 <h5 className="p-0 m-0  ">
@@ -353,7 +353,7 @@ export default function MockTest() {
               barColor="#4fa94d"
               ariaLabel="circles-with-bar-loading"
               wrapperStyle={{}}
-              wrapperClass=""
+              wrapperclassName=""
               visible={true}
             />
           </div>

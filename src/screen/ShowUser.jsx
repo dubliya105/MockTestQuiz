@@ -31,7 +31,7 @@ function ShowUser() {
     try {
       if (auth) {
         const result = await axios.get(
-          `http://192.168.0.16:8080/api/user/userList`,
+          `http://192.168.0.33:8080/api/user/userList`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -57,7 +57,7 @@ function ShowUser() {
       const search = e.target.value.trim();
       if (search !== "") {
         const result = await axios.get(
-          `http://192.168.0.16:8080/api/user/search/${search}`,
+          `http://192.168.0.33:8080/api/user/search/${search}`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -85,7 +85,7 @@ function ShowUser() {
       console.log(id, status);
 
       // setStatus(!status)
-      const result = await axios.patch("http://192.168.0.16:8080/api/user", {
+      const result = await axios.patch("http://192.168.0.33:8080/api/user", {
         id,
         status: !status,
       });
@@ -103,7 +103,7 @@ function ShowUser() {
         console.log(id);
         // setStatus(!status)
         const result = await axios.delete(
-          `http://192.168.0.16:8080/api/user/${id}`
+          `http://192.168.0.33:8080/api/user/${id}`
         );
         if (result.status === 200) {
           hendleGetUsers();
@@ -128,7 +128,7 @@ function ShowUser() {
     setView(item);
     try {
       const result = await axios.get(
-        `http://192.168.0.16:8080/api/user/pass/${item._id}`
+        `http://192.168.0.33:8080/api/user/pass/${item._id}`
       );
       console.log(result.data.data);
 
@@ -156,7 +156,7 @@ function ShowUser() {
             </div>
             <button
               type="button"
-              class="btn btn-primary text-truncate"
+              className="btn btn-primary text-truncate"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
@@ -238,9 +238,9 @@ function ShowUser() {
                                       data-bs-target="#exampleModal2"
                                       className="text-right"
                                     >
-                                      <span class="fa-stack ">
-                                        <i class="fa fa-square fa-stack-2x "></i>
-                                        <i class="fa fa-eye fa-stack-1x fa-inverse "></i>
+                                      <span className="fa-stack ">
+                                        <i className="fa fa-square fa-stack-2x "></i>
+                                        <i className="fa fa-eye fa-stack-1x fa-inverse "></i>
                                       </span>
                                     </Link>
                                     <Link
@@ -260,11 +260,11 @@ function ShowUser() {
                                       onClick={() => {
                                         hendleDeleteUser(item._id);
                                       }}
-                                      class="table-link danger"
+                                      className="table-link danger"
                                     >
-                                      <span class="fa-stack">
-                                        <i class="fa fa-square fa-stack-2x"></i>
-                                        <i class="fa fa-trash-can fa-stack-1x fa-inverse"></i>
+                                      <span className="fa-stack">
+                                        <i className="fa fa-square fa-stack-2x"></i>
+                                        <i className="fa fa-trash-can fa-stack-1x fa-inverse"></i>
                                       </span>
                                     </Link>
                                   </div>

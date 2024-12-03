@@ -1,10 +1,40 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-export default function GenrateTicketModal() {
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
+
+export default function GenrateTicketModal({data}) {
+
+  const handleGenrateHallTicket=async()=>{
+    try {
+        const result = await axios.get(
+          "http://192.168.0.27:5003/bharatSat/generate-e-hall-ticket-bharatSat",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            params:{
+              bharatSatExamId:data.bharatSatExamId
+            },
+            responseType:'blob'
+          }
+        );
+        if (result.status === 200) {
+          const url = URL.createObjectURL(result.data);
+          window.open(url,'_blank')
+        }
+      } catch (error) {
+        toast.error(error.response.data.error);
+      }
+}
+
   return (
     <div
-    class="modal fade"
+    className="modal fade"
     id="genrateTicket"
     tabindex="-1"
     aria-labelledby="exampleModalLabel"
@@ -12,26 +42,27 @@ export default function GenrateTicketModal() {
     data-bs-backdrop="static"
     data-bs-keyboard="false"
   >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content custom-modal">
-        <div class="modal-header border-0 d-flex flex-column align-items-center justify-content-center">
-          <div class="icon-container-generate ">
-            <span class="icon-warning-generate"><FaCheck /></span>
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content custom-modal">
+        <div className="modal-header border-0 d-flex flex-column align-items-center justify-content-center">
+          <div className="icon-container-generate ">
+            <span className="icon-warning-generate"><FaCheck /></span>
           </div>
-          <div class="icon-container-shedow-generate "></div>
-          <h2 class="modal-title text-center fs-2 ">
+          <div className="icon-container-shedow-generate "></div>
+          <h2 className="modal-title text-center fs-2 ">
             Are you sure want to generate E-hall ticket?
           </h2>
         </div>
-        <div class="modal-body text-center">
-          <div class="d-flex justify-content-center pb-4">
-            <button class="btn btn-secondary me-3" data-bs-dismiss="modal">
+        <div className="modal-body text-center">
+          <div className="d-flex justify-content-center pb-4">
+            <button className="btn btn-secondary me-3" data-bs-dismiss="modal">
               No
             </button>
-            <button class="btn generate-yes" data-bs-dismiss="modal">Yes</button>
+            <button className="btn generate-yes" data-bs-dismiss="modal" onClick={handleGenrateHallTicket}>Yes</button>
           </div>
           <div className=" d-flex justify-content-center">
             <div className=" rounded-bottom-2  contain-shedow-generate "></div>
+            
           </div>
         </div>
       </div>

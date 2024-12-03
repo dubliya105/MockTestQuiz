@@ -31,9 +31,9 @@ export default function UserView({data,hendleDeleteUser,password}) {
                     data-bs-toggle="modal" data-bs-target="#exampleModal2" 
                       className="text-right"
                     >
-                    <span class="fa-stack ">
-                        <i class="fa fa-square fa-stack-2x "></i>
-                        <i class="fa fa-eye fa-stack-1x fa-inverse "></i>
+                    <span className="fa-stack ">
+                        <i className="fa fa-square fa-stack-2x "></i>
+                        <i className="fa fa-eye fa-stack-1x fa-inverse "></i>
                       </span>
                     </Link>
                     <Link 
@@ -47,10 +47,10 @@ export default function UserView({data,hendleDeleteUser,password}) {
                     <Link
                      onClick={()=>{hendleDeleteUser(data._id)}}
                        data-bs-dismiss="modal"
-                      class="table-link danger">
-                      <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-trash-can fa-stack-1x fa-inverse"></i>
+                      className="table-link danger">
+                      <span className="fa-stack">
+                        <i className="fa fa-square fa-stack-2x"></i>
+                        <i className="fa fa-trash-can fa-stack-1x fa-inverse"></i>
                       </span>
                     </Link>
                 </div>

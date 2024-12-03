@@ -9,7 +9,7 @@ export default function OtpVerification() {
     const navigate =useNavigate();
     const hendleOtpverification=async()=>{
         try {
-            const result = await axios.patch('http://192.168.0.16:8080/api/user/otpverify',{
+            const result = await axios.patch('http://192.168.0.33:8080/api/user/otpverify',{
                 otp
                });
                if(result.status===200){

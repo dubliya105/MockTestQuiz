@@ -14,7 +14,7 @@ export default function LoginForm() {
       setBtn(!btn)
       
       if(name!==''&&password!==''){
-          const result = await axios.post("http://192.168.0.16:8080/api/user/login", {
+          const result = await axios.post("http://192.168.0.33:8080/api/user/login", {
               email:name,
               password
           });
@@ -57,21 +57,21 @@ export default function LoginForm() {
                   type="button"
                   className="btn btn-outline-primary mx-1 rounded-5"
                 >
-                  <i class="fab fa-facebook-f"></i>
+                  <i className="fab fa-facebook-f"></i>
                 </button>
 
                 <button
                   type="button"
                   className="btn btn-outline-primary mx-1 rounded-5"
                 >
-                  <i class="fab fa-twitter"></i>
+                  <i className="fab fa-twitter"></i>
                 </button>
 
                 <button
                   type="button"
                   className="btn btn-outline-primary mx-1 rounded-5"
                 >
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </button>
               </span>
               <hr />

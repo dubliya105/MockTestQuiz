@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMTE4Njc2LCJleHAiOjE3MzMyMDUwNzZ9.ZPtIL_8HEMdTBosltfopmYF3M5raXPWONN0BhwT7eCk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
 
 export default function CreateExam() {
   const [progress, setProgress] = useState(0);
@@ -257,7 +257,7 @@ export default function CreateExam() {
                   >
                     <option value="">Select Medium</option>
                     <option value="hindi">Hindi</option>
-                    <option value="english">English</option>
+                    <option value="English">English</option>
                   </select>
                   {error ? (
                     medium === "" || medium === null ? (

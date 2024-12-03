@@ -17,7 +17,7 @@ export default function AddUser({hendleGetUsers}) {
     try {
       setBtn(true);
       if(name!==''&&email!==''&&password!==''&&confirmPassword!==''){
-      const result = await axios.post("http://192.168.0.16:8080/api/user", {
+      const result = await axios.post("http://192.168.0.33:8080/api/user", {
         name: name,
         email: email,
         password: password,
@@ -46,7 +46,7 @@ export default function AddUser({hendleGetUsers}) {
     try {
       const formData = new FormData();
       formData.append("image",e.target.files[0]);
-      let result = await fetch("http://192.168.0.16:8080/api/user/upload", {
+      let result = await fetch("http://192.168.0.33:8080/api/user/upload", {
         method:'post',
         body:formData,
         dataType:"jsonp"
@@ -63,7 +63,7 @@ export default function AddUser({hendleGetUsers}) {
   return (
     <div>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel" 
@@ -71,24 +71,24 @@ export default function AddUser({hendleGetUsers}) {
         data-bs-backdrop="static"
         data-bs-keyboard="false"
       >
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
               <u>
-                <h5 class="modal-title" id="exampleModalLabel">
+                <h5 className="modal-title" id="exampleModalLabel">
                   Add User
                 </h5>
               </u>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 onClick={()=>setBtn(false)}
 
               ></button>
             </div>
-            <div class="modal-body ">
+            <div className="modal-body ">
               <div
                 className="d-flex justify-content-between p-3 fw-bold"
                 style={{ fontSize: "14px" }}
@@ -179,10 +179,10 @@ export default function AddUser({hendleGetUsers}) {
                     <img width={100} height={100} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHh3xq0QcYk0CxXUpm2cjhPGVF_9DYPGDcy4M1yXAi2FKyuxu2FHcgEHr_Og&s' alt="image not found"  />
                 } 
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-outline-secondary px-5 "
+                className="btn btn-outline-secondary px-5 "
                 data-bs-dismiss="modal"
                 onClick={()=>setBtn(false)}
               >
@@ -190,7 +190,7 @@ export default function AddUser({hendleGetUsers}) {
               </button>
               <button
                 type="submit"
-                class="btn btn-primary px-5"
+                className="btn btn-primary px-5"
                 onClick={handlesignup}
               >
                 Done

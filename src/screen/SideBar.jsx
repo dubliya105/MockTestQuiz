@@ -17,7 +17,7 @@ function SideBar() {
               className={`${style.ToggleButton} w-100 text-end pt-2 pe-3`}
               onClick={() => setIsOpen(false)}
             >
-              <i class="fa-solid fa-xmark"></i>
+              <i className="fa-solid fa-xmark"></i>
             </button>
           </div>
           <div className={`${style.Logo} p-3`}>
@@ -31,7 +31,7 @@ function SideBar() {
             <li>
               <Link to="/dashboard" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-house"></i>
+                  <i className="fa-solid fa-house"></i>
                 </div>
 
                 <span>Dashboard</span>
@@ -40,7 +40,7 @@ function SideBar() {
             <li>
               <Link to="/showUser" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-arrow-pointer"></i>
+                  <i className="fa-solid fa-arrow-pointer"></i>
                 </div>
                 <span>Agency</span>
               </Link>
@@ -48,7 +48,7 @@ function SideBar() {
             <li>
               <Link to="/email" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-regular fa-envelope"></i>
+                  <i className="fa-regular fa-envelope"></i>
                 </div>
                 <span>Email</span>
               </Link>
@@ -56,7 +56,7 @@ function SideBar() {
             <li>
               <Link to="/coordinate" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-users"></i>
+                  <i className="fa-solid fa-users"></i>
                 </div>
 
                 <span>Coordinate</span>
@@ -65,7 +65,7 @@ function SideBar() {
             <li>
               <Link to="/mocktest" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>
                 <span>Mock Test</span>
               </Link>
@@ -73,7 +73,7 @@ function SideBar() {
             <li>
               <Link to="/mockTestQuiz" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>
                 <span>Quiz</span>
               </Link>
@@ -81,7 +81,7 @@ function SideBar() {
             <li>
               <Link to="/blog" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>
                 <span>Blog</span>
               </Link>
@@ -89,7 +89,7 @@ function SideBar() {
             <li>
               <Link to="/package" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>
                 <span>Packages</span>
               </Link>
@@ -97,7 +97,7 @@ function SideBar() {
             <li>
               <Link to="/showblogs" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>
                 <span>Show Blogs</span>
               </Link>
@@ -114,7 +114,7 @@ function SideBar() {
                   aria-controls="collapseFour"
                 >
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-calendar-days"></i>
+                  <i className="fa-solid fa-calendar-days"></i>
                 </div>Create Exam
                 </Link>
               </div>
@@ -148,7 +148,7 @@ function SideBar() {
             <li>
               <Link to="" className={style.NavLink}>
                 <div className={style.Icon}>
-                  <i class="fa-solid fa-gear"></i>
+                  <i className="fa-solid fa-gear"></i>
                 </div>
                 <span>Settings</span>
               </Link>
@@ -164,7 +164,7 @@ function SideBar() {
           className={`${style.ToggleButton}  `}
           onClick={() => setIsOpen(true)}
         >
-          <i class="fa-solid fa-bars"></i>
+          <i className="fa-solid fa-bars"></i>
         </button>
       )}
     </>

@@ -449,10 +449,10 @@ function Blog() {
               radius="9"
               ariaLabel="three-dots-loading"
               wrapperStyle={{}}
-              wrapperClass=""
+              wrapperclassName=""
             />
           ) : (
-            <div class="btn-group " onClick={handleSumitData}>
+            <div className="btn-group " onClick={handleSumitData}>
               <button
                 className="btn"
                 style={{ backgroundColor: "#1313bf", color: "white" }}

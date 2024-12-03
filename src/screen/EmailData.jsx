@@ -16,7 +16,7 @@ export default function EmailData() {
   const hendleGetUsers = async () => {
     try {
       if (auth) {
-        const result = await axios.get("http://192.168.0.16:8080/api/user", {
+        const result = await axios.get("http://192.168.0.33:8080/api/user", {
           headers: {
             Authorization: `bearer ${auth}`,
           },
@@ -56,14 +56,14 @@ export default function EmailData() {
                 >
                   Inbox
                 </div>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#">
                       Action
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">
+                    <a className="dropdown-item" href="#">
                       Action
                     </a>
                   </li>
