@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../assets/styles/CreateExam.css";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 import { ProgressBar, Step } from "react-step-progress-bar";
@@ -12,25 +12,53 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
 
 export default function CreateExam() {
   const [progress, setProgress] = useState(0);
-  const [examName, setExamName] = useState(null);
-  const [medium, setMedium] = useState(null);
-  const [classId, setClassId] = useState(null);
-  const [duration, setDuration] = useState('');
-  const [examinationDate, setExaminationDate] = useState(null);
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [subject, setSubject] = useState(null);
-  const [allSubject, setAllSubject] = useState(null);
-  const [allClasses, setAllClasses] = useState(null);
-  const [totalQuestion, setTotalQuestion] = useState('');
-  const [totalNumber, setTotalNumber] = useState('');
+  const [allSubject, setAllSubject] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
+  const [examName, setExamName] = useState("");
+  const [medium, setMedium] = useState("");
+  const [classId, setClassId] = useState("");
+  const [duration, setDuration] = useState("");
+  const [examinationDate, setExaminationDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [subject, setSubject] = useState("");
+  const [totalQuestion, setTotalQuestion] = useState("");
+  const [totalNumber, setTotalNumber] = useState("");
   const [error, setError] = useState(false);
   const [subError, setSubError] = useState(false);
-  const [subjectData,setSubjectData]=useState({});
+  const [subjectData, setSubjectData] = useState({});
+  const [classData, setClassData] = useState('');
+  const location = useLocation();
+  const { data }= location.state||{};
+  
+  useEffect(() => {
+    getAllClasses();
+    
+    if (data) {
+      setClassData(data.bharatSatExamId)
+      setExamName(data.bharatSatExamName);
+      setMedium(data.medium);
+      setClassId(data.class_id);
+      setDuration(data.durationInMinutes);
+      setExaminationDate(moment(data.bharatSatExamDate, "DD/MM/YYYY").format("MM/DD/YYYY"));
+      setStartTime(data.examStartTime);
+      setEndTime( data.examEndTime);
+      setSubject(data.subjectData[0].subjectId);
+      setTotalQuestion(data.subjectData[0].numberOfQuestionsBank);
+      setTotalNumber(data.subjectData[0].numberOfQuestionsBharatSat);
+    }
+   
+  }, [data]);
+
+useEffect(()=>{
+   if(classId){
+    getAllSubject()
+   }
+},[classId])
 
   const getAllSubject = async () => {
     try {
@@ -47,6 +75,7 @@ export default function CreateExam() {
       );
       if (result.status === 200) {
         setAllSubject(result.data.data);
+        handleSubjects(subject)
       }
     } catch (error) {
       toast.error(error.response.data.error);
@@ -71,62 +100,61 @@ export default function CreateExam() {
     }
   };
 
-  useEffect(() => {
-    getAllClasses();
-  }, []);
 
-  const handleSubjects=(e)=>{
-    setSubject(e.target.value)
+  const handleSubjects = (e) => {
+    setSubject(e);
 
     if (allSubject.length !== 0) {
-      setSubjectData(allSubject.find(item=>item._id===e.target.value))
+      setSubjectData(allSubject.find((item) => item._id === e));
     }
-  }
+  };
   const handleBack = () => {
     if (progress === 50) setProgress(0);
   };
 
   const calculateDuration = (start, end) => {
     if (start && end) {
-      const startTime = moment(start, 'HH:mm');
-      const endTime = moment(end, 'HH:mm');
+      const startTime = moment(start, "HH:mm");
+      const endTime = moment(end, "HH:mm");
       const duration = moment.duration(endTime.diff(startTime));
 
-      if(duration.asMinutes()>0){
+      if (duration.asMinutes() > 0) {
         setDuration(duration.asMinutes());
-      }else{
-        setDuration('Invailed Start and End time')
+      } else {
+        setDuration("Invailed Start and End time");
       }
     }
   };
 
-  useEffect(()=>{
-    calculateDuration(startTime,endTime)
-  },[startTime,endTime])
-  
-  const handleSubmit =async () => {
+  useEffect(() => {
+    calculateDuration(startTime, endTime);
+  }, [startTime, endTime]);
+
+  const handleSubmit = async () => {
     try {
       setSubError(true);
-      if(progress===50){
-        if (subject && totalQuestion&&totalQuestion<=subjectData.questionBankCount&& totalNumber&&totalNumber<=subjectData.bharatSatQuestionCount) {
+      if (progress === 50) { 
+        if (subject &&totalQuestion &&totalQuestion <= subjectData.questionBankCount &&totalNumber &&totalNumber <= subjectData.bharatSatQuestionCount) {
+          console.log("submit", progress);
           const result = await axios.post(
-            "http://192.168.0.27:5003/bharatSat/create-exam",{
-              bharatSatExamId:"",
-              bharatSatExamName:examName,
-              bharatSatExamDate:examinationDate,
-              examStartTime:startTime,
-              examEndTime:endTime,
+            "http://192.168.0.27:5003/bharatSat/create-exam",
+            {
+              bharatSatExamId: classData?classData:"",
+              bharatSatExamName: examName,
+              bharatSatExamDate: examinationDate,
+              examStartTime: startTime,
+              examEndTime: endTime,
               medium: medium,
               class_id: classId,
               durationInMinutes: duration,
               subjectData: [
-                  {
-                      subjectId:subject,
-                      numberOfQuestionsBank:totalQuestion,
-                      numberOfQuestionsBharatSat: totalNumber
-                  }
-              ]
-          },
+                {
+                  subjectId: subject,
+                  numberOfQuestionsBank: totalQuestion,
+                  numberOfQuestionsBharatSat: totalNumber,
+                },
+              ],
+            },
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -135,25 +163,29 @@ export default function CreateExam() {
           );
           if (result.status === 200) {
             toast.success("Exam created successfully");
-            setProgress(progress+50)
-            setExamName('')
-            setMedium('')
-            setClassId('')
-            setDuration('')
-            setExaminationDate('')
-            setStartTime('')
-            setEndTime('')
-            setSubject('')
-            setTotalQuestion('')
-            setTotalNumber('')
-            setSubError(false)
-            setError(false) 
+            setProgress(progress + 50);
+            setExamName("");
+            setMedium("");
+            setClassId("");
+            setDuration("");
+            setExaminationDate("");
+            setStartTime("");
+            setEndTime("");
+            setSubject("");
+            setTotalQuestion("");
+            setTotalNumber("");
+            setSubError(false);
+            setError(false);
+            setClassData([])
           }
-        }}
+        }else{
+          console.log('cdfd');
+          
+        }
+      }
     } catch (error) {
       toast.error(error.response.data.error);
     }
-
   };
 
   const handleNext = () => {
@@ -163,12 +195,13 @@ export default function CreateExam() {
         examName &&
         medium &&
         classId &&
-        duration && duration>0&&
+        duration &&
+        duration > 0 &&
         examinationDate &&
         startTime &&
         endTime
       ) {
-        getAllSubject();
+       getAllSubject()
         setProgress(50);
       }
     }
@@ -306,13 +339,16 @@ export default function CreateExam() {
                     className="form-control"
                     placeholder="Duration in Mins"
                   />
-                  {error&& (
-                    !duration? (
+                  {error &&
+                    (!duration ? (
                       <p className="text-danger m-0 ">Field can't be empty!</p>
                     ) : (
-                      duration<1&& <p className="text-danger m-0 ">Invalid Start Time and End Time!</p>
-                    )
-                  ) }
+                      duration < 1 && (
+                        <p className="text-danger m-0 ">
+                          Invalid Start Time and End Time!
+                        </p>
+                      )
+                    ))}
                 </div>
               </div>
               <div className="row pt-3">
@@ -370,8 +406,9 @@ export default function CreateExam() {
                         value={endTime}
                         className="form-control"
                         type="time"
-                        onChange={(e) =>{ setEndTime(e.target.value)
-                          
+                        step="3600" pattern="[0-2][0-9]:[0-5][0-9]"
+                        onChange={(e) => {
+                          setEndTime(e.target.value);
                         }}
                       />
                       {error && (endTime === "" || endTime === null) && (
@@ -397,129 +434,150 @@ export default function CreateExam() {
                 </div>
               </div>
             </div>
-          ) : progress === 50 && (
-            <div>
-              <div className="mt-4 rounded-3  setp-2">
-                <div className="row">
-                  <div className="col-12 col-lg-6 col-md-6 col-sm-6">
-                    <div className="m-2">
-                      <label
-                        className="form-label fw-medium text-primary"
-                        for="Select Subject"
-                      >
-                        Select Subject<span className="text-danger">*</span>
-                      </label>
-                      <select
-                        className="form-select"
-                        name="Select Subject"
-                        id="Select Subject"
-                        value={subject}
-                        onChange={(e) => handleSubjects(e)}
-                      >
-                        {allSubject?.length===0?<option className="fw-bold" value={''}>No Subject</option>:<option className="fw-bold" value={''}>Select Subject</option>}
-                        {allSubject?.map((item) => {
-                          return (
-                            <option key={item._id} value={item._id}>
-                              {item.subject_name}
-                            </option>
-                          );
-                        })}
-                      </select>
-                      {subError && (subject === "" || subject === null) && 
-                        <p className="text-danger m-0 ">
-                          Field can't be selected!
-                        </p>
-                      }
-                    </div>
-                  </div>
-                  <div className="col-12 col-lg-6 col-md-6 col-sm-6">
-                    <div className="m-2">
-                      <label
-                        className="form-label fw-medium text-primary"
-                        for="Question Bank"
-                      >
-                        Total No. of Questions from Question Bank{" "}
-                        <span className="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="Question Bank"
-                        id="Question Bank"
-                        value={totalQuestion}
-                        onChange={(e) => {
-                          if ( e.target.value >= 0) {
-                            setTotalQuestion(e.target.value);
-                            }
-                        }}
-                        placeholder="Total No. of Questions from Question Bank"
-                      />
-                      {subError&& (
-                    !totalQuestion? (
-                      <p className="text-danger m-0 ">Field can't be empty!</p>
-                    ) :
-                       totalQuestion>subjectData.questionBankCount&&<p className="text-danger m-0 ">please enter the question between 0-{subjectData.questionBankCount}!</p>
-                  ) }
-                    </div>
-                  </div>
+          ) : (
+            progress === 50 && (
+              <div>
+                <div className="mt-4 rounded-3  setp-2">
                   <div className="row">
                     <div className="col-12 col-lg-6 col-md-6 col-sm-6">
                       <div className="m-2">
                         <label
                           className="form-label fw-medium text-primary"
-                          for="Bharat SAT Question Bank"
+                          for="Select Subject"
                         >
-                          Total Number. of Questions from Bharat SAT Question
-                          Bank <span className="text-danger">*</span>
+                          Select Subject<span className="text-danger">*</span>
+                        </label>
+                        <select
+                          className="form-select"
+                          name="Select Subject"
+                          id="Select Subject"
+                          value={subject}
+                          onChange={(e) => handleSubjects(e.target.value)}
+                        >
+                          {allSubject?.length === 0 ? (
+                            <option className="fw-bold" value={""}>
+                              No Subject
+                            </option>
+                          ) : (
+                            <option className="fw-bold" value={""}>
+                              Select Subject
+                            </option>
+                          )}
+                          {allSubject?.map((item) => {
+                            return (
+                              <option key={item._id} value={item._id}>
+                                {item.subject_name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                        {subError && (subject === "" || subject === null) && (
+                          <p className="text-danger m-0 ">
+                            Field can't be selected!
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                      <div className="m-2">
+                        <label
+                          className="form-label fw-medium text-primary"
+                          for="Question Bank"
+                        >
+                          Total No. of Questions from Question Bank{" "}
+                          <span className="text-danger">*</span>
                         </label>
                         <input
                           type="text"
                           className="form-control"
-                          name="Bharat SAT Question Bank"
-                          id="Bharat SAT Question Bank"
-                          value={totalNumber}
-                          onChange={(e) =>{ 
-                            if ( e.target.value >= 0 ) {
-                              setTotalNumber(e.target.value); 
+                          name="Question Bank"
+                          id="Question Bank"
+                          value={totalQuestion}
+                          onChange={(e) => {
+                            if (e.target.value >= 0) {
+                              setTotalQuestion(e.target.value);
                             }
                           }}
-                          placeholder="Total Number. of Questions from Bharat SAT Question Bank"
+                          placeholder="Total No. of Questions from Question Bank"
                         />
-                       {subError&& (
-                    !totalNumber? (
-                      <p className="text-danger m-0 ">Field can't be empty!</p>
-                    ) : (
-                      totalNumber>subjectData.bharatSatQuestionCount&&<p className="text-danger m-0 ">please enter the question between 0-{subjectData.bharatSatQuestionCount}!</p>
-                    )
-                  ) }
+                        {subError &&
+                          (!totalQuestion ? (
+                            <p className="text-danger m-0 ">
+                              Field can't be empty!
+                            </p>
+                          ) : (
+                            totalQuestion > subjectData.questionBankCount && (
+                              <p className="text-danger m-0 ">
+                                please enter the question between 0-
+                                {subjectData.questionBankCount}!
+                              </p>
+                            )
+                          ))}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                        <div className="m-2">
+                          <label
+                            className="form-label fw-medium text-primary"
+                            for="Bharat SAT Question Bank"
+                          >
+                            Total Number. of Questions from Bharat SAT Question
+                            Bank <span className="text-danger">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="Bharat SAT Question Bank"
+                            id="Bharat SAT Question Bank"
+                            value={totalNumber}
+                            onChange={(e) => {
+                              if (e.target.value >= 0) {
+                                setTotalNumber(e.target.value);
+                              }
+                            }}
+                            placeholder="Total Number. of Questions from Bharat SAT Question Bank"
+                          />
+                          {subError &&
+                            (!totalNumber ? (
+                              <p className="text-danger m-0 ">
+                                Field can't be empty!
+                              </p>
+                            ) : (
+                              totalNumber >
+                                subjectData.bharatSatQuestionCount && (
+                                <p className="text-danger m-0 ">
+                                  please enter the question between 0-
+                                  {subjectData.bharatSatQuestionCount}!
+                                </p>
+                              )
+                            ))}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div className="text-primary fw-medium p-3">
+                    <RiAddCircleLine /> Add More
+                  </div>
                 </div>
-                <div className="text-primary fw-medium p-3">
-                  <RiAddCircleLine /> Add More
-                </div>
-              </div>
-              <div className="d-flex justify-content-end py-3">
-                <div
-                  className="btn-group mx-2"
-                  onClick={handleSubmit}
-                >
-                  <button
-                    className="btn btn-primary px-2 w-100"
-                    style={{ backgroundColor: "rgb(19, 19, 191)" }}
-                  >
-                    Submit
-                  </button>
-                  <button className="btn btn-primary px-2">
-                    <FaArrowRightLong />
-                  </button>
+                <div className="d-flex justify-content-end py-3">
+                  <div className="btn-group mx-2" onClick={handleSubmit}>
+                    <button
+                      className="btn btn-primary px-2 w-100"
+                      style={{ backgroundColor: "rgb(19, 19, 191)" }}
+                    >
+                      Submit
+                    </button>
+                    <button className="btn btn-primary px-2">
+                      <FaArrowRightLong />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )
           )}
-          {
-            progress===100&&(<div>
+          {progress === 100 && (
+            <div>
               <div className=" d-flex justify-content-center pt-4">
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpw5vc_Dmfu61vqCOG-gdq5k_V7s7vnlMuOw&s"
@@ -546,11 +604,11 @@ export default function CreateExam() {
                   </button>
                 </div>
               </div>
-            </div>)
-          }
+            </div>
+          )}
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </MainLayout>
   );
 }

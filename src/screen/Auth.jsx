@@ -15,10 +15,10 @@ function Auth() {
 
   const handleLogin = async () => {
     setError(true);
-    try {
+    // try {
       if (email !== "" && password !== "") {
         setLoading(true);
-        const result = await axios.post("http://192.168.0.33:8080/api/user/login", {
+        const result = await axios.post("http://192.168.0.82:8080/api/user/login", {
           email,
           password,
         });
@@ -27,11 +27,11 @@ function Auth() {
           localStorage.setItem("token", JSON.stringify(result.data.data.token));
           navigate("/Dashboard");
         }
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.msg);
-    } finally {
+      // }
+    // } catch (error) {
+    //   console.log(error);
+    //   // toast.error(error);
+    // } finally {
       setLoading(false);
     }
   };

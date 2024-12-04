@@ -17,7 +17,7 @@ export default function AddUser({hendleGetUsers}) {
     try {
       setBtn(true);
       if(name!==''&&email!==''&&password!==''&&confirmPassword!==''){
-      const result = await axios.post("http://192.168.0.33:8080/api/user", {
+      const result = await axios.post("http://192.168.0.82:8080/api/user", {
         name: name,
         email: email,
         password: password,
@@ -46,7 +46,7 @@ export default function AddUser({hendleGetUsers}) {
     try {
       const formData = new FormData();
       formData.append("image",e.target.files[0]);
-      let result = await fetch("http://192.168.0.33:8080/api/user/upload", {
+      let result = await fetch("http://192.168.0.82:8080/api/user/upload", {
         method:'post',
         body:formData,
         dataType:"jsonp"

@@ -16,7 +16,7 @@ export default function EmailData() {
   const hendleGetUsers = async () => {
     try {
       if (auth) {
-        const result = await axios.get("http://192.168.0.33:8080/api/user", {
+        const result = await axios.get("http://192.168.0.82:8080/api/user", {
           headers: {
             Authorization: `bearer ${auth}`,
           },

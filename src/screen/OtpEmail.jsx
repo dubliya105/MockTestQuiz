@@ -11,7 +11,7 @@ export default function OtpEmail({change,setChange}) {
     const handleOTP=async()=>{
         try {
             if(email!==''){
-                const result = await axios.patch('http://192.168.0.33:8080/api/user/sendotp',{
+                const result = await axios.patch('http://192.168.0.82:8080/api/user/sendotp',{
                     email:email
                 })
                 if(result.status===200){
@@ -28,7 +28,7 @@ export default function OtpEmail({change,setChange}) {
 
     const handleNewPassword=async()=>{
         try {
-            const result =await axios.patch('http://192.168.0.33:8080/api/user/forget',{
+            const result =await axios.patch('http://192.168.0.82:8080/api/user/forget',{
                     otp,
                     password
                 }

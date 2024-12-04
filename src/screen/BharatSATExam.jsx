@@ -14,7 +14,7 @@ import {debounce} from 'lodash';
 import DeleteBharatSatExam from "./DeleteBharatSatExam";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjA1MzcwLCJleHAiOjE3MzMyOTE3NzB9.GkrBr4jaYbQuzrwt8j1SfxV7CFrs6A66QWtRosy0Uw4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
 
 export default function BharatSATExam() {
   const [examData, setExamData] = useState([]);
@@ -179,14 +179,16 @@ export default function BharatSATExam() {
                         </label>
                         <StatusChange data={examStatus} handleGetExamList={handleGetExamList}/>
                       </td>
-                      <td className="d-flex gap-2 px-4">
-                        <Link className=" bg-success-subtle rounded-2 p-1 px-2 btn ">
+                      <td >
+                      <div className="d-flex gap-2 px-4">
+                        <Link to='/createExam' state={{data:exam}} className=" bg-success-subtle rounded-2 p-1 px-2 btn ">
                           <FiEdit3 className=" text-success " />
                         </Link>
                         <Link className=" bg-danger-subtle rounded-2 p-1 px-2 btn " data-bs-toggle="modal" data-bs-target="#deleteModel" onClick={()=>setcheckId([exam.bharatSatExamId])} >
                           <HiOutlineTrash className=" text-danger " />
                         </Link>
                         <DeleteBharatSatExam data={checkId} handleGetExamList={handleGetExamList} setcheckId={setcheckId} />
+                        </div>
                       </td>
                     </tr>
                   ))
