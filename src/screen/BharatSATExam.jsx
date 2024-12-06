@@ -10,11 +10,11 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { FiEdit3 } from "react-icons/fi";
 import StatusChange from "./StatusChange";
 import GenrateTicketModal from "./GenrateTicketModal";
-import {debounce} from 'lodash';
+import { debounce } from "lodash";
 import DeleteBharatSatExam from "./DeleteBharatSatExam";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
 
 export default function BharatSATExam() {
   const [examData, setExamData] = useState([]);
@@ -23,10 +23,10 @@ export default function BharatSATExam() {
   const [totalPage, setTotalPage] = useState(0);
   const [availableDataCount, setAvailableDataCount] = useState(0);
   const [checkId, setcheckId] = useState([]);
-  
+
   const [examStatus, setExamStatus] = useState({});
 
-  const [searchQuery,setSearchQuery]=useState('')
+  const [searchQuery, setSearchQuery] = useState("");
   const handleGetExamList = async () => {
     try {
       const result = await axios.get(
@@ -38,7 +38,7 @@ export default function BharatSATExam() {
           params: {
             offset: offset,
             limit: limit,
-            searchQuery,
+            searchQuery: searchQuery.trim(),
           },
         }
       );
@@ -51,33 +51,31 @@ export default function BharatSATExam() {
       toast.error(error.response.data.error);
     }
   };
-  const debouncedFetchResults = debounce((value)=>{
-    setSearchQuery(value)
-    setOffset(0)
+  const debouncedFetchResults = debounce((value) => {
+    setSearchQuery(value);
+    setOffset(0);
   }, 500);
- 
-  const handleSetDeleteId = (id)=>{  
-    if(checkId.includes(id)){
-      setcheckId(checkId.filter((checkid)=>checkid!==id))
-      console.log(checkId.filter((checkid)=>checkid!==id));
-      
-    }else{
-      setcheckId([...checkId,id])
-      console.log([...checkId,id]);
+
+  const handleSetDeleteId = (id) => {
+    if (checkId.includes(id)) {
+      setcheckId(checkId.filter((checkid) => checkid !== id));
+      console.log(checkId.filter((checkid) => checkid !== id));
+    } else {
+      setcheckId([...checkId, id]);
+      console.log([...checkId, id]);
     }
-    
- }
- const handelAllCheck=()=>{
-  if(checkId.length!==examData.length){
-    setcheckId(examData.map((item)=>item.bharatSatExamId))
-    console.log(examData.map((item)=>item.bharatSatExamId));
-  }else{
-    setcheckId([])
-  }
- }
+  };
+  const handelAllCheck = () => {
+    if (checkId.length !== examData.length) {
+      setcheckId(examData.map((item) => item.bharatSatExamId));
+      console.log(examData.map((item) => item.bharatSatExamId));
+    } else {
+      setcheckId([]);
+    }
+  };
   useEffect(() => {
-    handleGetExamList()
-  }, [offset,searchQuery,checkId]);
+    handleGetExamList();
+  }, [offset, searchQuery, checkId]);
 
   return (
     <MainLayout>
@@ -91,20 +89,32 @@ export default function BharatSATExam() {
       <div className=" rounded-2 bg-light text-start p-3">
         <div className="">
           <h6>Bharat SAT Exam List </h6>
-          <div className="d-flex justify-content-between text-center align-items-center gap-3 pt-2">
-            <Link className=" bg-danger-subtle rounded-2 py-1 px-2 " data-bs-toggle="modal" data-bs-target="#deleteModel" >
-              <HiOutlineTrash className="text-light " />
-            </Link>
+          <div className=" d-flex justify-content-between text-center align-items-center gap-3 pt-2">
+          <div className="col-auto">
+            {checkId.length !== 0 ? (
+              <Link
+                className=" bg-danger rounded-2 py-1 px-2 "
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModel"
+              >
+                <HiOutlineTrash className="text-light " />
+              </Link>
+            ) : (
+              <Link className=" bg-danger-subtle rounded-2 py-1 px-2 ">
+                <HiOutlineTrash className="text-light " />
+              </Link>
+            )}
+          </div>
             <div className="d-flex justify-content-end text-center align-items-center gap-3">
               <div>
                 <input
-                  onChange={(e)=>debouncedFetchResults(e.target.value)}
+                  onChange={(e) => debouncedFetchResults(e.target.value)}
                   className="form-control w-100 "
                   type="search"
                   placeholder="Search "
                 />
               </div>
-              <Link className="btn-group text-decoration-none" to='/createExam'>
+              <Link className="btn-group text-decoration-none text-truncate" to="/createExam">
                 <button
                   className="btn btn-primary px-2 "
                   style={{ backgroundColor: "rgb(19, 19, 191)" }}
@@ -117,15 +127,21 @@ export default function BharatSATExam() {
               </Link>
             </div>
           </div>
-          <div className="Exam-list overflow-auto pt-3" style={{height:'100vh'}}>
+          <div
+            className="Exam-list overflow-auto pt-3"
+            style={{ height: "100vh" }}
+          >
             <table className="table m-0">
               <thead className="exam-head">
                 <tr>
                   <th className="text-center px-4">
                     <input
                       type="checkbox"
-                      className=" "
-                      checked={checkId.length===examData.length}
+                      className="form-check-input"
+                      checked={
+                        examData.length !== 0 &&
+                        checkId.length === examData.length
+                      }
                       onClick={() => handelAllCheck()}
                     />
                   </th>
@@ -151,7 +167,9 @@ export default function BharatSATExam() {
                           type="checkbox"
                           className=" form-check-input"
                           checked={checkId.includes(exam.bharatSatExamId)}
-                          onChange={() => handleSetDeleteId(exam.bharatSatExamId)}
+                          onChange={() =>
+                            handleSetDeleteId(exam.bharatSatExamId)
+                          }
                         />
                       </td>
                       <td className="px-4">{limit * offset + index + 1}</td>
@@ -162,43 +180,77 @@ export default function BharatSATExam() {
                       <td className="px-4">{exam.examStartTime}</td>
                       <td className="px-4">{exam.examEndTime}</td>
                       <td className="px-4">
-                        <Link 
-                        to={`/bharatSatExamView/${exam.class_id}`}
-                        >
+                        <Link to={`/bharatSatExamView/${exam.bharatSatExamId}`}>
                           Veiw
                         </Link>
                       </td>
                       <td className="px-4">
-                        <Link  data-bs-toggle="modal" data-bs-target="#genrateTicket" onClick={()=>setExamStatus(exam)}>Genrate</Link>
-                        <GenrateTicketModal data={examStatus} handleGetExamList={handleGetExamList} />
+                        <Link
+                          data-bs-toggle="modal"
+                          data-bs-target="#genrateTicket"
+                          onClick={() => setExamStatus(exam)}
+                        >
+                          Genrate
+                        </Link>
+                        <GenrateTicketModal
+                          data={examStatus}
+                          handleGetExamList={handleGetExamList}
+                        />
                       </td>
                       <td className="px-4">
-                        <label className="switch-exam" data-bs-toggle="modal" data-bs-target="#confirmationModal" onClick={()=>setExamStatus(exam)}>
+                        <label
+                          className="switch-exam"
+                          data-bs-toggle="modal"
+                          data-bs-target="#confirmationModal"
+                          onClick={() => setExamStatus(exam)}
+                        >
                           <input type="checkbox" checked={exam.is_active} />
                           <span className="slider-exam round"></span>
                         </label>
-                        <StatusChange data={examStatus} handleGetExamList={handleGetExamList}/>
+                        <StatusChange
+                          data={examStatus}
+                          handleGetExamList={handleGetExamList}
+                        />
                       </td>
-                      <td >
-                      <div className="d-flex gap-2 px-4">
-                        <Link to='/createExam' state={{data:exam}} className=" bg-success-subtle rounded-2 p-1 px-2 btn ">
-                          <FiEdit3 className=" text-success " />
-                        </Link>
-                        <Link className=" bg-danger-subtle rounded-2 p-1 px-2 btn " data-bs-toggle="modal" data-bs-target="#deleteModel" onClick={()=>setcheckId([exam.bharatSatExamId])} >
-                          <HiOutlineTrash className=" text-danger " />
-                        </Link>
-                        <DeleteBharatSatExam data={checkId} handleGetExamList={handleGetExamList} setcheckId={setcheckId} />
+                      <td>
+                        <div className="d-flex gap-2 px-4">
+                          <Link
+                            to="/createExam"
+                            state={{ data: exam }}
+                            className=" bg-success-subtle rounded-2 p-1 px-2 btn "
+                          >
+                            <FiEdit3 className=" text-success " />
+                          </Link>
+                          <Link
+                            className=" bg-danger-subtle rounded-2 p-1 px-2 btn "
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModel"
+                            onClick={() => setcheckId([exam.bharatSatExamId])}
+                          >
+                            <HiOutlineTrash className=" text-danger " />
+                          </Link>
+                          <DeleteBharatSatExam
+                            data={checkId}
+                            handleGetExamList={handleGetExamList}
+                            setcheckId={setcheckId}
+                          />
                         </div>
                       </td>
                     </tr>
                   ))
                 ) : (
-                  <tr> <td colSpan='12' className=""> Data Not available !</td></tr>
+                  <tr>
+                    {" "}
+                    <td colSpan="12" className="">
+                      {" "}
+                      Data Not available !
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
           </div>
-          {availableDataCount > 1 && (
+          {availableDataCount > 0 && (
             <div className="d-flex justify-content-between align-items-center pt-2">
               <div>
                 Showing {limit * offset + 1} to{" "}

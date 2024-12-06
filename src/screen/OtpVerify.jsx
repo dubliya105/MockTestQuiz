@@ -21,7 +21,7 @@ export default function OtpVerify() {
     }
 
     try {
-      const result = await axios.patch('http://192.168.0.82:8080/api/user/otpverify', { otp });
+      const result = await axios.patch('http://192.168.0.156:8080/api/user/otpverify', { otp });
       if (result.status === 200) {
         navigate('/newpassword', { state: { email } });
         toast.success('OTP verified');

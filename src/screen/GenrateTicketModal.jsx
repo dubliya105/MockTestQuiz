@@ -1,11 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa6'
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
 
 export default function GenrateTicketModal({data}) {
 
@@ -67,6 +65,24 @@ export default function GenrateTicketModal({data}) {
         </div>
       </div>
     </div>
+    <div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
+</div>
+  </div>
+
   )
 }

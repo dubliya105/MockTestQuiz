@@ -20,7 +20,7 @@
     const [selectedOption, setSelectedOption] = useState([]);
     const [timeLeft, setTimeLeft] = useState(45 * 60);
 
-    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
+    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
 
     const handleData = () => {
       const array={
@@ -402,6 +402,15 @@
             index: optIndex,
           },
         ]);
+        console.log([
+          ...subSelectedOption,
+          {
+            questionId: questionId,
+            subQuestionId: subQuestionId,
+            index: optIndex,
+          },
+        ]);
+        
       }
     };
        

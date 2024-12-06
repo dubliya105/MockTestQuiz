@@ -10,9 +10,10 @@ import moment from "moment-timezone";
 import DatePicker from "react-datepicker";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { HiOutlineTrash } from "react-icons/hi";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
 
 export default function CreateExam() {
   const [progress, setProgress] = useState(0);
@@ -25,40 +26,60 @@ export default function CreateExam() {
   const [examinationDate, setExaminationDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [subject, setSubject] = useState("");
-  const [totalQuestion, setTotalQuestion] = useState("");
-  const [totalNumber, setTotalNumber] = useState("");
   const [error, setError] = useState(false);
   const [subError, setSubError] = useState(false);
-  const [subjectData, setSubjectData] = useState({});
-  const [classData, setClassData] = useState('');
+  const [classData, setClassData] = useState("");
   const location = useLocation();
-  const { data }= location.state||{};
-  
+
+  const [addInput, setAddInput] = useState([
+    {
+      subjectId: "",
+      numberOfQuestionsBank: "",
+      numberOfQuestionsBharatSat: "",
+    },
+  ]);
+
+  const { data } = location.state || {};
+
   useEffect(() => {
     getAllClasses();
-    
+
     if (data) {
-      setClassData(data.bharatSatExamId)
+      setClassData(data.bharatSatExamId);
       setExamName(data.bharatSatExamName);
       setMedium(data.medium);
       setClassId(data.class_id);
       setDuration(data.durationInMinutes);
-      setExaminationDate(moment(data.bharatSatExamDate, "DD/MM/YYYY").format("MM/DD/YYYY"));
+      setExaminationDate(
+        moment(data.bharatSatExamDate, "DD/MM/YYYY").format("MM/DD/YYYY")
+      );
       setStartTime(data.examStartTime);
-      setEndTime( data.examEndTime);
-      setSubject(data.subjectData[0].subjectId);
-      setTotalQuestion(data.subjectData[0].numberOfQuestionsBank);
-      setTotalNumber(data.subjectData[0].numberOfQuestionsBharatSat);
+      setEndTime(data.examEndTime);
+      setAddInput(data.subjectData);
     }
-   
-  }, [data]);
+  }, []);
 
-useEffect(()=>{
-   if(classId){
-    getAllSubject()
-   }
-},[classId])
+  const handleAddMore = () => {
+    setAddInput([
+      ...addInput,
+      {
+        subjectId: "",
+        numberOfQuestionsBank: "",
+        numberOfQuestionsBharatSat: "",
+      },
+    ]);
+  };
+
+  const handleInputChange = (e, index, field) => {
+    const newAddInput = [...addInput];
+    newAddInput[index][field] = e.target.value;
+    setAddInput(newAddInput);
+  };
+  const handleDelete = () => {
+    setAddInput(
+      addInput.filter((item, index) => index !== addInput.length - 1)
+    );
+  };
 
   const getAllSubject = async () => {
     try {
@@ -75,7 +96,7 @@ useEffect(()=>{
       );
       if (result.status === 200) {
         setAllSubject(result.data.data);
-        handleSubjects(subject)
+        // handleSubjects(subject);
       }
     } catch (error) {
       toast.error(error.response.data.error);
@@ -100,14 +121,6 @@ useEffect(()=>{
     }
   };
 
-
-  const handleSubjects = (e) => {
-    setSubject(e);
-
-    if (allSubject.length !== 0) {
-      setSubjectData(allSubject.find((item) => item._id === e));
-    }
-  };
   const handleBack = () => {
     if (progress === 50) setProgress(0);
   };
@@ -131,15 +144,27 @@ useEffect(()=>{
   }, [startTime, endTime]);
 
   const handleSubmit = async () => {
-    try {
-      setSubError(true);
-      if (progress === 50) { 
-        if (subject &&totalQuestion &&totalQuestion <= subjectData.questionBankCount &&totalNumber &&totalNumber <= subjectData.bharatSatQuestionCount) {
-          console.log("submit", progress);
+    console.log(addInput);
+    setSubError(true);
+    const isValid = addInput.every(
+      (item) =>
+        item.subjectId &&
+        item.numberOfQuestionsBank &&
+        item.numberOfQuestionsBharatSat &&
+        allSubject.some(
+          (val) =>
+            val._id === item.subjectId &&
+            val.questionBankCount >= item.numberOfQuestionsBank &&
+            val.bharatSatQuestionCount >= item.numberOfQuestionsBharatSat
+        )
+    );
+    if (isValid) {
+      try {
+        if (progress === 50) {
           const result = await axios.post(
             "http://192.168.0.27:5003/bharatSat/create-exam",
             {
-              bharatSatExamId: classData?classData:"",
+              bharatSatExamId: classData ? classData : "",
               bharatSatExamName: examName,
               bharatSatExamDate: examinationDate,
               examStartTime: startTime,
@@ -147,13 +172,7 @@ useEffect(()=>{
               medium: medium,
               class_id: classId,
               durationInMinutes: duration,
-              subjectData: [
-                {
-                  subjectId: subject,
-                  numberOfQuestionsBank: totalQuestion,
-                  numberOfQuestionsBharatSat: totalNumber,
-                },
-              ],
+              subjectData: addInput,
             },
             {
               headers: {
@@ -171,21 +190,26 @@ useEffect(()=>{
             setExaminationDate("");
             setStartTime("");
             setEndTime("");
-            setSubject("");
-            setTotalQuestion("");
-            setTotalNumber("");
             setSubError(false);
             setError(false);
-            setClassData([])
+            setClassData([]);
           }
-        }else{
-          console.log('cdfd');
-          
         }
+      } catch (error) {
+        toast.error(error.response.data.error);
       }
-    } catch (error) {
-      toast.error(error.response.data.error);
     }
+  };
+
+  const handleClassSelect = (e) => {
+    setClassId(e.target.value);
+    setAddInput([
+      {
+        subjectId: "",
+        numberOfQuestionsBank: "",
+        numberOfQuestionsBharatSat: "",
+      },
+    ]);
   };
 
   const handleNext = () => {
@@ -201,7 +225,7 @@ useEffect(()=>{
         startTime &&
         endTime
       ) {
-       getAllSubject()
+        getAllSubject();
         setProgress(50);
       }
     }
@@ -288,20 +312,16 @@ useEffect(()=>{
                     value={medium}
                     onChange={(e) => setMedium(e.target.value)}
                   >
-                    <option value="">Select Medium</option>
+                    <option value="" disabled>
+                      Select Medium
+                    </option>
                     <option value="hindi">Hindi</option>
                     <option value="English">English</option>
                   </select>
-                  {error ? (
-                    medium === "" || medium === null ? (
-                      <p className="text-danger m-0 ">
-                        Field can't be selected !
-                      </p>
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
+                  {error && (medium === "" || medium === null) && (
+                    <p className="text-danger m-0 ">
+                      Field can't be selected !
+                    </p>
                   )}
                 </div>
               </div>
@@ -312,43 +332,55 @@ useEffect(()=>{
                     type="text"
                     className="form-select"
                     value={classId}
-                    onChange={(e) => setClassId(e.target.value)}
+                    onChange={(e) => {
+                      handleClassSelect(e);
+                    }}
                   >
                     {allClasses?.map((item) => (
                       <option value={item._id}>{item.class_name}</option>
                     ))}
-                    <option value="">Select Class</option>
+                    <option value="" disabled>
+                      Select Class
+                    </option>
                   </select>
-                  {error ? (
-                    classId === "" || classId === null ? (
-                      <p className="text-danger m-0 ">
-                        Field can't be selected!
-                      </p>
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
+                  {error && (classId === "" || classId === null) && (
+                    <p className="text-danger m-0 ">Field can't be selected!</p>
                   )}
                 </div>
                 <div className="col-6">
-                  <div className=" fw-medium">Duration in Mins </div>
-                  <input
-                    value={duration}
-                    type="text"
-                    className="form-control"
-                    placeholder="Duration in Mins"
-                  />
-                  {error &&
-                    (!duration ? (
-                      <p className="text-danger m-0 ">Field can't be empty!</p>
-                    ) : (
-                      duration < 1 && (
+                  <label htmlFor="" className=" fw-medium">
+                    Exam Timings
+                  </label>
+                  <div className="row">
+                    <div className="col-6">
+                      <input
+                        value={startTime}
+                        className="form-control"
+                        type="time"
+                        onChange={(e) => setStartTime(e.target.value)}
+                      />
+                      {error && (startTime === "" || startTime === null) && (
                         <p className="text-danger m-0 ">
-                          Invalid Start Time and End Time!
+                          Field can't be empty!
                         </p>
-                      )
-                    ))}
+                      )}
+                    </div>
+                    <div className="col-6">
+                      <input
+                        value={endTime}
+                        className="form-control"
+                        type="time"
+                        onChange={(e) => {
+                          setEndTime(e.target.value);
+                        }}
+                      />
+                      {error && (endTime === "" || endTime === null) && (
+                        <p className="text-danger m-0 ">
+                          Field can't be empty!
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="row pt-3">
@@ -378,46 +410,23 @@ useEffect(()=>{
                   )}
                 </div>
                 <div className="col-6">
-                  <label htmlFor="" className=" fw-medium">
-                    Exam Timings
-                  </label>
-                  <div className="row">
-                    <div className="col-6">
-                      <input
-                        value={startTime}
-                        className="form-control"
-                        type="time"
-                        onChange={(e) => setStartTime(e.target.value)}
-                      />
-                      {error ? (
-                        startTime === "" || startTime === null ? (
-                          <p className="text-danger m-0 ">
-                            Field can't be empty!
-                          </p>
-                        ) : (
-                          ""
-                        )
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div className="col-6">
-                      <input
-                        value={endTime}
-                        className="form-control"
-                        type="time"
-                        step="3600" pattern="[0-2][0-9]:[0-5][0-9]"
-                        onChange={(e) => {
-                          setEndTime(e.target.value);
-                        }}
-                      />
-                      {error && (endTime === "" || endTime === null) && (
+                  <div className=" fw-medium">Duration in Mins </div>
+                  <input
+                    value={duration}
+                    type="text"
+                    className="form-control"
+                    placeholder="Duration in Mins"
+                  />
+                  {error &&
+                    (!duration ? (
+                      <p className="text-danger m-0 ">Field can't be empty!</p>
+                    ) : (
+                      duration < 1 && (
                         <p className="text-danger m-0 ">
-                          Field can't be empty!
+                          Invalid Start Time and End Time!
                         </p>
-                      )}
-                    </div>
-                  </div>
+                      )
+                    ))}
                 </div>
               </div>
               <div className="d-flex justify-content-end py-5">
@@ -438,126 +447,167 @@ useEffect(()=>{
             progress === 50 && (
               <div>
                 <div className="mt-4 rounded-3  setp-2">
-                  <div className="row">
-                    <div className="col-12 col-lg-6 col-md-6 col-sm-6">
-                      <div className="m-2">
-                        <label
-                          className="form-label fw-medium text-primary"
-                          for="Select Subject"
-                        >
-                          Select Subject<span className="text-danger">*</span>
-                        </label>
-                        <select
-                          className="form-select"
-                          name="Select Subject"
-                          id="Select Subject"
-                          value={subject}
-                          onChange={(e) => handleSubjects(e.target.value)}
-                        >
-                          {allSubject?.length === 0 ? (
-                            <option className="fw-bold" value={""}>
-                              No Subject
-                            </option>
-                          ) : (
-                            <option className="fw-bold" value={""}>
+                  {addInput?.map((subData, index) => {
+                    return (
+                      <div className="row">
+                        <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                          <div className="m-2">
+                            <label
+                              className="form-label fw-medium text-primary"
+                              for="Select Subject"
+                            >
                               Select Subject
-                            </option>
-                          )}
-                          {allSubject?.map((item) => {
-                            return (
-                              <option key={item._id} value={item._id}>
-                                {item.subject_name}
-                              </option>
-                            );
-                          })}
-                        </select>
-                        {subError && (subject === "" || subject === null) && (
-                          <p className="text-danger m-0 ">
-                            Field can't be selected!
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="col-12 col-lg-6 col-md-6 col-sm-6">
-                      <div className="m-2">
-                        <label
-                          className="form-label fw-medium text-primary"
-                          for="Question Bank"
-                        >
-                          Total No. of Questions from Question Bank{" "}
-                          <span className="text-danger">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="Question Bank"
-                          id="Question Bank"
-                          value={totalQuestion}
-                          onChange={(e) => {
-                            if (e.target.value >= 0) {
-                              setTotalQuestion(e.target.value);
-                            }
-                          }}
-                          placeholder="Total No. of Questions from Question Bank"
-                        />
-                        {subError &&
-                          (!totalQuestion ? (
-                            <p className="text-danger m-0 ">
-                              Field can't be empty!
-                            </p>
-                          ) : (
-                            totalQuestion > subjectData.questionBankCount && (
-                              <p className="text-danger m-0 ">
-                                please enter the question between 0-
-                                {subjectData.questionBankCount}!
-                              </p>
-                            )
-                          ))}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-12 col-lg-6 col-md-6 col-sm-6">
-                        <div className="m-2">
-                          <label
-                            className="form-label fw-medium text-primary"
-                            for="Bharat SAT Question Bank"
-                          >
-                            Total Number. of Questions from Bharat SAT Question
-                            Bank <span className="text-danger">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="Bharat SAT Question Bank"
-                            id="Bharat SAT Question Bank"
-                            value={totalNumber}
-                            onChange={(e) => {
-                              if (e.target.value >= 0) {
-                                setTotalNumber(e.target.value);
+                              <span className="text-danger">*</span>
+                            </label>
+                            <select
+                              className="form-select"
+                              name="Select Subject"
+                              id="Select Subject"
+                              placeholder=""
+                              value={subData.subjectId}
+                              onChange={(e) =>
+                                handleInputChange(e, index, "subjectId")
                               }
-                            }}
-                            placeholder="Total Number. of Questions from Bharat SAT Question Bank"
-                          />
-                          {subError &&
-                            (!totalNumber ? (
+                            >
+                              {allSubject?.length === 0 ? (
+                                <option className="fw-bold" value={""} disabled>
+                                  No Subject
+                                </option>
+                              ) : (
+                                <option className="fw-bold" disabled value={""}>
+                                  Select Subject
+                                </option>
+                              )}
+                              {allSubject?.map((item) => (
+                                <option
+                                  key={item._id}
+                                  value={item._id}
+                                  disabled={addInput.some(
+                                    (val) => val.subjectId === item._id
+                                  )}
+                                >
+                                  {item.subject_name}
+                                </option>
+                              ))}
+                            </select>
+                            {subError && !subData.subjectId && (
+                              <p className="text-danger m-0 ">
+                                Field can't be empty!
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                          <div className="m-2">
+                            <label
+                              className="form-label fw-medium text-primary"
+                              for="Question Bank"
+                            >
+                              Total No. of Questions from Question Bank
+                              <span className="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="Question Bank"
+                              id="Question Bank"
+                              value={subData.numberOfQuestionsBank}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  e,
+                                  index,
+                                  "numberOfQuestionsBank"
+                                )
+                              }
+                              placeholder="Total No. of Questions from Question Bank"
+                            />
+                            {subError && !subData.numberOfQuestionsBank ? (
                               <p className="text-danger m-0 ">
                                 Field can't be empty!
                               </p>
                             ) : (
-                              totalNumber >
-                                subjectData.bharatSatQuestionCount && (
-                                <p className="text-danger m-0 ">
-                                  please enter the question between 0-
-                                  {subjectData.bharatSatQuestionCount}!
-                                </p>
+                              allSubject.map(
+                                (val) =>
+                                  val._id === subData.subjectId &&
+                                  val.questionBankCount <
+                                    subData.numberOfQuestionsBank && (
+                                    <p className="text-danger m-0 ">
+                                      please Enter 0 to {val.questionBankCount}{" "}
+                                    </p>
+                                  )
                               )
-                            ))}
+                            )}
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                            <div className="m-2">
+                              <label
+                                className="form-label fw-medium text-primary"
+                                for="Bharat SAT Question Bank"
+                              >
+                                Total Number. of Questions from Bharat SAT
+                                Question Bank{" "}
+                                <span className="text-danger">*</span>
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                name="Bharat SAT Question Bank"
+                                id="Bharat SAT Question Bank"
+                                value={subData.numberOfQuestionsBharatSat}
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    e,
+                                    index,
+                                    "numberOfQuestionsBharatSat"
+                                  )
+                                }
+                                placeholder="Total Number. of Questions from Bharat SAT Question Bank"
+                              />
+                              {subError &&
+                              !subData.numberOfQuestionsBharatSat ? (
+                                <p className="text-danger m-0 ">
+                                  Field can't be empty!
+                                </p>
+                              ) : (
+                                allSubject.map(
+                                  (val) =>
+                                    val._id === subData.subjectId &&
+                                    val.bharatSatQuestionCount <
+                                      subData.numberOfQuestionsBharatSat && (
+                                      <p className="text-danger m-0 ">
+                                        please Enter 0 to{" "}
+                                        {val.bharatSatQuestionCount}{" "}
+                                      </p>
+                                    )
+                                )
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    );
+                  })}
+                  <div className="d-flex justify-content-between align-items-center px-4">
+                    <div className="text-primary fw-medium p-3">
+                      <Link
+                        className=" text-decoration-none"
+                        onClick={handleAddMore}
+                      >
+                        <RiAddCircleLine /> Add More
+                      </Link>
                     </div>
-                  </div>
-                  <div className="text-primary fw-medium p-3">
-                    <RiAddCircleLine /> Add More
+                    {addInput.length > 1 && (
+                      <div className="text-primary fw-medium p-3">
+                        <Link
+                          className=" text-decoration-none text-danger"
+                          onClick={handleDelete}
+                        >
+                          <HiOutlineTrash /> Delete
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="d-flex justify-content-end py-3">

@@ -7,7 +7,7 @@ import parse from "html-react-parser";
 import { toast, ToastContainer } from "react-toastify";
 import generatePDF from 'react-to-pdf';
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzMjkxMzg2LCJleHAiOjE3MzMzNzc3ODZ9.wg94hcU0BT8kL_sY0tVwN98MrHl-MHJYS-A_U9mZLl4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
 
 export default function BharatSatExamView() {
   const { id } = useParams();
@@ -25,14 +25,14 @@ export default function BharatSatExamView() {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            classId: id,
+            bharatSatExamId: id,
           },
         }
       );
       if (result.status === 200) {
         setSubjectData(result.data.data.subjects);
         setSubjectQuestions(result.data.data.subjectQuestions[0]);
-        setSubjectId(result.data.data.subjects[0]._id);
+        setSubjectId(result.data.data.subjects[0].subjectId);
         setData(result.data.data);
       }
     } catch (error) {
@@ -45,9 +45,9 @@ export default function BharatSatExamView() {
   }, []);
 
   const handleClickSubject = (sub) => {
-    setSubjectId(sub._id);
+    setSubjectId(sub.subjectId);
     setSubjectQuestions(
-      data.subjectQuestions.find((item) => item.subjectId === sub._id)
+      data.subjectQuestions.find((item) => item.subjectId === sub.subjectId)
     );
   };
 
@@ -101,11 +101,11 @@ export default function BharatSatExamView() {
                     <li className="nav-item px-2" key={index}>
                       <Link
                         className={`nav-link rounded-2 px-3 py-2 ${
-                          subjectId === sub._id ? "active-page text-light" : ""
+                          subjectId === sub.subjectId ? "active-page text-light" : ""
                         }`}
                         onClick={() => handleClickSubject(sub)}
                       >
-                        {sub.subject_name}
+                        {sub.subjectName}
                       </Link>
                     </li>
                   );
