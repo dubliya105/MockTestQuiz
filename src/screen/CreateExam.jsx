@@ -43,7 +43,6 @@ export default function CreateExam() {
 
   useEffect(() => {
     getAllClasses();
-
     if (data) {
       setClassData(data.bharatSatExamId);
       setExamName(data.bharatSatExamName);
@@ -507,17 +506,19 @@ export default function CreateExam() {
                               <span className="text-danger">*</span>
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               className="form-control"
                               name="Question Bank"
                               id="Question Bank"
                               value={subData.numberOfQuestionsBank}
-                              onChange={(e) =>
+                              // min={0}
+                              onChange={(e) =>{
+                                if(e.target.value>=0){
                                 handleInputChange(
                                   e,
                                   index,
                                   "numberOfQuestionsBank"
-                                )
+                                )}}
                               }
                               placeholder="Total No. of Questions from Question Bank"
                             />
@@ -532,7 +533,7 @@ export default function CreateExam() {
                                   val.questionBankCount <
                                     subData.numberOfQuestionsBank && (
                                     <p className="text-danger m-0 ">
-                                      please Enter 0 to {val.questionBankCount}{" "}
+                                      Enter between 0 to {val.questionBankCount}{" "}
                                     </p>
                                   )
                               )
@@ -551,17 +552,19 @@ export default function CreateExam() {
                                 <span className="text-danger">*</span>
                               </label>
                               <input
-                                type="text"
+                                type="number"
+                                min={0}
                                 className="form-control"
                                 name="Bharat SAT Question Bank"
                                 id="Bharat SAT Question Bank"
                                 value={subData.numberOfQuestionsBharatSat}
-                                onChange={(e) =>
+                                onChange={(e) =>{
+                                  if(e.target.value>=0){
                                   handleInputChange(
                                     e,
                                     index,
                                     "numberOfQuestionsBharatSat"
-                                  )
+                                  )}}
                                 }
                                 placeholder="Total Number. of Questions from Bharat SAT Question Bank"
                               />
@@ -577,7 +580,7 @@ export default function CreateExam() {
                                     val.bharatSatQuestionCount <
                                       subData.numberOfQuestionsBharatSat && (
                                       <p className="text-danger m-0 ">
-                                        please Enter 0 to{" "}
+                                         Enter between 0 to{" "}
                                         {val.bharatSatQuestionCount}{" "}
                                       </p>
                                     )
