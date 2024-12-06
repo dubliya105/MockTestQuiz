@@ -148,8 +148,8 @@ export default function CreateExam() {
     const isValid = addInput.every(
       (item) =>
         item.subjectId &&
-        item.numberOfQuestionsBank &&
-        item.numberOfQuestionsBharatSat &&
+        item.numberOfQuestionsBank>=0 && item.numberOfQuestionsBank!==''&&
+        item.numberOfQuestionsBharatSat>=0 &&item.numberOfQuestionsBharatSat!==''&&
         allSubject.some(
           (val) =>
             val._id === item.subjectId &&
@@ -506,12 +506,11 @@ export default function CreateExam() {
                               <span className="text-danger">*</span>
                             </label>
                             <input
-                              type="number"
+                              type="text"
                               className="form-control"
                               name="Question Bank"
                               id="Question Bank"
                               value={subData.numberOfQuestionsBank}
-                              // min={0}
                               onChange={(e) =>{
                                 if(e.target.value>=0){
                                 handleInputChange(
@@ -522,7 +521,7 @@ export default function CreateExam() {
                               }
                               placeholder="Total No. of Questions from Question Bank"
                             />
-                            {subError && !subData.numberOfQuestionsBank ? (
+                            {subError && subData.numberOfQuestionsBank===''&&subData.numberOfQuestionsBank<0  ? (
                               <p className="text-danger m-0 ">
                                 Field can't be empty!
                               </p>
@@ -533,7 +532,7 @@ export default function CreateExam() {
                                   val.questionBankCount <
                                     subData.numberOfQuestionsBank && (
                                     <p className="text-danger m-0 ">
-                                      Enter between 0 to {val.questionBankCount}{" "}
+                                      Enter between 0 to {val.questionBankCount}
                                     </p>
                                   )
                               )
@@ -548,12 +547,11 @@ export default function CreateExam() {
                                 for="Bharat SAT Question Bank"
                               >
                                 Total Number. of Questions from Bharat SAT
-                                Question Bank{" "}
+                                Question Bank
                                 <span className="text-danger">*</span>
                               </label>
                               <input
-                                type="number"
-                                min={0}
+                                type="text"
                                 className="form-control"
                                 name="Bharat SAT Question Bank"
                                 id="Bharat SAT Question Bank"
@@ -569,7 +567,7 @@ export default function CreateExam() {
                                 placeholder="Total Number. of Questions from Bharat SAT Question Bank"
                               />
                               {subError &&
-                              !subData.numberOfQuestionsBharatSat ? (
+                              subData.numberOfQuestionsBharatSat===''&&subData.numberOfQuestionsBharatSat<=0 ? (
                                 <p className="text-danger m-0 ">
                                   Field can't be empty!
                                 </p>
@@ -580,8 +578,8 @@ export default function CreateExam() {
                                     val.bharatSatQuestionCount <
                                       subData.numberOfQuestionsBharatSat && (
                                       <p className="text-danger m-0 ">
-                                         Enter between 0 to{" "}
-                                        {val.bharatSatQuestionCount}{" "}
+                                         Enter between 0 to
+                                        {val.bharatSatQuestionCount}
                                       </p>
                                     )
                                 )
