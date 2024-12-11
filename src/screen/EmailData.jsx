@@ -1,24 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MainLayout from "../components/MainLayout";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import '../assets/styles/EmailData.css'
+import { usersContext } from "../components/context/UserContext";
+
 export default function EmailData() {
   const [data, setData] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const auth = JSON.parse(localStorage.getItem("token"));
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user= useContext(usersContext)
+
   useEffect(() => {
     hendleGetUsers();
-  }, []);
+  }, [user]);
 
   const hendleGetUsers = async () => {
     try {
-      if (auth) {
-        const result = await axios.get("http://192.168.0.156:8080/api/user", {
+      if (user.token) {
+        const result = await axios.get("http://192.168.0.88:8080/api/user", {
           headers: {
-            Authorization: `bearer ${auth}`,
+            Authorization: `bearer ${user.token}`,
           },
         });
         if (result.status === 200) {
@@ -42,7 +44,7 @@ export default function EmailData() {
                   className=" rounded-5"
                   width={50}
                   height= {50}
-                  src={user.image}
+                  src={user.userData.image}
                   alt=""
                 />
               </div>

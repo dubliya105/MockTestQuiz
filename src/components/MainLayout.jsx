@@ -1,18 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import SideBar from '../screen/SideBar'
 import NavBar from '../screen/NavBar'
 import { useNavigate,useLocation } from 'react-router-dom';
+import { usersContext } from "../components/context/UserContext";
+import Cookies from 'universal-cookie';
 
 export default function MainLayout({children}) {
+  
   const navigate = useNavigate()
-  const auth = JSON.parse(localStorage.getItem("token"));
   const location = useLocation();
+  const user= useContext(usersContext)
 
+  const cookies=new Cookies();
+
+let auth=cookies.get('token')
     useEffect(()=>{
       if(!auth){
         navigate('/')
       }else{
         navigate(location.pathname)
+        user.setUserData(cookies.get('user'))
+        user.setToken(auth)
       }
     },[])
   

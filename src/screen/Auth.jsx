@@ -1,37 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import style from "../assets/styles/Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import axios from "axios";
 import { CirclesWithBar } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
-
+import Cookies from 'universal-cookie';
 function Auth() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const cookies = new Cookies();
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 1);
   const handleLogin = async () => {
     setError(true);
-    // try {
+    try {
       if (email !== "" && password !== "") {
         setLoading(true);
-        const result = await axios.post("http://192.168.0.156:8080/api/user/login", {
+        const result = await axios.post("http://192.168.0.88:8080/api/user/login", {
           email,
           password,
         });
         if (result.status === 200) {
-          localStorage.setItem("user", JSON.stringify(result.data.data.user));
-          localStorage.setItem("token", JSON.stringify(result.data.data.token));
+          cookies.set('user',result.data.data.user,{ path: "/",  expires: expirationDate});
+          cookies.set('token',result.data.data.token,{ path: "/",expires: expirationDate});
           navigate("/Dashboard");
         }
-      // }
-    // } catch (error) {
-    //   console.log(error);
-    //   // toast.error(error);
-    // } finally {
+      }
+    } catch (error) {
+      toast.error(error);
+    } finally {
       setLoading(false);
     }
   };
@@ -98,7 +99,6 @@ function Auth() {
                     </Link>
                   </div>
                 </div>
-
                 <div>
                   {loading ? (
                     <div className="mt-4 ms-5">

@@ -3,7 +3,7 @@ import React from 'react'
 import { HiOutlineTrash } from 'react-icons/hi'
 import { toast, ToastContainer } from 'react-toastify';
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzM4MjcwMDYsImV4cCI6MTczMzkxMzQwNn0.JSoQj3V_rF_Kv02nIUR1g600z7UN5RKaXEYmHhQjSZI";
 
 export default function DeleteBharatSatExam({data,handleGetExamList,setcheckId}) {
     const handleDeleteExam=async()=>{

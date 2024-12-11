@@ -24,10 +24,13 @@ import PackageDetail from './screen/PackageDetail';
 import CreateExam from './screen/CreateExam';
 import BharatSATExam from './screen/BharatSATExam';
 import BharatSatExamView from './screen/BharatSatExamView';
-
+import { usersContext } from './components/context/UserContext.js';
+import { useState } from 'react';
 function App() {
+  const [userData,setUserData]=useState({});
+  const [token,setToken] = useState('')
   return (
-    
+    <usersContext.Provider value={{userData,setUserData,token,setToken}}>
     <div className="App">
     <Routes>
       <Route path="/auth" element={<LoginForm />} />
@@ -56,6 +59,7 @@ function App() {
     </Routes>
 
     </div>
+    </usersContext.Provider>
   );
 }
 export default App;

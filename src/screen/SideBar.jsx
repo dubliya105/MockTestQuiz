@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import style from "../assets/styles/SideBar.module.css";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const {pathname} = useLocation();
+
   return (
     <>
       <div
@@ -130,7 +132,7 @@ function SideBar() {
                     style={{borderLeft:'2px solid #5e5e5eba'}}
                   >
                   <div className="fs-5" style={{color:'#5e5e5eba',position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
-                   Add
+                   <label className={(pathname === '/createExam') ? style.subLinkActive : ''}  htmlFor="">Add</label> 
                   </Link>
                 </div>
                 <div className="accordion-body">
@@ -140,7 +142,7 @@ function SideBar() {
                     style={{borderLeft:'2px solid #5e5e5eba'}}
                   >
                   <div className="fs-5" style={{color:'#5e5e5eba', position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
-                   View
+                  <label className={(pathname === '/bharatSATexam') ? style.subLinkActive : ''}  htmlFor="">view</label> 
                   </Link>
                 </div>
               </li>

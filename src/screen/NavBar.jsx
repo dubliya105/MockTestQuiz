@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import style from '../assets/styles/NavBar.module.css'
+import Cookies from 'universal-cookie';
+import { usersContext } from "../components/context/UserContext";
+
 export default function NavBar() {
 const navigate =useNavigate()
-  const auth = JSON.parse(localStorage.getItem("user"));
+const data=useContext(usersContext)
+const [auth,setAuth]=useState(data.userData)
+  const cookies=new Cookies();
+ 
 
-  
    const loguot=()=>{
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    cookies.remove('user');
+    cookies.remove('token')
     navigate('/')
    }
 

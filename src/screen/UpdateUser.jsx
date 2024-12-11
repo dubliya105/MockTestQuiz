@@ -16,7 +16,7 @@ export default function UpdateUser({data,hendleGetUsers}) {
       try {
         setBtn(true);   
         if(name!==''&&email!==''){
-        const result = await axios.patch(`http://192.168.0.156:8080/api/user/${data._id}`, { 
+        const result = await axios.patch(`http://192.168.0.88:8080/api/user/${data._id}`, { 
           name: name,
           email: email,
         });

@@ -1,22 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MainLayout from './MainLayout.jsx'
 import axios from 'axios'
-// import img from '../assets/images/sports-car-mountains-retrowave-synthwave-233@0@k-thumb.jpg'
+
+import { usersContext } from "../components/context/UserContext";
+
 
 function Dashboard() {
 const [data,setData]=useState([]);
-const auth = JSON.parse(localStorage.getItem("token"));
+const auth=useContext(usersContext)
+
   useEffect(()=>{
       hendleGetUsers()
-  },[])
-
+  },[auth])
+  console.log(auth);
   const hendleGetUsers=async()=>{
     try {
     if(auth){
-      const result = await axios.get('http://192.168.0.156:8080/api/user',{
+      const result = await axios.get('http://192.168.0.88:8080/api/user',{
         headers:{
-          Authorization:`bearer ${auth}`
+          Authorization:`bearer ${auth.token}`
         }
       })
         if(result.status===200){

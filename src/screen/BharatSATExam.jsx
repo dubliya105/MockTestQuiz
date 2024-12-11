@@ -14,7 +14,7 @@ import { debounce } from "lodash";
 import DeleteBharatSatExam from "./DeleteBharatSatExam";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMzNDY0NDMxLCJleHAiOjE3MzM1NTA4MzF9.e_qwxeFk2LEmxn8i8yDNgqNMdrIpR1epMU-q_SqKAK0";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzM4MjcwMDYsImV4cCI6MTczMzkxMzQwNn0.JSoQj3V_rF_Kv02nIUR1g600z7UN5RKaXEYmHhQjSZI";
 
 export default function BharatSATExam() {
   const [examData, setExamData] = useState([]);
@@ -54,7 +54,7 @@ export default function BharatSATExam() {
   const debouncedFetchResults = debounce((value) => {
     setSearchQuery(value);
     setOffset(0);
-  }, 500);
+  }, 1000);
 
   const handleSetDeleteId = (id) => {
     if (checkId.includes(id)) {
@@ -80,16 +80,16 @@ export default function BharatSATExam() {
   return (
     <MainLayout>
       <div className="text-start d-flex justify-content-between">
-        <h4>BHARAT SAT</h4>
-        <div className="d-flex">
+        <h4 className=" text-truncate">BHARAT SAT</h4>
+        <div className="d-flex text-truncate">
           <p>Dashboard</p>
-          <Link to="">-Coordinater</Link>
+          <Link to="" className="text-truncate" >-Coordinater</Link>
         </div>
       </div>
       <div className=" rounded-2 bg-light text-start p-3">
         <div className="">
           <h6>Bharat SAT Exam List </h6>
-          <div className=" d-flex justify-content-between text-center align-items-center gap-3 pt-2">
+          <div className=" d-flex justify-content-between text-center align-items-center gap-3 pt-2 ">
           <div className="col-auto">
             {checkId.length !== 0 ? (
               <Link
@@ -116,7 +116,7 @@ export default function BharatSATExam() {
               </div>
               <Link className="btn-group text-decoration-none text-truncate" to="/createExam">
                 <button
-                  className="btn btn-primary px-2 "
+                  className="btn btn-primary px-2 text-truncate"
                   style={{ backgroundColor: "rgb(19, 19, 191)" }}
                 >
                   Add Exam
