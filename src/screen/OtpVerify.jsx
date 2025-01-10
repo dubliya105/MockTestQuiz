@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 export default function OtpVerify() {
   const [otp, setOtp] = useState('');
-  const [error, setError] = useState(false);
+
 
   let location = useLocation();
   const { email } = location.state || {};
@@ -21,7 +21,7 @@ export default function OtpVerify() {
     }
 
     try {
-      const result = await axios.patch('http://192.168.0.88:8080/api/user/otpverify', { otp });
+      const result = await axios.patch('http://192.168.0.80:8080/api/user/otpverify', { otp });
       if (result.status === 200) {
         navigate('/newpassword', { state: { email } });
         toast.success('OTP verified');

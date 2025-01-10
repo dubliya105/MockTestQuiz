@@ -14,7 +14,7 @@ export default function LoginForm() {
       setBtn(!btn)
       
       if(name!==''&&password!==''){
-          const result = await axios.post("http://192.168.0.88:8080/api/user/login", {
+          const result = await axios.post("http://192.168.0.80:8080/api/user/login", {
               email:name,
               password
           });

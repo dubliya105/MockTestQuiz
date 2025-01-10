@@ -12,7 +12,7 @@ import moment from "moment-timezone";
 import { ThreeDots } from "react-loader-spinner";
   
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MjA5NDQ0OWVlYTA2YTc4OTlmMDU1NSIsImVtYWlsIjoiZG9sbG9wLnlhc2hAZ21haWwuY29tIiwiaWF0IjoxNzMyMDkzNTIyLCJleHAiOjE3MzIxNzk5MjJ9.R46sOwJMWhpuu7YjT0GwbfF6bVgCnbV_NiMH_UYBrX4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY1MDMwMTIsImV4cCI6MTczNjU4OTQxMn0.ha5kKD_RXXRGyDIBOc4i2vzM3MC6c4wMHNE4GBs1jwY";
 
 function Blog() {
   const [details, setDetails] = useState(null);
@@ -118,7 +118,7 @@ function Blog() {
         formData.append("date", date);
         formData.append("details", details);
         const result = await axios.post(
-          `http://192.168.0.27:5003/blog/add-blog`,
+          `http://192.168.0.21:5003/blog/add-blog`,
           formData,
           {
             headers: {
@@ -145,7 +145,6 @@ function Blog() {
         }
       }
     } catch (error) {
-      console.log(error);
 
       toast.error(error.response.data.error);
     } finally {
@@ -156,7 +155,7 @@ function Blog() {
   const handleGetAuthor = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.27:5003/author/get-all-author",
+        "http://192.168.0.21:5003/author/get-all-author",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -175,7 +174,7 @@ function Blog() {
   const handleGetCategory = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.27:5003/blogCategory/get-all-blog-category",
+        "http://192.168.0.21:5003/blogCategory/get-all-blog-category",
         {
           headers: {
             Authorization: `Bearer ${token}`,

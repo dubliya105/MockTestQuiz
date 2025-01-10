@@ -13,7 +13,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { HiOutlineTrash } from "react-icons/hi";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzM4MjcwMDYsImV4cCI6MTczMzkxMzQwNn0.JSoQj3V_rF_Kv02nIUR1g600z7UN5RKaXEYmHhQjSZI";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY1MDMwMTIsImV4cCI6MTczNjU4OTQxMn0.ha5kKD_RXXRGyDIBOc4i2vzM3MC6c4wMHNE4GBs1jwY";
 
 export default function CreateExam() {
   const [progress, setProgress] = useState(0);
@@ -83,7 +83,7 @@ export default function CreateExam() {
   const getAllSubject = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.27:5003/subject/getAllSubjects",
+        "http://192.168.0.21:5003/subject/getAllSubjects",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -95,7 +95,6 @@ export default function CreateExam() {
       );
       if (result.status === 200) {
         setAllSubject(result.data.data);
-        // handleSubjects(subject);
       }
     } catch (error) {
       toast.error(error.response.data.error);
@@ -105,7 +104,7 @@ export default function CreateExam() {
   const getAllClasses = async () => {
     try {
       const result = await axios.get(
-        "http://192.168.0.27:5003/class/getAllClasses",
+        "http://192.168.0.21:5003/class/getAllClasses",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -126,12 +125,12 @@ export default function CreateExam() {
 
   const calculateDuration = (start, end) => {
     if (start && end) {
-      const startTime = moment(start, "HH:mm");
-      const endTime = moment(end, "HH:mm");
-      const duration = moment.duration(endTime.diff(startTime));
-
+      const startTime = moment(start, "HH:mm"); //convert 12 hours time to 24 hours
+      const endTime = moment(end, "HH:mm"); //convert 12 hours time to 24 hours
+      const duration = moment.duration(endTime.diff(startTime)); //get the difference between start and end time
+      
       if (duration.asMinutes() > 0) {
-        setDuration(duration.asMinutes());
+        setDuration(duration.asMinutes()); //get the duration in minutes
       } else {
         setDuration("Invailed Start and End time");
       }
@@ -161,7 +160,7 @@ export default function CreateExam() {
       try {
         if (progress === 50) {
           const result = await axios.post(
-            "http://192.168.0.27:5003/bharatSat/create-exam",
+            "http://192.168.0.21:5003/bharatSat/create-exam",
             {
               bharatSatExamId: classData ? classData : "",
               bharatSatExamName: examName,
@@ -351,7 +350,7 @@ export default function CreateExam() {
                     Exam Timings
                   </label>
                   <div className="row">
-                    <div className="col-6">
+                    <div className="col-6 pb-2">
                       <input
                         value={startTime}
                         className="form-control"
@@ -364,7 +363,7 @@ export default function CreateExam() {
                         </p>
                       )}
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 pb-2">
                       <input
                         value={endTime}
                         className="form-control"
@@ -449,7 +448,7 @@ export default function CreateExam() {
                   {addInput?.map((subData, index) => {
                     return (
                       <div className="row">
-                        <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                        <div className="col-12 col-lg-6 col-md-12 col-sm-12">
                           <div className="m-2">
                             <label
                               className="form-label fw-medium text-primary"
@@ -496,7 +495,7 @@ export default function CreateExam() {
                             )}
                           </div>
                         </div>
-                        <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+                        <div className="col-12 col-lg-6 col-md-12 col-sm-12">
                           <div className="m-2">
                             <label
                               className="form-label fw-medium text-primary"
@@ -539,8 +538,8 @@ export default function CreateExam() {
                             )}
                           </div>
                         </div>
-                        <div className="row">
-                          <div className="col-12 col-lg-6 col-md-6 col-sm-6">
+
+                          <div className="col-12 col-lg-6 col-md-12 col-sm-12">
                             <div className="m-2">
                               <label
                                 className="form-label fw-medium text-primary"
@@ -584,7 +583,6 @@ export default function CreateExam() {
                                     )
                                 )
                               )}
-                            </div>
                           </div>
                         </div>
                       </div>

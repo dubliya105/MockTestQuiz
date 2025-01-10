@@ -12,7 +12,7 @@ export default function Signup() {
     const handlesignup =async(e)=>{
         try {
             e.preventDefault();
-            const result =await axios.post('http://192.168.0.88:8080/api/user',{
+            const result =await axios.post('http://192.168.0.80:8080/api/user',{
                 name:name,
                 email:email,
                 password:password,

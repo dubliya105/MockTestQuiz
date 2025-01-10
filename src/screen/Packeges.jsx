@@ -5,12 +5,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjcyOWM5YWU1MjAzNDYzYjAwNTYzNGIyIiwiaWF0IjoxNzMyMDg4Nzc4LCJleHAiOjE3MzIxNzUxNzh9.FN4aXJmt9NwuB8DmcqzS35goslmYoqkyIxpmBiCYHLE";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY1MDMwMTIsImV4cCI6MTczNjU4OTQxMn0.ha5kKD_RXXRGyDIBOc4i2vzM3MC6c4wMHNE4GBs1jwY";
 
 function Packeges() {
   const [data, setData] = useState([]);
   async function handleGetPackages() {
-    const result = await axios.get("http://192.168.0.27:5003/package/getAll", {
+    const result = await axios.get("http://192.168.0.21:5003/package/getAll", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -42,7 +42,7 @@ function Packeges() {
               className="rounded-3"
               height={150}
               style={{ width: "100%" }}
-              src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
+              src={`http://192.168.0.21:5003/uploads/${item.mainImage}`}
               alt=""
             />
             <div className="fs-5 fw-bold text-start text-truncate" title={item.packageName}>

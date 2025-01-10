@@ -21,7 +21,7 @@ export default function MockTest() {
     try {
       setLoeder(true);
       const result = await axios.get( 
-       "http://192.168.0.27:5003/mockTest/viewResult",
+       "http://192.168.0.21:5003/mockTest/viewResult",
         {
           headers: {
             Authorization: `Bearer ${token}`,

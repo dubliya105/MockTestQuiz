@@ -13,7 +13,7 @@ export default function ShowBlog() {
   const [name,setName]=useState(null);
 
   async function handleGetBlog() {
-    const result = await axios.get("http://192.168.0.27:5003/blog/getAll", {
+    const result = await axios.get("http://192.168.0.21:5003/blog/getAll", {
       params: {
         blog_Category_id: blogCategoryId,
         limit: undefined,
@@ -69,7 +69,7 @@ const handleBlogsCategory=(item)=>{
               className="rounded-3"
               height={150}
               style={{ width: "100%" }}
-              src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
+              src={`http://192.168.0.21:5003/uploads/${item.mainImage}`}
               alt=""
             />
             <div className="d-flex pt-1">

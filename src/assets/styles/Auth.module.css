@@ -58,3 +58,10 @@
         padding-top: 5%;
     }   
 }
+.passwordToggle{
+    position: absolute; 
+    top: 53%;
+    font-size: x-large;
+    right: 10px;    
+    color: black;
+}

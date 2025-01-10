@@ -1,14 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import SideBar from '../screen/SideBar'
 import NavBar from '../screen/NavBar'
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { usersContext } from "../components/context/UserContext";
 import Cookies from 'universal-cookie';
 
 export default function MainLayout({children}) {
-  
+
   const navigate = useNavigate()
-  const location = useLocation();
   const user= useContext(usersContext)
 
   const cookies=new Cookies();
@@ -18,14 +17,13 @@ let auth=cookies.get('token')
       if(!auth){
         navigate('/')
       }else{
-        navigate(location.pathname)
+        // navigate(location.pathname)
         user.setUserData(cookies.get('user'))
         user.setToken(auth)
       }
     },[])
   
   return (
-    <>
     <div className='d-flex'>
        <div className='sidebar'  style={{width: 'calc(100% - 80%)'}}>
           <SideBar/>    
@@ -37,6 +35,5 @@ let auth=cookies.get('token')
             </div>
         </div>
     </div>
-    </>
   ) 
 }

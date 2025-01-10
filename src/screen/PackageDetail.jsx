@@ -13,7 +13,7 @@ export default function PackageDetail() {
   const { id } = useParams();
   async function handleGetPackageDetail() {
     const result = await axios.get(
-      "http://192.168.0.27:5003/package/getDetailById",
+      "http://192.168.0.21:5003/package/getDetailById",
       {
         headers: {
           Authorization: `Bearer ${token}`,

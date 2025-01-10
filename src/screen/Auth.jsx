@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import style from "../assets/styles/Auth.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
@@ -6,12 +6,14 @@ import axios from "axios";
 import { CirclesWithBar } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
 import Cookies from 'universal-cookie';
+import { IoMdEye,IoMdEyeOff } from "react-icons/io"; 
 function Auth() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const cookies = new Cookies();
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 1);
@@ -20,7 +22,7 @@ function Auth() {
     try {
       if (email !== "" && password !== "") {
         setLoading(true);
-        const result = await axios.post("http://192.168.0.88:8080/api/user/login", {
+        const result = await axios.post("http://192.168.0.80:8080/api/user/login", {
           email,
           password,
         });
@@ -31,7 +33,8 @@ function Auth() {
         }
       }
     } catch (error) {
-      toast.error(error);
+
+      toast.error(error.response.data.msg);
     } finally {
       setLoading(false);
     }
@@ -77,12 +80,19 @@ function Auth() {
 
                   <input
                     className="input-group w-100 mt-3"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     id="password"
-                    placeholder="Password"
+                    placeholder="Password"  
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  {
+                    showPassword ? (
+                    <IoMdEye className={`${style.passwordToggle}`} onClick={()=>setShowPassword(false)}/>
+                    ) : (
+                    <IoMdEyeOff className={`${style.passwordToggle}`} onClick={()=>setShowPassword(true)} />
+                    )
+                    }
                   {/* Password validation */}
                   {error ? (
                     password === "" ? (
@@ -133,4 +143,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default React.memo(Auth); 

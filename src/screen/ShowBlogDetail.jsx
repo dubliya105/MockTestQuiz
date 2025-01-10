@@ -55,7 +55,7 @@ function ShowBlogDetail() {
   const scrollRef = useRef(null);
 
   const handleGetBlogDetail=async() =>{
-    const result = await axios.get("http://192.168.0.27:5003/blog/getBlogDetailsById", {
+    const result = await axios.get("http://192.168.0.21:5003/blog/getBlogDetailsById", {
       params: {
           blog_id: blog_id,
       },
@@ -139,7 +139,7 @@ function ShowBlogDetail() {
                 className="rounded-3"
                 height={150}
                 style={{ width: "100%" }}
-                src={`http://192.168.0.27:5003/uploads/${item.mainImage}`}
+                src={`http://192.168.0.21:5003/uploads/${item.mainImage}`}
                 alt=""
               />
               <div className="d-flex pt-1">

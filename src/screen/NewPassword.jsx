@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 export default function NewPassword() {
    const navigate=useNavigate();
    let location =useLocation();
-    const {email} =location.state||{}
+   const {email} =location.state||{}
    const [password, setPassword] = useState('')
    const [confirmPassword, setConfirmPassword] = useState('')
    const [error, setError] = useState(false)
@@ -15,7 +15,7 @@ export default function NewPassword() {
     try {
       setError(!error)
         if(password!==''&& confirmPassword!==''){
-          const result = await axios.patch('http://192.168.0.88:8080/api/user/newpass',{
+          const result = await axios.patch('http://192.168.0.80:8080/api/user/newpass',{
             email,
             password,
             confirmPassword

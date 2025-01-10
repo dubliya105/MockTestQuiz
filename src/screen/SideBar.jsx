@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import style from "../assets/styles/SideBar.module.css";
+import { TbTilde } from "react-icons/tb";
+import { useRef } from "react";
 
 function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const {pathname} = useLocation();
+  const ref =useRef()
+  useEffect(()=>{
+    if(pathname === '/createExam'||pathname === '/bharatSATexam'||pathname === '/QuestionReview'){
+     ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  },[])
 
   return (
     <>
@@ -104,25 +112,27 @@ function SideBar() {
                 <span>Show Blogs</span>
               </Link>
             </li>
-
+          
             <div className="accordion-item">
-              <div className={`accordion-header`}>
+              <div className={`accordion-header`} >
                 <Link
                   className={`${style.NavLink} collapsed`}
+                  to="/createExam"
                   style={{ background: "transparent", color: "#ffff" }}
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseFour"
-                  aria-expanded="false"
+                  aria-expanded='false'
                   aria-controls="collapseFour"
                 >
-                <div className={style.Icon}>
+                <div className={style.Icon} ref={ref}>
                   <i className="fa-solid fa-calendar-days"></i>
                 </div>Create Exam
                 </Link>
               </div>
+              
               <li
                 id="collapseFour"
-                className="accordion-collapse collapse ps-4"
+                className={`accordion-collapse collapse ${pathname === '/createExam'||pathname === '/bharatSATexam'?'show':''} ps-4`}
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body" >
@@ -143,6 +153,50 @@ function SideBar() {
                   >
                   <div className="fs-5" style={{color:'#5e5e5eba', position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
                   <label className={(pathname === '/bharatSATexam') ? style.subLinkActive : ''}  htmlFor="">view</label> 
+                  </Link>
+                </div>
+              </li>
+            </div>
+            <div className="accordion-item">
+              <div className={`accordion-header`} >
+                <Link
+                  className={`${style.NavLink} collapsed`}
+                  to="/QuestionReview"
+                  style={{ background: "transparent", color: "#ffff" }}
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseReview"
+                  aria-expanded='false'
+                  aria-controls="collapseReview"
+                >
+                <div className={style.Icon} ref={ref}>
+                <TbTilde className="border border-1 rounded-1" />
+                </div>Reviewer
+                </Link>
+              </div>
+              
+              <li
+                id="collapseReview"
+                className={`accordion-collapse collapse ${pathname === '/QuestionReview'?'show':''} ps-4`}
+                data-bs-parent="#accordionExample"
+              >
+                <div className="accordion-body" >
+                  <Link
+                    className={`${style.SubNavLink} accordion-header` }
+                    to="/QuestionReview"
+                    style={{borderLeft:'2px solid #5e5e5eba'}}
+                  >
+                  <div className="fs-5" style={{color:'#5e5e5eba',position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
+                   <label className={(pathname === '/QuestionReview') ? style.subLinkActive : ''}  htmlFor="">Question List</label> 
+                  </Link>
+                </div>
+                <div className="accordion-body" >
+                  <Link
+                    className={`${style.SubNavLink} accordion-header` }
+                    // to="/QuestionReview"
+                    style={{borderLeft:'2px solid #5e5e5eba'}}
+                  >
+                  <div className="fs-5" style={{color:'#5e5e5eba',position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
+                   <label className={(pathname === '') ? style.subLinkActive : ''}  htmlFor="">History</label> 
                   </Link>
                 </div>
               </li>
