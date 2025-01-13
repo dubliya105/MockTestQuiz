@@ -22,7 +22,7 @@ function Auth() {
     try {
       if (email !== "" && password !== "") {
         setLoading(true);
-        const result = await axios.post("http://192.168.0.80:8080/api/user/login", {
+        const result = await axios.post("http://192.168.0.45:8080/api/user/login", {
           email,
           password,
         });

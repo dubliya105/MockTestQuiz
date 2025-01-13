@@ -17,7 +17,7 @@ const auth=useContext(usersContext)
   const hendleGetUsers=async()=>{
     try {
     if(auth){
-      const result = await axios.get('http://192.168.0.80:8080/api/user',{
+      const result = await axios.get('http://192.168.0.45:8080/api/user',{
         headers:{
           Authorization:`bearer ${auth.token}`
         }

@@ -12,7 +12,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 import QuestionReject from "./QuestionReject";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY1MDMwMTIsImV4cCI6MTczNjU4OTQxMn0.ha5kKD_RXXRGyDIBOc4i2vzM3MC6c4wMHNE4GBs1jwY";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY3NDY4ODMsImV4cCI6MTczNjgzMzI4M30.zqjzGDkwO12_LDdd4Hctne3U5Rd9aQX85UB3aKBckBo";
 
 function QuestionReview() {
   const [allClasses, setAllClasses] = useState([]);
@@ -29,16 +29,21 @@ function QuestionReview() {
         "http://192.168.0.21:5003/class/getAllClasses"
       );
       if (result.status === 200) {
-        setAllClasses(result.data.data);
-        handleSelectedClass(result.data.data[0]._id);
+        setAllClasses(result.data?.data);
+        handleSelectedClass(result.data?.data[0]._id);
+      }else{
+        setAllQuestion([]);
       }
     } catch (error) {
       toast.error(error.response.data.error);
+    }finally{
+      setLoader(false);
     }
   };
 
   const getAllSubject = async (id) => {
     try {
+      setLoader(true);
       const result = await axios.get(
         "http://192.168.0.21:5003/subject/getAllSubjects",
         {
@@ -61,6 +66,8 @@ function QuestionReview() {
       }
     } catch (error) {
       toast.error(error.response.data.error);
+    }finally{
+      setLoader(false);
     }
   };
   const handleSelectedClass = (id) => {
@@ -73,6 +80,7 @@ function QuestionReview() {
   };
   const handleGetAllQuestion = async () => {
     try {
+      setLoader(true);
       const result = await axios.get(
         "http://192.168.0.21:5003/reviewer/question-list",
         {
@@ -225,7 +233,7 @@ function QuestionReview() {
                             {parse(data.question, options)}
                           </div>
                           {/* show Subquestions */}
-                          {data.subQuestions?.map((quest, indexSub) => {
+                          {data?.subQuestions?.map((quest, indexSub) => {
                             return (
                               <div className=" text-start pt-2" key={indexSub}>
                                 <div>
@@ -321,7 +329,7 @@ function QuestionReview() {
                           })}
                           {/* show option  */}
                           <form>
-                            {data.options?.map((option, optIndex) => (
+                            {data?.options?.map((option, optIndex) => (
                               <div
                                 className="form-check py-1 d-flex  justify-content-md-start"
                                 key={optIndex}
@@ -373,7 +381,7 @@ function QuestionReview() {
                         </div>
                         <div className="d-flex justify-content-between px-2">
                           <div>
-                            {data.solution && (
+                            {data?.solution && (
                               <div>
                                 <button className="btn btn-link text-decoration-none mt-2 fw-bold text-dark">
                                   <Link
@@ -402,7 +410,9 @@ function QuestionReview() {
 
                           <div>
                             <div className=" d-flex gap-3 ">
-                              <span
+                              <Link
+                              to={'/questionEdit'}
+                              state={{ questionData: data }}
                                 className="px-3 py-2 rounded-2"
                                 style={{
                                   backgroundColor: "#ecf3ff",
@@ -410,7 +420,7 @@ function QuestionReview() {
                                 }}
                               >
                                 <FiEdit3 />
-                              </span>
+                              </Link>
                               <QuestionStatus data={data.id} />
                               <span
                                 // onClick={()=>setStatus('approved')}

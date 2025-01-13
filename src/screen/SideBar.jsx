@@ -9,7 +9,7 @@ function SideBar() {
   const {pathname} = useLocation();
   const ref =useRef()
   useEffect(()=>{
-    if(pathname === '/createExam'||pathname === '/bharatSATexam'||pathname === '/QuestionReview'){
+    if(pathname === '/createExam'||pathname === '/bharatSATexam'||pathname === '/QuestionReview'||pathname === '/questionEdit'){
      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   },[])
@@ -176,7 +176,7 @@ function SideBar() {
               
               <li
                 id="collapseReview"
-                className={`accordion-collapse collapse ${pathname === '/QuestionReview'?'show':''} ps-4`}
+                className={`accordion-collapse collapse ${pathname === '/QuestionReview'||'questionEdit'?'show':''} ps-4`}
                 data-bs-parent="#accordionExample"
               >
                 <div className="accordion-body" >
@@ -186,7 +186,7 @@ function SideBar() {
                     style={{borderLeft:'2px solid #5e5e5eba'}}
                   >
                   <div className="fs-5" style={{color:'#5e5e5eba',position:'relative',top: '-7px',paddingRight:'4px'}}>__</div>
-                   <label className={(pathname === '/QuestionReview') ? style.subLinkActive : ''}  htmlFor="">Question List</label> 
+                   <label className={(pathname === '/QuestionReview'||'questionEdit') ? style.subLinkActive : ''}  htmlFor="">Question List</label> 
                   </Link>
                 </div>
                 <div className="accordion-body" >

@@ -27,6 +27,7 @@ import BharatSatExamView from './screen/BharatSatExamView';
 import { usersContext } from './components/context/UserContext.js';
 import { useState } from 'react';
 import QuestionReview from './screen/QuestionReview.jsx';
+import QusetionEdit from './screen/QusetionEdit.jsx';
 function App() {
   const [userData,setUserData]=useState({});
   const [token,setToken] = useState('')
@@ -58,6 +59,8 @@ function App() {
       <Route path="/bharatSATexam" element={<BharatSATExam/>} />
       <Route path="/QuestionReview" element={<QuestionReview/>} />
       <Route path="/bharatSatExamView/:id" element={<BharatSatExamView/>} />
+      <Route path="/questionEdit" element={<QusetionEdit/>} />
+   
     </Routes>
 
     </div>

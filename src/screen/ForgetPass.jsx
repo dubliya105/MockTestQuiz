@@ -22,7 +22,7 @@ export default function ForgetPass() {
       setError(true)
         if(email!==''){
 
-            const result = await axios.post('http://192.168.0.80:8080/api/user/sendotp',{
+            const result = await axios.post('http://192.168.0.45:8080/api/user/sendotp',{
                 email:email
             })
             if(result.status===200){

@@ -34,7 +34,7 @@ function ShowUser() {
     try {
       if (auth) {
         const result = await axios.get(
-          `http://192.168.0.80:8080/api/user/userList`,
+          `http://192.168.0.45:8080/api/user/userList`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -60,7 +60,7 @@ function ShowUser() {
       const search = e.target.value.trim();
       if (search !== "") {
         const result = await axios.get(
-          `http://192.168.0.80:8080/api/user/search/${search}`,
+          `http://192.168.0.45:8080/api/user/search/${search}`,
           {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -88,7 +88,7 @@ function ShowUser() {
       console.log(id, status);
 
       // setStatus(!status)
-      const result = await axios.patch("http://192.168.0.80:8080/api/user", {
+      const result = await axios.patch("http://192.168.0.45:8080/api/user", {
         id,
         status: !status,
       });
@@ -106,7 +106,7 @@ function ShowUser() {
         console.log(id);
         // setStatus(!status)
         const result = await axios.delete(
-          `http://192.168.0.80:8080/api/user/${id}`
+          `http://192.168.0.45:8080/api/user/${id}`
         );
         if (result.status === 200) {
           hendleGetUsers();
@@ -131,7 +131,7 @@ function ShowUser() {
     setView(item);
     try {
       const result = await axios.get(
-        `http://192.168.0.80:8080/api/user/pass/${item._id}`
+        `http://192.168.0.45:8080/api/user/pass/${item._id}`
       );
       console.log(result.data.data);
 

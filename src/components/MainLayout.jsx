@@ -17,7 +17,6 @@ let auth=cookies.get('token')
       if(!auth){
         navigate('/')
       }else{
-        // navigate(location.pathname)
         user.setUserData(cookies.get('user'))
         user.setToken(auth)
       }
