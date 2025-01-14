@@ -2,19 +2,39 @@
 import React, { useEffect, useState } from "react";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import MainLayout from "../components/MainLayout";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { IoMdAdd } from "react-icons/io";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import { RiEdit2Line } from "react-icons/ri";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import SubQuestionsEdit from "./SubQuestionsEdit";
+
 function QusetionEdit() {
+  const[progress,setProgress]=useState(25);
+  const [question, setQuestion] = useState(null);
+  const [optionA, setOptionA] = useState(null);
+  const [optionB, setOptionB] = useState(null);
+  const [optionC, setOptionC] = useState(null);
+  const [optionD, setOptionD] = useState(null);
+  const [solution, setSolution] = useState(null);
+  const [correctOption, setCorrectOption] = useState(null);
   const [details, setDetails] = useState(null);
+  const navigate = useNavigate();
+
   const location = useLocation();
-  console.log(location.state);
+  const {questionData} = location.state;
   useEffect(() => {
-    console.log(location.state);
-  }, []);
+    if(questionData.type_of_question === "General"){
+      setProgress(50);
+    }
+    setQuestion(questionData.question);
+    setOptionA(questionData.options[0]);
+    setOptionB(questionData.options[1]);
+    setOptionC(questionData.options[2]);
+    setOptionD(questionData.options[3]);
+    setSolution(questionData.solution);
+    setCorrectOption(questionData.correctOption);
+  }, [questionData]);
   const toolbar = [
     "removeFormat",
     "|",
@@ -72,7 +92,7 @@ function QusetionEdit() {
     };
   }
   const handleEditorChange = (event, editor) => {
-    setDetails(editor.getData());
+    // setQuestion(editor.getData());
   };
   return (
     <MainLayout>
@@ -87,15 +107,15 @@ function QusetionEdit() {
       </div>
       <div className="bg-light p-4">
         <h3 className="text-start">Add Question</h3>
-        <div className="p-3 pt-5">
-          <ProgressBar percent={50} filledBackground="rgb(10, 10, 163)">
-            <Step transition="scale">
+        <div className="p-3 pt-5" >
+          <ProgressBar percent={(progress===25||progress===50) && 50} filledBackground="rgb(10, 10, 163)">
+            <Step transition="scale"  >
               {({ accomplished }) => (
                 <div
+                onClick={()=>navigate('/QuestionReview')}
                   className={`rounded-circle ${
                     accomplished ? "active-page" : "de-active"
                   } p-3`}
-                  // onClick={() => handleBack()}
                 >
                   ✓
                 </div>
@@ -125,544 +145,332 @@ function QusetionEdit() {
             </Step>
           </ProgressBar>
         </div>
-        {/* // Type of Question : Ganral */}
-        {/* <div >
-        <div className="text-start py-4">
-          <p>
-            Question <span style={{ color: "red" }}>*</span>
-          </p>
-          <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar: toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-          <div>Option A <span style={{color:'red'}}>*</span></div>
-
-                   <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar:toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-          <div>Option B <span style={{color:'red'}}>*</span></div>
-                   <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar: toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-          <div>Option C <span style={{color:'red'}}>*</span></div>
-
-                   <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar:toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-          <div>Option D <span style={{color:'red'}}>*</span></div>
-          <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar: toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-        </div>
-        <div className="text-start p-3 rounded-3" style={{    backgroundColor: 'rgb(185, 202, 249)' ,borderLeft : '3px solid rgb(10, 10, 163)'}}>
-          Correct Option <span style={{ color: "red" }}>*</span>
-          <select value={''} className="form-select pt-2" name="" id="">
-            <option value='' disabled >select correct option</option>
-            <option value={0}>A</option>
-            <option value={1}>B</option>
-            <option value={2}>C</option>
-            <option value={3}>D</option>
-          </select>
-        </div>
-        <div className="text-start py-4">
-        Solution
-        <CKEditor
-            config={{
-              extraPlugins: [CustomUploadAdapterPlugin],
-              language: "en",
-              toolbar:toolbar,
-              image: {
-                toolbar: [
-                  "imageTextAlternative",
-                  "imageStyle:full",
-                  "imageStyle:side",
-                ],
-              },
-              fontSize: {
-                options: [10, 12, 14, 16, 18],
-              },
-              wordCount: {
-                showWordCount: true,
-                showCharCount: true,
-              },
-              table: {
-                contentToolbar: [
-                  "tableColumn",
-                  "tableRow",
-                  "mergeTableCells",
-                  "tableProperties",
-                  "tableCellProperties",
-                ],
-              },
-              fontFamily: {
-                options: ["default", "Arial", "Courier", "Comic Sans MS"],
-              },
-            }}
-            editor={ClassicEditor}
-            data={details}
-            onChange={handleEditorChange}
-          />
-        </div>
-        </div> */}
-        {/* // Type of Question : Conprensive && Poem */}
-        <div>
-          <div>
-            <div className="text-start pt-4 ">
-              <span>Parent Question</span>
-              <div
-                className="d-flex justify-content-between align-items-center rounded-2"
-                style={{ backgroundColor: "rgb(185, 202, 249)" }}
-              >
-                <div
-                  className="px-2  text-truncate"
-                  style={{ color: "rgb(10, 10, 163)" }}
-                >
-                  sadsadsada ftdsuyf weur yu wer h tyfef uer wegsdjh
-                </div>
-                <div className="p-1">
-                  <div
-                    className=" rounded-3 "
-                    style={{
-                      backgroundColor: "rgb(10, 10, 163)",
-                      padding: "8px 12px",
-                    }}
-                  >
-                    <RiEdit2Line className="text-light" />
-                  </div>
-                </div>
-              </div>
+        {
+          // Type of Question : Match
+          questionData.type_of_question === "Poem" || questionData.type_of_question === 'Comprehensive' ? ( // Type of Question : comprensive&&poem
+            <div className="text-start py-4">
+            {progress===25&& <div>
+              <p>
+              Parent Question <span style={{ color: "red" }}>*</span>
+            </p>
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={question}
+              onChange={handleEditorChange}
+            />
+            <div className="d-flex justify-content-end py-3">
+            <div className="btn-group mx-2" onClick={()=>setProgress(50)}>
+            <button
+              className="btn btn-primary px-2 w-100"
+              style={{ backgroundColor: "rgb(19, 19, 191)" }}
+            >
+              Next
+            </button>
+            <button className="btn btn-primary px-2">
+            <FaArrowRightLong />
+            </button>
+          </div>
             </div>
-          </div>
-          <div className="row pt-3 ">
-            <div className="col-7">
-              <div className="text-start py-2">
-                <p>
-                  Question <span style={{ color: "red" }}>*</span>
-                </p>
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-                <div>
-                  Option A <span style={{ color: "red" }}>*</span>
-                </div>
-
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-                <div>
-                  Option B <span style={{ color: "red" }}>*</span>
-                </div>
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-                <div>
-                  Option C <span style={{ color: "red" }}>*</span>
-                </div>
-
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-                <div>
-                  Option D <span style={{ color: "red" }}>*</span>
-                </div>
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-              </div>
-              <div
-                className="text-start p-3 rounded-3"
-                style={{
-                  backgroundColor: "rgb(185, 202, 249)",
-                  borderLeft: "3px solid rgb(10, 10, 163)",
-                }}
-              >
-                Correct Option <span style={{ color: "red" }}>*</span>
-                <select value={""} className="form-select pt-2" name="" id="">
-                  <option value="" disabled>
-                    select correct option
-                  </option>
-                  <option value={0}>A</option>
-                  <option value={1}>B</option>
-                  <option value={2}>C</option>
-                  <option value={3}>D</option>
-                </select>
-              </div>
-              <div className="text-start py-4">
-                Solution
-                <CKEditor
-                  config={{
-                    extraPlugins: [CustomUploadAdapterPlugin],
-                    language: "en",
-                    toolbar: toolbar,
-                    image: {
-                      toolbar: [
-                        "imageTextAlternative",
-                        "imageStyle:full",
-                        "imageStyle:side",
-                      ],
-                    },
-                    fontSize: {
-                      options: [10, 12, 14, 16, 18],
-                    },
-                    wordCount: {
-                      showWordCount: true,
-                      showCharCount: true,
-                    },
-                    table: {
-                      contentToolbar: [
-                        "tableColumn",
-                        "tableRow",
-                        "mergeTableCells",
-                        "tableProperties",
-                        "tableCellProperties",
-                      ],
-                    },
-                    fontFamily: {
-                      options: ["default", "Arial", "Courier", "Comic Sans MS"],
-                    },
-                  }}
-                  editor={ClassicEditor}
-                  data={details}
-                  onChange={handleEditorChange}
-                />
-              </div>
+           
+            </div>}
+            {
+             progress===50&&<SubQuestionsEdit setProgress={setProgress} questionId={questionData.id}/>
+            }
             </div>
-            <div className="col-5 bg-secondary-subtle rounded-4" >
-          </div>
-          </div>
-          
-        </div>
+            
+            ):(
+              <div>
+          <div className="text-start py-4">
+            <p>
+              Question <span style={{ color: "red" }}>*</span>
+            </p>
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={question}
+              onChange={handleEditorChange}
+            />
+            <div>
+              Option A <span style={{ color: "red" }}>*</span>
+            </div>
 
-        <div className=" d-flex justify-content-between py-3">
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={optionA}
+              onChange={handleEditorChange}
+            />
+            <div>
+              Option B <span style={{ color: "red" }}>*</span>
+            </div>
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={optionB}
+              onChange={handleEditorChange}
+            />
+            <div>
+              Option C <span style={{ color: "red" }}>*</span>
+            </div>
+
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={optionC}
+              onChange={handleEditorChange}
+            />
+            <div>
+              Option D <span style={{ color: "red" }}>*</span>
+            </div>
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={optionD}
+              onChange={handleEditorChange}
+            />
+          </div>
+          <div
+            className="text-start p-3 rounded-3"
+            style={{
+              backgroundColor: "rgb(185, 202, 249)",
+              borderLeft: "3px solid rgb(10, 10, 163)",
+            }}
+          >
+            Correct Option <span style={{ color: "red" }}>*</span>
+            <select value={correctOption} className="form-select pt-2" name="" id="">
+              <option value="" disabled>
+                select correct option
+              </option>
+              <option value={0}>A</option>
+              <option value={1}>B</option>
+              <option value={2}>C</option>
+              <option value={3}>D</option>
+            </select>
+          </div>
+          <div className="text-start py-4">
+            Solution
+            <CKEditor
+              config={{
+                extraPlugins: [CustomUploadAdapterPlugin],
+                language: "en",
+                toolbar: toolbar,
+                image: {
+                  toolbar: [
+                    "imageTextAlternative",
+                    "imageStyle:full",
+                    "imageStyle:side",
+                  ],
+                },
+                fontSize: {
+                  options: [10, 12, 14, 16, 18],
+                },
+                wordCount: {
+                  showWordCount: true,
+                  showCharCount: true,
+                },
+                table: {
+                  contentToolbar: [
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells",
+                    "tableProperties",
+                    "tableCellProperties",
+                  ],
+                },
+                fontFamily: {
+                  options: ["default", "Arial", "Courier", "Comic Sans MS"],
+                },
+              }}
+              editor={ClassicEditor}
+              data={solution}
+              onChange={handleEditorChange}
+            />
+          </div>
+               </div>)
+        }
+{
+  progress===50&& <div className=" d-flex justify-content-between py-3">
           <button className="btn text-primary">
             <FaArrowLeftLong /> &nbsp; Back
           </button>
@@ -678,6 +486,9 @@ function QusetionEdit() {
             </button>
           </div>
         </div>
+}
+
+       
       </div>
     </MainLayout>
   );
