@@ -6,6 +6,7 @@ import { RiEdit2Line } from "react-icons/ri";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { IoMdAdd } from 'react-icons/io';
 import axios from 'axios';
+import parse from 'html-react-parser';
 
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbl9pZCI6IjY3MmI2MTNhYzQ2ZWEyN2EzNzBhYmVhMyIsImVtYWlsIjoiYW5raXRjaG91aGFuLmRvbGxvcEBnbWFpbC5jb20iLCJpYXQiOjE3MzY3NzM2NTIsImV4cCI6MTczNjg2MDA1Mn0.Za9KQ6ugvY3a0WMWlIVP3w0irvRqKrSDXvY6qly3af8";
@@ -14,6 +15,8 @@ const token =
 export default function SubQuestionsEdit({setProgress,questionId}) {
       const [details, setDetails] = useState(null);
       const [subQuestions, setSubQuestions] = useState([]);
+      const [selectSubQuestion, setSelectSubQuestion] = useState({});
+
       const toolbar = [
         "removeFormat",
         "|",
@@ -70,6 +73,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
         };
       }
       const handleEditorChange = (event, editor) => {
+        
         setDetails(editor.getData());
       };
      async function handleGetSubQuestion(){
@@ -164,7 +168,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.question}
             onChange={handleEditorChange}
           />
           <div>
@@ -204,7 +208,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.optionOne}
             onChange={handleEditorChange}
           />
           <div>
@@ -243,7 +247,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.optionTwo}
             onChange={handleEditorChange}
           />
           <div>
@@ -283,7 +287,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.optionThree}
             onChange={handleEditorChange}
           />
           <div>
@@ -322,7 +326,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.optionFour}
             onChange={handleEditorChange}
           />
         </div>
@@ -333,8 +337,9 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
             borderLeft: "3px solid rgb(10, 10, 163)",
           }}
         >
+        
           Correct Option <span style={{ color: "red" }}>*</span>
-          <select value={""} className="form-select pt-2" name="" id="">
+          <select value={selectSubQuestion.correctOption?selectSubQuestion.correctOption:''} className="form-select pt-2" name="" id="">
             <option value="" disabled>
               select correct option
             </option>
@@ -379,7 +384,7 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
               },
             }}
             editor={ClassicEditor}
-            data={details}
+            data={selectSubQuestion.solution}
             onChange={handleEditorChange}
           />
         </div>
@@ -400,30 +405,31 @@ export default function SubQuestionsEdit({setProgress,questionId}) {
       </div>
       <div className="col-12 col-md-5 bg-secondary-subtle rounded-4 text-start">
         <h4 className="py-2">Questions</h4>
-        {
-          {/* subQuestions. */}
-        }
-        <div className="bg-light p-1 rounded-3 ">
-          <h6 className="py-2">
-            <span>1.</span>uydgfeugfuygveferihfuidfhr8fg
+         {
+          subQuestions.subQuestionList?.map((item,index)=>(
+            <div className="bg-light p-1 rounded-3 mt-2">
+          <h6 className="py-2 px-1 d-flex">
+            <span>{index+1}.</span>{parse(item.question)}
           </h6>
           <div className="p-1 ">
-            <div className="bg-secondary-subtle p-1 px-4">A option A</div>
+            <div className={`${item.correctOption===0?'bg-success text-white':'bg-secondary-subtle'}  ps-4 d-flex align-items-center  `}><span>A &nbsp;</span>{item.optionOne.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}</div>
           </div>
           <div className="p-1 ">
-            <div className="text-light p-1 px-4 bg-success">A option A</div>
+            <div className={`${item.correctOption===1?'bg-success text-white ':'bg-secondary-subtle'} p-1 ps-4 d-flex`}><span>A &nbsp;</span>{item.optionTwo.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}</div>
           </div>
           <div className="p-1 ">
-            <div className="bg-secondary-subtle p-1 px-4">A option A</div>
+            <div className={`${item.correctOption===2?'bg-success text-white':'bg-secondary-subtle'} p-1 ps-4 d-flex`}><span>A &nbsp;</span>{item.optionThree.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}</div>
           </div>
           <div className="p-1 ">
-            <div className="bg-secondary-subtle p-1 px-4">A option A</div>
+            <div className={`${item.correctOption===3?'bg-success text-white':'bg-secondary-subtle'} p-1 ps-4 d-flex`}><span>A &nbsp;</span>{item.optionFour.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}</div>
           </div>
           <div className="d-flex justify-content-end gap-2 p-2 ">
-          <sapn className=""> <FiEdit3 className="fw-bolder fs-5" style={{color:'rgb(185, 202, 249)'}}/> <span className="text-secondary-subtle" style={{color:'#e2e3e5'}}> | </span> </sapn>
+          <sapn className="" > <FiEdit3 onClick={()=>{setSelectSubQuestion(item)}} className="fw-bolder fs-5" style={{color:'rgb(185, 202, 249)'}}/> <span className="text-secondary-subtle" style={{color:'#e2e3e5'}}> | </span> </sapn>
           <sapn className=""> <CgTrash className="fw-bolder fs-5" style={{color:'rgb(247, 20, 27)'}}/></sapn>
         </div>
-        </div>
+        </div>))
+         }
+        
        
       </div>
     </div>
